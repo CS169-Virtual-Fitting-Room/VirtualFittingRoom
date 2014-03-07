@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'social_auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,3 +82,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/members/'
+LOGIN_ERROR_URL = '/login-error/'
+
+AUTHENTICATION_BACKENDS = (
+  'social_auth.backends.google.GoogleOAuth2Backend',
+  'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+  "social_auth.context_processors.social_auth_by_type_backends",
+  'django.contrib.auth.context_processors.auth',
+)
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UID_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ('google',)
+
+GOOGLE_OAUTH2_CLIENT_ID = '576633802176-g2kqnkmv7nqlphv39v5c9le69hi127j2.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'CJ1RGWGII0D2tAQJ6KLAerxt'
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
