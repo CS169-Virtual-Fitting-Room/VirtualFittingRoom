@@ -48,5 +48,18 @@
 
 
 </body>
-<script src='{% static "main/assets/js/action.js" %}'></script>
+<!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
+<script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
+-->
+
+<script type='text/javascript'>
+{% load staticfiles }
+$(document).ready(function(){
+	//$(".contain-page").append("<p>Test</p>");
+	$(".contain-page").load('{% static "main/mainpage.html" %}');
+	$("#home").click(function(){
+		$(".contain-page").load('{% static "main/mainpage.html" %}');
+	});
+}); 
+</script>
 </html>
