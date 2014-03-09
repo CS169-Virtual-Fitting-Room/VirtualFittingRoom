@@ -33,10 +33,9 @@
 					<li id="head"><a id ="home">Home</a></li>
 					<li id="head"><a>Fitting Room</a></li>
 					<li id="head"><a>Wishlist</a></li>
-					<li id="head"><a>Register</a></li>
 					<li id="head">
 						{% if user.is_authenticated == False%}
-						<a href="login/google-oauth2/">Login</a> 
+						<a href="login/google-oauth2/">Login Using Google</a> 
 						{% else %}
 						<a href="logout/">Logout</a>
 						{% endif %}</li>
@@ -58,7 +57,6 @@
 -->
 
 <script type='text/javascript'>
-{% load staticfiles %}
 $(document).ready(function(){
 	//$(".contain-page").append("<p>Test</p>");
 	$(".contain-page").load("mainpage");
