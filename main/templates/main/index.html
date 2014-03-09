@@ -1,4 +1,4 @@
-
+{% load staticfile %}
 <!DOCTYPE html>
 
 <html>
@@ -10,8 +10,8 @@
 
 	<!-- Stylesheets -->
 	<!-- http://pacelaw.com/ -->
-	<link rel="stylesheet" href="assets/css/screen.css" />
-	<script src="assets/js/jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 	
 
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
