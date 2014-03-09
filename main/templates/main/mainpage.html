@@ -1,10 +1,10 @@
-
+{% load staticfile %}
 <div class="dimmer"></div>
 
 <div id="top" class="home-top-wrap cycle-slideshow" data-cycle-slides="div.top-slide" data-cycle-timeout="5000">
 	
 		
-				<div class="top-slide" style="background-image: url(assets/img/mainbathroom.jpg);">
+				<div class="top-slide" style='background-image: url({% static "main/assets/img/mainbathroom.jpg" %});'>
 					<div class="overlay"></div>
 					<div class="top-info">
 						<div class="top-logo">
@@ -108,4 +108,4 @@
 	<div class="row">
 	</div>
 </footer>
-<script src="assets/js/mainpage_action.js"></script>
+<script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
