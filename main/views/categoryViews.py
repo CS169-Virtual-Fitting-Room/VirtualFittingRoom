@@ -5,4 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 def category_list(request):
-    return render("main/client_list.html")
+    return render(request, "main/category_list.html")
+
+def item(request):
+    return render(request, "main/item.html")
