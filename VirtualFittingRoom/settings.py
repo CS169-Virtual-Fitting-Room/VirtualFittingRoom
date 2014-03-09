@@ -84,7 +84,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/members/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login-error/'
 
 AUTHENTICATION_BACKENDS = (
