@@ -1,4 +1,45 @@
 {% load staticfiles %}
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".service-count1").click(function(){
+		$(".contain-page").load("category_list", function() {
+			
+			$("#items").load("item", function(data){
+				for ( var i = 0; i < 24; i++ ) {
+					$(this).append(data);
+				}
+				$("a#item-img").html('<img src='{% static "main/assets/img/glasses_demo.jpg" %}' alt="Elegant evening Dress"/>');
+				$("a.title").html('Awesome glasses');
+			});
+			
+		});
+	});
+	$(".service-count2").click(function(){
+		$(".contain-page").load("category_list", function() {
+			$("#items").load("item", function(data){
+				for ( var i = 0; i < 24; i++ ) {
+					$(this).append(data);
+				}
+				$("a#item-img").html('<img src="{% static 'main/assets/img/hat_demo.png' %}" alt="Elegant evening Dress"/>');
+				$("a.title").html('Spectacular Hat');
+			});
+		});
+	});
+	$(".service-count3").click(function(){
+		$(".contain-page").load("category_list", function() {
+			$("#items").load("item", function(data){
+				for ( var i = 0; i < 24; i++ ) {
+					$(this).append(data);
+				}
+				$("a#item-img").html('<img src="{% static 'assets/img/headphone_demo.png' %}" alt="Elegant evening Dress"/>');
+				$("a.title").html('Fantastic Headphone');
+			});
+		});
+	});
+	
+}); 
+</script>
 <div class="dimmer"></div>
 
 <div id="top" class="home-top-wrap cycle-slideshow" data-cycle-slides="div.top-slide" data-cycle-timeout="5000">
@@ -59,7 +100,7 @@
 							<a class="service-link" rel="1">
 								<div class="inner">
 									<span class="count">01/</span><br />
-									<img id = "img" src="assets/img/glasses.jpg" />
+									<img id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
 									<h3>Glasses</h3>
 								</div>
 							</a>
@@ -70,7 +111,7 @@
 							<a class="service-link" rel="2">
 								<div class="inner">
 									<span class="count">02/</span><br />
-									<img src="assets/img/hat.jpg" />
+									<img src='{% static "main/assets/img/hat.jpg" %}' />
 									<h3>Hats</h3>
 								</div>
 							</a>
@@ -81,7 +122,7 @@
 							<a class="service-link" rel="3">
 								<div class="inner">
 									<span class="count">03/</span><br />
-									<img src="assets/img/headphones.jpg" />
+									<img src='{% static "main/assets/img/headphones.jpg" %}'/>
 									<h3>Headphones</h3>
 								</div>
 							</a>
@@ -116,9 +157,9 @@
 {% load staticfiles }
 $(document).ready(function(){
 	//$(".contain-page").append("<p>Test</p>");
-	$(".contain-page").load('{% static "main/mainpage.html" %}');
+	$(".contain-page").load("mainpage");
 	$("#home").click(function(){
-		$(".contain-page").load('{% static "main/mainpage.html" %}');
+		$(".contain-page").load("mainpage");
 	});
 }); 
 </script>

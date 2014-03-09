@@ -14,3 +14,6 @@ def members(request):
 def logout(request):
     google_logout(request)
     return HttpResponseRedirect('/')
+
+def mainpage(request):
+    return render(request, 'main/mainpage.html')

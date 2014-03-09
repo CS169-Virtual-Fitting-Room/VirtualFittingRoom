@@ -34,7 +34,12 @@
 					<li id="head"><a>Fitting Room</a></li>
 					<li id="head"><a>Wishlist</a></li>
 					<li id="head"><a>Register</a></li>
-					<li id="head"><a>Login</a></li>
+					<li id="head">
+						{% if user.is_authenticated == False%}
+						<a href="login/google-oauth2/">Login</a> 
+						{% else %}
+						<a href="logout/">Logout</a>
+						{% endif %}</li>
 				</ul>
 			</nav>
 		</div>
@@ -53,12 +58,12 @@
 -->
 
 <script type='text/javascript'>
-{% load staticfiles }
+{% load staticfiles %}
 $(document).ready(function(){
 	//$(".contain-page").append("<p>Test</p>");
-	$(".contain-page").load('{% static "main/mainpage.html" %}');
+	$(".contain-page").load("mainpage");
 	$("#home").click(function(){
-		$(".contain-page").load('{% static "main/mainpage.html" %}');
+		$(".contain-page").load("mainpage");
 	});
 }); 
 </script>
