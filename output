@@ -1,0 +1,8 @@
+Django==1.6.2
+django-social-auth==0.7.28
+httplib2==0.8
+oauth2==1.5.211
+python-openid==2.2.5
+vboxapi==1.0
+virtualenv==1.11.2
+wsgiref==0.1.2
