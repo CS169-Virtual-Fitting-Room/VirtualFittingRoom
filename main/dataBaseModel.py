@@ -72,7 +72,7 @@ class dataBaseModel (object):
         newOne = WishList.objects.get(Q(owner = userName))        
         newOne.add(productName)
         '''
-        
+        # TODO: validate userID and productID
         newOne = WishList(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID))
         newOne.save()
         return (dataBaseModel.SUCCESS, "add to wishList successfully")
@@ -85,6 +85,7 @@ class dataBaseModel (object):
         if productName is None:
             return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
         """
+        # TODO: validate userID and productID
         newOne = WishList.objects.get(Q(owner = User.objects.get(id = userID)), Q(product = User.objects.get(id = productID)))
         """
         use delete() instead
@@ -105,7 +106,7 @@ class dataBaseModel (object):
         items = []
         for item in WishList.objects.filter(owner = User.objects.get(id = userID)):
             items.append(item.product) # we now only obtain the product model..may be we want some specific field from the table
-        
+        # TODO: fail case
         return (items, dataBaseModel.SUCCESS, "get wishList successfully")
 
 
@@ -119,7 +120,7 @@ class dataBaseModel (object):
         if len(content) > dataBaseModel.MAX_PASSWORD_LENGTH: # check if password is valid
             return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
         """
-
+        #TODO: validate userID and productID
         newOne = Comment(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID), content)
         newOne.save()
         return (dataBaseModel.SUCCESS, "comment added successfully")
@@ -135,7 +136,7 @@ class dataBaseModel (object):
         items = []
         for item in Comment.objects.filter(product = Product.objects.get(id = productID)):
             items.append(item.content)
-        
+        #TODO: fail case
         return (items, dataBaseModel.SUCCESS, "comment shown")
 
 
@@ -148,6 +149,7 @@ class dataBaseModel (object):
         items = []
         for item in Product.objects.filter(category = Category.objects.get(id = categoryID)):
             items.append(item) # here we just append the item model, should add some specfici fields
+        #TODO: fail case
         return (items, dataBaseModel.SUCCESS, "products list")
     
     
