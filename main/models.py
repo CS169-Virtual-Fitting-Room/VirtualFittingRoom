@@ -44,8 +44,3 @@ class Comment(models.Model):
 
     content = models.CharField(max_length = 256)
     time_added = models.DateTimeField()
-
-
-
-# Create your models here.
-
