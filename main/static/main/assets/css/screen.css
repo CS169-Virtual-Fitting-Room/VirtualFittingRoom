@@ -2813,7 +2813,7 @@ body {
   @media only screen and (min-width: 768px) {
     /* line 1, ../scss/_layout.scss */
     body {
-      padding-top: 69px; } }
+      padding-top: 50px; } }
 
 /* line 12, ../scss/_layout.scss */
 .strip {
@@ -2874,7 +2874,7 @@ body {
 /* line 1, ../scss/_header.scss */
 .header-wrap {
   background: #222222; /* HEADER BACKGROUND COLOR DUCKY*/
-  padding: 15px 0;
+  padding: 8px 0; /* asdf */
   position: fixed;
   top: 0;
   left: 0;
@@ -3426,7 +3426,7 @@ div.strip.team-member-strip {
         /* line 55, ../scss/_home.scss */
         .home-top-wrap .top-info img {
           padding: 0;
-          margin-bottom: 15px; } }
+          margin-bottom: 8px; } } /* asdf */
     /* line 62, ../scss/_home.scss */
     .home-top-wrap .top-info .top-subtitle {
       text-transform: uppercase;
