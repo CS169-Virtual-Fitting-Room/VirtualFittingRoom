@@ -56,7 +56,7 @@
 											<ul>
 					
 						<li class="service-count1">
-							<a class="service-link" rel="1">
+							<a class="service-link" rel="1" href="glasses">
 								<div class="inner">
 									<span class="count">01/</span><br />
 									<img id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
@@ -67,7 +67,7 @@
 									
 					
 						<li class="service-count2">
-							<a class="service-link" rel="2">
+							<a class="service-link" rel="2" href="hats">
 								<div class="inner">
 									<span class="count">02/</span><br />
 									<img src='{% static "main/assets/img/hat.jpg" %}' />
@@ -78,7 +78,7 @@
 									
 					
 						<li class="service-count3">
-							<a class="service-link" rel="3">
+							<a class="service-link" rel="3" href="headphones">
 								<div class="inner">
 									<span class="count">03/</span><br />
 									<img src='{% static "main/assets/img/headphones.jpg" %}'/>
@@ -111,40 +111,3 @@
 <!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
 <script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
 -->
-<script type="text/javascript">
-$(".service-count1").click(function(){
-	$(".contain-page").load("category_list", function() {
-		
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'main/assets/img/glasses_demo.jpg' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Awesome glasses');
-		});
-		
-	});
-});
-$(".service-count2").click(function(){
-	$(".contain-page").load("category_list", function() {
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'main/assets/img/hat_demo.png' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Spectacular Hat');
-		});
-	});
-});
-$(".service-count3").click(function(){
-	$(".contain-page").load("category_list", function() {
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'assets/img/headphone_demo.png' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Fantastic Headphone');
-		});
-	});
-});
-</script>
