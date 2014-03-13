@@ -21,31 +21,7 @@
 <body>
 
 <div class="header-wrap">
-	<header>
-		<div class="logo">
-			<a href="/">
-				<div class="header-logo">Fitting Room</div>
-			</a>
-		</div>
-		<div class="nav">
-			<nav>
-				<ul class="global-nav">
-					<li id="head"><a id ="home">Home</a></li>
-					<li id="head"><a>Fitting Room</a></li>
-					<li id="head"><a>Wishlist</a></li>
-					<li id="head">
-						{% if user.is_authenticated == False%}
-						<a href="login/google-oauth2/">Login Using Google</a> 
-						{% else %}
-						<a href="logout/">Logout</a>
-						{% endif %}</li>
-				</ul>
-			</nav>
-		</div>
-		<!--div class="mobile-nav">
-			<a href="#" class="mobile-nav-btn"><i class="icon-reorder"></i></a>
-		</div-->
-	</header>
+
 </div>
 
 <div class="contain-page"><div>
@@ -60,6 +36,7 @@
 $(document).ready(function(){
 	//$(".contain-page").append("<p>Test</p>");
 	$(".contain-page").load("mainpage");
+	$(".header-wrap").load("top_menu");
 	$("#home").click(function(){
 		$(".contain-page").load("mainpage");
 	});
