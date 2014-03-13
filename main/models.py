@@ -42,4 +42,4 @@ class Comment(models.Model):
     owner = models.ForeignKey(User)
 
     content = models.CharField(max_length = 256)
-    time_added = models.DateTimeField()
+    #time_added = models.DateTimeField()
