@@ -21,25 +21,37 @@
 <script type="text/javascript">
 	
 $(document).ready(function() {
-	$("#items").load("item", function(data){
-		for ( var i = 0; i < 24; i++ ) {
-			$(this).append(data);
-		}
-		$("a#item-img").html('<img src="{% static 'main/assets/img/glasses_demo.jpg' %}" alt="Elegant evening Dress"/>');
-		$("a.title").html('Awesome glasses');
-	});
-	$(".header-wrap").load("top_menu");
+	
 	$.ajax({
-		url: "glasses",
+		url: "list",
+		content_type: "application/json",
 		dataType: "json",
 		success:
 		function(data){
-			alert("success");
-		}
+			var images = data.image;
+			var item_names=data.item_name;
+			var prices = data.price;
+			rendergrids(images.length, images, item_names, prices);
+			alert(data.item_name.length);
+		},
 		error:
 		function(data){
 			alert("failure");
 		}
 	});
+	function rendergrids(num_of_items, images, item_names, prices){
+		
+	
+		for ( var i = 0; i < num_of_items; i++ ) {
+			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="index.html" class="title">'+item_names[i]+'</a><strong>&pound;'+prices[i]+'</strong></li>'
+			$("#items").append(item);
+			b64imgData = btoa(images[i]);
+			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+			
+		}
+		
+		
+		$(".header-wrap").load("/top_menu");
+	}
 });
 </script>
