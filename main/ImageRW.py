@@ -9,7 +9,10 @@ class ImageRW:
     
     @staticmethod
     def readImage(path): # reads the binary data of an image
-        f = open(ImageRW.IMAGE_DIR + path, "rb")
-        byte = f.read()
+        try:
+            f = open(ImageRW.IMAGE_DIR + path, "rb")
+            byte = f.read()
+        except:
+            return ''
         return byte
         
