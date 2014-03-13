@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Free ecommerce template by @webdezign</title>
+<title>Virtual Awesome Fantastic Fitting Room!!!!!!!!!!</title>
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
@@ -62,7 +62,7 @@ $(document).ready(function(){
         </div>
     </div>
     <div id="images">
-    	<a href="{% static 'main/assets/img/glasses_demo.jpg' %}"><img src="{% static 'main/assets/img/glasses_demo.jpg' %}"></a>
+    	
     </div>
 </article>
 
