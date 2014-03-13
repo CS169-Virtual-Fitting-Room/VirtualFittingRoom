@@ -56,7 +56,7 @@
 											<ul>
 					
 						<li class="service-count1">
-							<a class="service-link" rel="1">
+							<a class="service-link" rel="1" href = "glasses">
 								<div class="inner">
 									<span class="count">01/</span><br />
 									<img id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
@@ -67,7 +67,7 @@
 									
 					
 						<li class="service-count2">
-							<a class="service-link" rel="2">
+							<a class="service-link" rel="2" href="hats">
 								<div class="inner">
 									<span class="count">02/</span><br />
 									<img src='{% static "main/assets/img/hat.jpg" %}' />
@@ -78,7 +78,7 @@
 									
 					
 						<li class="service-count3">
-							<a class="service-link" rel="3">
+							<a class="service-link" rel="3" href = "headphones">
 								<div class="inner">
 									<span class="count">03/</span><br />
 									<img src='{% static "main/assets/img/headphones.jpg" %}'/>
@@ -148,3 +148,19 @@ $(".service-count3").click(function(){
 	});
 });
 </script-->
+<script type="text/javascript">
+	
+	$.ajax({
+		url: "glasses",
+		dataType: "json",
+		success:
+		function(data){
+			alert("success");
+		}
+		error:
+		function(data){
+			alert("failure");
+		}
+	});
+
+</script>
