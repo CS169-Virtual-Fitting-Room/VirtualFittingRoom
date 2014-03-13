@@ -9,4 +9,5 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^category_list', category_list, name='category_list'),
                        url(r'^item', item, name='item'),
                        url(r'^$', index, name='index'),
+                       url(r'^(?P<category>\w+)/(?P<product>\w+)', category_list, )
 )   
