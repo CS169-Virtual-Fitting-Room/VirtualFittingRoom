@@ -16,6 +16,33 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
+	$.ajax({
+		url: "info",
+		content_type: "application/json",
+		dataType: "json",
+		success:
+		function(data){
+			var image = data.image;
+			var item_name=data.item_name;
+			var price = data.price;
+			var desp = data.description;
+			console.log(data)
+			renderpage(desp, image, item_name, price);
+		},
+		error:
+		function(data){
+			alert("failure");
+		}
+	});
+	function renderpage(desp, image, item_name, price){
+		$("#price").html("&pound;"+price);
+		$("#breadcrumb").html('<a href="">Glasses</a> >'+item_name );
+		$("h1#item_name").html(item_name );
+		$("p#desp").html(desp);
+		b64imgData = btoa(image);
+		$("div#images").html("<a href='data:image/jpeg;base64,"+b64imgData+"'><img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+	}
+
 });
 </script>
 </head>
@@ -24,10 +51,10 @@ $(document).ready(function(){
 </div>
 
 <article id="mainview">
-    <div id="breadcrumb"><a href="">Glasses</a> > Awesome Glasses </div>
+    <div id="breadcrumb"></div>
     <div id="description">
-        <h1>Awesome Glasses</h1>
-        <strong id="price"> &pound;249.00</strong><p>bla bla description</p>
+        <h1 id = "item_name"></h1>
+        <strong id="price"> </strong><p id = "desp"></p>
         
         <p><button type="submit" class="continue">Add Item to Wish List</button></p>
         <p><button type="button">Tell a friend</button></p>
