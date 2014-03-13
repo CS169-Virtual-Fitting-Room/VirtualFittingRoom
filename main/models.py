@@ -22,6 +22,7 @@ class Product(models.Model):
     url = models.CharField(max_length = 256)
     photo = models.CharField(max_length = 256)
     price = models.FloatField()
+    description = models.CharField(max_length = 256)
     def __unicode__(self):
         return self.name
 
