@@ -4,8 +4,8 @@ from main.dataBaseModel import dataBaseModel
 from main.ImageRW import ImageRW
 import json
 
-def main(request, category, product):
-    return render(request, 'main/main.html')
+def detailpage(request, category, product):
+    return render(request, 'main/detailpage.html')
 
 def detail(request, category, product):
 	db = dataBaseModel()
