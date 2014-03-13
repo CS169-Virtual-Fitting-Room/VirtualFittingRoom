@@ -139,10 +139,11 @@ class dataBaseModel (object):
         return (items, dataBaseModel.SUCCESS)
     
     def getDetail(self, product):
+        print product
         if Product.objects.filter(name=product).count() == 0:
-            return dataBaseModel.ERR_BAD_PRODUCT
+            return (None,dataBaseModel.ERR_BAD_PRODUCT)
         
-        return Product.objects.get(name=product)
+        return (Product.objects.get(name=product), dataBaseModel.SUCCESS)
     
     
 """  sth idk how to do
