@@ -1,5 +1,7 @@
 <!--p id="test"> 	category list </p-->
 {% load staticfiles %}
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <!--link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'-->
@@ -32,7 +34,6 @@ $(document).ready(function() {
 			var item_names=data.item_name;
 			var prices = data.price;
 			rendergrids(images.length, images, item_names, prices);
-			alert(data.item_name.length);
 		},
 		error:
 		function(data){
@@ -43,7 +44,7 @@ $(document).ready(function() {
 		
 	
 		for ( var i = 0; i < num_of_items; i++ ) {
-			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="'+item_names[i]+'" class="title">'+item_names[i]+'</a><strong>&pound;'+prices[i]+'</strong></li>'
+			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="'+item_names[i]+'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i]+'</strong></li>'
 			$("#items").append(item);
 			b64imgData = btoa(images[i]);
 			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
