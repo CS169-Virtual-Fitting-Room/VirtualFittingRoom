@@ -3,138 +3,73 @@
 
 <div id="top" class="home-top-wrap cycle-slideshow" data-cycle-slides="div.top-slide" data-cycle-timeout="5000">
 	
-		
-				<div class="top-slide" style='background-image: url({% static "main/assets/img/mainbathroom.jpg" %});'>
-					<div class="overlay"></div>
-					<div class="top-info">
-						<div class="top-logo">
-							Virtual Fitting Room
-						</div>
-						<p class="top-subtitle">
-							Virtually Try Before You Buy!
-						</p>
-					</div>
-				</div>
-				<div class="seal"></div>
+	<div class="top-slide" style='background-image: url({% static "main/assets/img/mainbathroom.jpg" %});'>
+		<div class="overlay"></div>
+		<div class="top-info">
+			<div class="top-logo">
+				Virtual Fitting Room
+			</div>
+			<p class="top-subtitle">
+				Virtually Try Before You Buy!
+			</p>
+		</div>
+	</div>
+	<div class="seal"></div>
 	
 </div>
 
 <div class="strip first">
-	<section id="manifesto" class="manifesto">
-	</section>
 
-	<div class="divider first-divider">
-		<div>
-			<hr />
-		</div>
+</div>
+
+<footer class="strip dark footer-strip">
+	<div >
+		<h1 class="process-heading">Categories</h1>
 	</div>
-
-	
-		<section id="about" class="about">
-			<section class="home-about">
-				<h2>How To Use</h2>
-				<p>Find headwear that you like, add it to your fitting room, and then try it on! </p>
-			</section>
-
-			<section class="home-philosophy">
-				<h2></h2>
-				<p></p>
-			</section>
-		</section>
-	
-
-	<div class="divider">
-		<div>
-			<hr />
-		</div>
-	</div>
-
 	<section id="focus" class="focus">
 		<div class="focus-areas">
 			<div class="focus-areas-inner">
-				
-											<ul>
+				<ul>
+					<li class="service-count1">
+						<a class="service-link" rel="1" href="glasses">
+							<div class="inner">
+								<span class="count"></span><br />
+								<img style='border:2px solid #000000' id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
+								<h3>Glasses</h3>
+							</div>
+						</a>
+					</li>
 					
-						<li class="service-count1">
-							<a class="service-link" rel="1" href = "glasses">
-								<div class="inner">
-									<span class="count">01/</span><br />
-									<img id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
-									<h3>Glasses</h3>
-								</div>
-							</a>
-						</li>
-									
+					<li class="service-count2">
+						<a class="service-link" rel="2" href="hats">
+							<div class="inner">
+								<span class="count"></span><br />
+								<img style='border:2px solid #000000' src='{% static "main/assets/img/hat.jpg" %}' />
+								<h3>Hats</h3>
+							</div>
+						</a>
+					</li>
+
 					
-						<li class="service-count2">
-							<a class="service-link" rel="2" href="hats">
-								<div class="inner">
-									<span class="count">02/</span><br />
-									<img src='{% static "main/assets/img/hat.jpg" %}' />
-									<h3>Hats</h3>
-								</div>
-							</a>
-						</li>
-									
-					
-						<li class="service-count3">
-							<a class="service-link" rel="3" href = "headphones">
-								<div class="inner">
-									<span class="count">03/</span><br />
-									<img src='{% static "main/assets/img/headphones.jpg" %}'/>
-									<h3>Headphones</h3>
-								</div>
-							</a>
-						</li>
-						
-											</ul>
-									
+					<li class="service-count3">
+						<a class="service-link" rel="3" href="headphones">
+							<div class="inner">
+								<span class="count"></span><br />
+								<img style='border:2px solid #000000' src='{% static "main/assets/img/headphones.jpg" %}'/>
+								<h3>Headphones</h3>
+							</div>
+						</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</section>
-</div>
-
-
-<div id="process" class="strip dark process">
-	<div class="row">
-			<div class="small-12 large-3 medium-3 columns">
-				<h2 class="process-heading">Footer</h2>
-			</div>
-				
-			
-	</div>
-</div>
-<footer class="strip dark footer-strip">
-	<div class="row">
-	</div>
 </footer>
+
+
+<div class="strip first">
+
+</div>
 <!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
 <script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
 -->
-<script type="text/javascript">
-$(".service-count1").click(function(){
-	
-});
-$(".service-count2").click(function(){
-	$(".contain-page").load("category_list", function() {
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'main/assets/img/hat_demo.png' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Spectacular Hat');
-		});
-	});
-});
-$(".service-count3").click(function(){
-	$(".contain-page").load("category_list", function() {
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'assets/img/headphone_demo.png' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Fantastic Headphone');
-		});
-	});
-});
-</script>
