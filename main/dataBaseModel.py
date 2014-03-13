@@ -56,7 +56,7 @@ class dataBaseModel (object):
         try{
             newOne = User.objects.get(Q(name = userName),)
     """                
-    def addToWishList(self, userID, productID): # eddie: use ID instead of name
+    def addToWishList(self, userID, product): # eddie: use ID instead of name
         '''
         if userID is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
             return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
@@ -69,20 +69,20 @@ class dataBaseModel (object):
         newOne = WishList.objects.get(Q(owner = userName))        
         newOne.add(productName)
         '''
-        if User.objects.filter(id = userID).count() == 0:
+        if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
         
-        if Product.objects.filter(id = productID).count() == 0:
+        if Product.objects.filter(name = product).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
         
-        newOne = WishList(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID))
+        newOne = WishList(owner = User.objects.get(pk = userID), product = Product.objects.get(name = product))
         newOne.save()
         return dataBaseModel.SUCCESS
 
 
-    def removeFromWishList(self, userID, productID): # use id as above
+    def removeFromWishList(self, userID, product): # use id as above
         try:
-            newOne = WishList.objects.get(Q(owner = User.objects.get(id = userID)), Q(product = User.objects.get(id = productID)))
+            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = User.objects.get(name = product)))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
         
@@ -90,7 +90,7 @@ class dataBaseModel (object):
         return dataBaseModel.SUCCESS
 
     def getWishList(self, userID): # ID
-        queryset = WishList.objects.filter(owner = User.objects.get(id = userID))
+        queryset = WishList.objects.filter(owner = User.objects.get(pk = userID))
                                            
         if queryset.count() == 0:
             return ([], dataBaseModel.ERR_BAD_USER)
@@ -102,25 +102,25 @@ class dataBaseModel (object):
         return (items, dataBaseModel.SUCCESS)
 
 
-    def addComment(self, userID, productID, content): # ID
+    def addComment(self, userID, product, content): # ID
 
-        if User.objects.filter(id = userID).count() == 0:
+        if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
         
-        if Product.objects.filter(id = productID).count() == 0:
+        if Product.objects.filter(name = product).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
         
-        newOne = Comment(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID), content = content)
+        newOne = Comment(owner = User.objects.get(pk = userID), product = Product.objects.get(name = product), content = content)
         newOne.save()
         return dataBaseModel.SUCCESS
 
 
-    def getComment(self, productID): # here we just want to retreive a list of comments on that product
-        if Product.objects.filter(id = productID).count() == 0:
+    def getComment(self, product): # here we just want to retreive a list of comments on that product
+        if Product.objects.filter(name = product).count() == 0:
             return ([], dataBaseModel.ERR_BAD_PRODUCT)
         
         items = []
-        for item in Comment.objects.filter(product = Product.objects.get(id = productID)):
+        for item in Comment.objects.filter(product = Product.objects.get(name = product)):
             items.append(item)
         
         return (items, dataBaseModel.SUCCESS)
