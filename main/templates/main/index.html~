@@ -11,7 +11,6 @@
 	<!-- Stylesheets -->
 	<!-- http://pacelaw.com/ -->
 	<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
-	<script src="https://apis.google.com/js/platform.js"></script>
 	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 	
 
