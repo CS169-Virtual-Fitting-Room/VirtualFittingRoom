@@ -33,23 +33,22 @@ charset = iso - 8859 - 1 " />
 
 function loadOverlay(uri) {
     console.log("loading");
-    arbitraryResource = gapi.hangout.av.effects.createImageResource(
+    resource = gapi.hangout.av.effects.createImageResource(
         uri);
 
-    // Use an onLoad handler
-    arbitraryResource.onLoad.add( function(event) {
+    resource.onLoad.add( function(event) {
         if ( !event.isLoaded ) {
             alert("Not loaded");
         }
     });
-    arbitraryOverlay = arbitraryResource.createFaceTrackingOverlay(
+    overlay = resource.createFaceTrackingOverlay(
         {'trackingFeature': gapi.hangout.av.effects.FaceTrackingFeature.NOSE_ROOT,
          'scaleWithFace': true,
          'rotateWithFace': true,
          'scale': 0.45,
          'scaleWithFace' : true});
-    arbitraryOverlay.setOffset(-0.2,-1);
-    arbitraryOverlay.setVisible(true);
+    overlay.setOffset(-0.12,-1);
+    overlay.setVisible(true);
     console.log('loaded');
 }
 
