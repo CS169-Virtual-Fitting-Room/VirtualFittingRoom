@@ -24,7 +24,8 @@ Product.objects.get(id = pid).delete()
 """
 
 # This class encapsulates all communication with the DB
-from models import User
+#from models import User
+from django.contrib.auth.models import User
 from models import Comment
 from models import Product
 from models import Category
@@ -73,6 +74,9 @@ class dataBaseModel (object):
         newOne.add(productName)
         '''
         # TODO: validate userID and productID
+        towner = User.objects.get(id = userID)
+        tproduct = Product.objects.get(id = productID)
+        
         newOne = WishList(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID))
         newOne.save()
         return (dataBaseModel.SUCCESS, "add to wishList successfully")
