@@ -17,3 +17,6 @@ def logout(request):
 
 def mainpage(request):
     return render(request, 'main/mainpage.html')
+
+def top_menu(request):
+    return render(request, "main/top_menu.html")
