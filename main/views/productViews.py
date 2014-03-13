@@ -4,6 +4,9 @@ from main.dataBaseModel import dataBaseModel
 from main.ImageRW import ImageRW
 import json
 
+def main(request, category, product):
+    return render(request, 'main/main.html')
+
 def detail(request, category, product):
 	db = dataBaseModel()
 	item = db.getDetail(product.lower())
@@ -15,6 +18,7 @@ def detail(request, category, product):
 	data = {'image' : image, 'item_name': item.name, 'price' : item.price, 'description' : item.description}
 	
 	return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
+
 # we might want to move to wishlistViews
 def addToWishList(request):
 	if request.method == 'POST' and request.META['CONTENT_TYPE'] != 'application/json':

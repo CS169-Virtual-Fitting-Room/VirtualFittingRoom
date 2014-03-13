@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
 	
-
+$(document).ready(function() {
 	$("#items").load("item", function(data){
 		for ( var i = 0; i < 24; i++ ) {
 			$(this).append(data);
@@ -41,5 +41,5 @@
 			alert("failure");
 		}
 	});
-
+});
 </script>
