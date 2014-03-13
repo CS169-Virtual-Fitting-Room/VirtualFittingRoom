@@ -2,10 +2,10 @@ from django.test import TestCase
 from dataBaseModel import dataBaseModel
 from main.models import Product, Category, Comment, User, WishList,
 
-# Create your tests here.
+###    Create your tests here.
 
-#google account: fittingroomtem@gmail.com
-#password : berkeleycs169
+###    google account: fittingroomtem@gmail.com
+###    password : berkeleycs169
 
 class testUnit(TestCase):
     SUCCESS = 1
@@ -90,16 +90,16 @@ class testUnit(TestCase):
             response = baseModel.addComment(testUnit.testUsers[i], testUnit.testProducts[i], "this is comment from user " + i)
             self.assertTrue(response == testUnit.SUCCESS)
 
-        response = baseModel.addComment(testUnit.testUsers[0], "eeee", "this is comment from user " + i)
+        response = baseModel.addComment(testUnit.testUsers[0], "eeee", "this is comment from user " + str(i))
         self.assertTrue(response == testUnit.ERR_BAD_PRODUCT)
 
-        response = baseModel.addComment("e", testUnit.testProducts[0], "this is comment from user " + i)
+        response = baseModel.addComment("e", testUnit.testProducts[0], "this is comment from user e" )
         self.assertTrue(response == testUnit.ERR_BAD_USER)
 
     def testGetComment(self):
         baseModel = dataBaseModel()
         for i in range(4):
-            temp = "this is comment from user " + i
+            temp = "this is comment from user " + str(i)
             response = baseModel.getComment(testUnit.testProducts[i])
             self.assertTrue(temp in response[0] and response[1] == testUnit.SUCCESS)
 
