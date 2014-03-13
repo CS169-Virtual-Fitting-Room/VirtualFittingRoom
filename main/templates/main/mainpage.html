@@ -111,19 +111,9 @@
 <!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
 <script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
 -->
-<!--script type="text/javascript">
+<script type="text/javascript">
 $(".service-count1").click(function(){
-	$(".contain-page").load("category_list", function() {
-		
-		$("#items").load("item", function(data){
-			for ( var i = 0; i < 24; i++ ) {
-				$(this).append(data);
-			}
-			$("a#item-img").html('<img src="{% static 'main/assets/img/glasses_demo.jpg' %}" alt="Elegant evening Dress"/>');
-			$("a.title").html('Awesome glasses');
-		});
-		
-	});
+	
 });
 $(".service-count2").click(function(){
 	$(".contain-page").load("category_list", function() {
@@ -147,20 +137,4 @@ $(".service-count3").click(function(){
 		});
 	});
 });
-</script-->
-<script type="text/javascript">
-	
-	$.ajax({
-		url: "glasses",
-		dataType: "json",
-		success:
-		function(data){
-			alert("success");
-		},
-		error:
-		function(data){
-			alert("failure");
-		}
-	});
-
 </script>
