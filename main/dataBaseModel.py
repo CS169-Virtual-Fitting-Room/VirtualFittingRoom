@@ -74,7 +74,6 @@ class dataBaseModel (object):
         
         if Product.objects.filter(name = product).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
-        
         newOne = WishList(owner = User.objects.get(pk = userID), product = Product.objects.get(name = product))
         newOne.save()
         return dataBaseModel.SUCCESS
@@ -85,7 +84,6 @@ class dataBaseModel (object):
             newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = User.objects.get(name = product)))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
-        
         newOne.delete()
         return dataBaseModel.SUCCESS
 
