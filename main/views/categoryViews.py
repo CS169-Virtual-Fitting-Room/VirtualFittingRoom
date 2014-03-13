@@ -11,7 +11,7 @@ def listProduct(request, category):
     db = dataBaseModel()
     result = db.getProducts(category.lower())
     if (result[1] != dataBaseModel.SUCCESS): # fail to get products
-        failData = {'image': [], 'item_name' : [], 'price' : []}
+        failData = {'category_name': '', 'image': [], 'item_name' : [], 'price' : []}
         return HttpResponse(json.dumps(failData), content_type='applicatoin/json')
     items = result[0]
     
@@ -25,7 +25,7 @@ def listProduct(request, category):
         price.append(item.price)
         image.append(ImageRW.readImage(item.photo))
         
-    data = {'image' : image, 'item_name' : item_name, 'price' : price}
+    data = {'category_name': category, 'image' : image, 'item_name' : item_name, 'price' : price}
     return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
     
 def listCategory(request):
