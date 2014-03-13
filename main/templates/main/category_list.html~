@@ -43,7 +43,7 @@ $(document).ready(function() {
 		
 	
 		for ( var i = 0; i < num_of_items; i++ ) {
-			var item = '<li> <a href="'+item_name[i]+'" id="item-img'+i+'"></a> <a href="index.html" class="title">'+item_names[i]+'</a><strong>&pound;'+prices[i]+'</strong></li>'
+			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="index.html" class="title">'+item_names[i]+'</a><strong>&pound;'+prices[i]+'</strong></li>'
 			$("#items").append(item);
 			b64imgData = btoa(images[i]);
 			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");

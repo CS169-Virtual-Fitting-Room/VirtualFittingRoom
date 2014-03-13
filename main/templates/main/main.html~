@@ -15,7 +15,7 @@
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".header-wrap").load("top_menu");
+	$(".header-wrap").load("/top_menu");
 });
 </script>
 </head>
@@ -24,63 +24,56 @@ $(document).ready(function(){
 </div>
 
 <article id="mainview">
-    <div id="breadcrumb"><a href="index.html">Home</a> > <a href="search.html">Glasses</a> > Awesome Glasses </div>
+    <div id="breadcrumb"><a href="">Glasses</a> > Awesome Glasses </div>
     <div id="description">
         <h1>Awesome Glasses</h1>
-        <strong id="price"><span>previously &pound;299.00</span> &pound;249.00</strong><p>bla bla description</p>
+        <strong id="price"> &pound;249.00</strong><p>bla bla description</p>
         <p>
-            <select>
+            <!--select>
                 <option value="1" selected="selected">Select colour</option>
                 <option value="Blue">Blue</option>
                 <option value="Beige">Beige</option>
-            </select>
+            </select-->
         </p>
-        <p>
+        <!--p>
             <select disabled="disabled">
                 <option value="-1">First select a colour</option> 
             </select>
             <button type="button">Size guide</button>
-        </p>
-        <p><button type="submit" class="continue">Add to bag</button></p>
+        </p-->
+        <p><button type="submit" class="continue">Add Item to Wish List</button></p>
         <p><button type="button">Tell a friend</button></p>
         <div id="tabs">
-            <ul>
+            <!--ul>
                 <li><a href="#tabs-1" class="first">Delivery</a></li>
                 <li><a href="#tabs-2">Returns</a></li>
                 <li><a href="#tabs-3">Info &amp; Care</a></li>
-            </ul>
-            <section id="tabs-1">
+            </ul-->
+            <!--section id="tabs-1">
                 <p> <strong>UK Style Saver:</strong> Within 6 working days –          FREE</p>
                 <p> <strong>UK Standard:</strong> Within 3 working days – £3.95 or FREE if                  you spend over £75.00</p>
                 <p> <strong>UK Next Day: </strong>Order by 6pm Weekdays or 2pm          Sunday - £5.95 or               FREE if you spend over £100</p>
                 <p> <strong>UK Same day delivery:</strong> Order by 10am Monday - Sunday you will receive your goods the same          day - £7.95</p>
                 <p> <a shape="rect" href="#" title="View more information on International and UK delivery times">More info on International and UK delivery times</a></p>
-</section>
-            <section id="tabs-2">
+			</section-->
+            <!--section id="tabs-2">
               <p>If you are not completely satisfied with your purchase, simply return the items to us in their original condition and packaging within 28 days of receipt and we will issue a full refund (excluding original delivery charge), or exchange the item for a different size / colour, if preferred.</p>
               <p>Please <a href="#">click here</a> for further information</p>
-            </section>
-            <section id="tabs-3">
+            </section-->
+            <!--section id="tabs-3">
                 <p>Dry clean only, cashmere or silk so be careful, mkaybi</p>
-            </section>
+            </section-->
         </div>
     </div>
     <div id="images">
     	<a href="{% static 'main/assets/img/glasses_demo.jpg' %}"><img src="{% static 'main/assets/img/glasses_demo.jpg' %}"></a>
-        <p>Rollover to zoom. Click to enlarge.</p>
+        <!--p>Rollover to zoom. Click to enlarge.</p>
         <span class="sale">Sale</span>
         <div id="productthumbs">
             <a href="#"><img src="{% static 'main/assets/img/glasses_demo.jpg' %}" /></a><a href="#"><img src="{% static 'main/assets/img/glasses_demo.jpg' %}" /></a><a href="#"><img src="{% static 'main/assets/img/glasses_demo.jpg' %}" /></a>
-        </div>
+        </div-->
     </div>
 </article>
 
-<footer>
-	<div class="wrapper">
-    	<span class="logo">ABC comp</span>
-        <a href="http://www.webdezign.co.uk" target="_blank" title="web design london" class="right">Web design london</a>&copy; ABC comp <a href="#">Sitemap</a> <a href="#">Terms &amp; Conditions</a> <a href="#">Shipping &amp; Returns</a> <a href="#">Size Guide</a><a href="#">Help</a> <br />
-        Address to said ABC comp, including postcode &nbsp;-&nbsp; 1.888.CO.name <a href="mailto:ABC comp">service@ABC comp.com</a>
-    </div>
-</footer>
 </body>
 </html>
