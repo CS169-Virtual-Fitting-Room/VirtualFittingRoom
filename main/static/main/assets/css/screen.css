@@ -106,7 +106,8 @@ a:hover {
 /* line 118, ../scss/_normalize.scss */
 h1 {
   font-size: 2em;
-  margin: 0.67em 0; }
+  margin: 0.67em 0;
+  color: #a59275; }
 
 /**
  * Address styling not present in IE 8/9, Safari 5, and Chrome.
@@ -2359,7 +2360,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 199, ../scss/foundation/components/_type.scss */
 h1 {
-  font-size: 1.88889em; }
+  font-size: 1.88889em; 
+  text-align: center;
+  color: #a59275;}
 
 /* line 200, ../scss/foundation/components/_type.scss */
 h2 {
@@ -2367,7 +2370,8 @@ h2 {
 
 /* line 201, ../scss/foundation/components/_type.scss */
 h3 {
-  font-size: 1.22222em; }
+  font-size: 1.22222em;
+  text-align: center; }
 
 /* line 202, ../scss/foundation/components/_type.scss */
 h4 {
@@ -2813,7 +2817,7 @@ body {
   @media only screen and (min-width: 768px) {
     /* line 1, ../scss/_layout.scss */
     body {
-      padding-top: 69px; } }
+      padding-top: 50px; } }
 
 /* line 12, ../scss/_layout.scss */
 .strip {
@@ -2874,7 +2878,7 @@ body {
 /* line 1, ../scss/_header.scss */
 .header-wrap {
   background: #222222; /* HEADER BACKGROUND COLOR DUCKY*/
-  padding: 15px 0;
+  padding: 8px 0; /* asdf */
   position: fixed;
   top: 0;
   left: 0;
@@ -3426,7 +3430,7 @@ div.strip.team-member-strip {
         /* line 55, ../scss/_home.scss */
         .home-top-wrap .top-info img {
           padding: 0;
-          margin-bottom: 15px; } }
+          margin-bottom: 8px; } } /* asdf */
     /* line 62, ../scss/_home.scss */
     .home-top-wrap .top-info .top-subtitle {
       text-transform: uppercase;
@@ -3841,7 +3845,8 @@ div.strip.team-member-strip {
 .process .process-heading {
   font-family: "langdonregular";
   text-transform: uppercase;
-  font-size: 36px;
+  font-size: 40px;
+  text-align: center;
   line-height: 36px;
   color: #a59275; }
 
