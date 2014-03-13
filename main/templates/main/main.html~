@@ -40,7 +40,7 @@ $(document).ready(function(){
 		$("h1#item_name").html(item_name );
 		$("p#desp").html(desp);
 		b64imgData = btoa(image);
-		$("div#images").html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+		$("div#images").html("<a href='data:image/jpeg;base64,"+b64imgData+"'><img src='data:image/jpeg;base64,"+b64imgData+"'/>");
 	}
 
 });
