@@ -10,7 +10,6 @@ class User (models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length = 256)
-    photo = models.CharField(max_length = 256)
 
     def __unicode__(self):
         return self.name
@@ -21,9 +20,8 @@ class Product(models.Model):
     name = models.CharField(max_length = 128)
     brand = models.CharField(max_length = 128)
     url = models.CharField(max_length = 256)
-    time_added = models.DateTimeField()
-
     photo = models.CharField(max_length = 256)
+    price = models.FloatField()
     def __unicode__(self):
         return self.name
 

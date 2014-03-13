@@ -36,16 +36,12 @@ from django.db.models import Q
 class dataBaseModel (object):
     
     SUCCESS = 1
-    ERR_BAD_CREDENTIALS = -1
-    ERR_USER_EXISTS = -2
-    ERR_BAD_USERNAME = -3
-    ERR_BAD_PASSWORD = -4
-    Err_Num = -1
-    Good_Num = 1
-    MAX_USERNAME_LENGTH = 128
-    MAX_PASSWORD_LENGTH = 128
+    ERR_BAD_PRODUCT = -1
+    ERR_BAD_USER = -2
+    ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
+    ERR_BAD_CATEGORY = -4
 
-    ERR_BAD_OTHERS = -5
+    
     
     def __init__(self):
         # do nothing
@@ -73,88 +69,74 @@ class dataBaseModel (object):
         newOne = WishList.objects.get(Q(owner = userName))        
         newOne.add(productName)
         '''
-        # TODO: validate userID and productID
-        towner = User.objects.get(id = userID)
-        tproduct = Product.objects.get(id = productID)
+        if User.objects.filter(id = userID).count() == 0:
+            return dataBaseModel.ERR_BAD_USER
+        
+        if Product.objects.filter(id = productID).count() == 0:
+            return dataBaseModel.ERR_BAD_PRODUCT
         
         newOne = WishList(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID))
         newOne.save()
-        return (dataBaseModel.SUCCESS, "add to wishList successfully")
+        return dataBaseModel.SUCCESS
 
 
     def removeFromWishList(self, userID, productID): # use id as above
-        """
-        if userName is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if productName is None:
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
-        """
-        # TODO: validate userID and productID
-        newOne = WishList.objects.get(Q(owner = User.objects.get(id = userID)), Q(product = User.objects.get(id = productID)))
-        """
-        use delete() instead
-        newOne.remove(productName)
-        newOne.save()
-        """
+        try:
+            newOne = WishList.objects.get(Q(owner = User.objects.get(id = userID)), Q(product = User.objects.get(id = productID)))
+        except:
+            return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
+        
         newOne.delete()
-        return (dataBaseModel.SUCCESS, "remove from wishList successfully")
+        return dataBaseModel.SUCCESS
 
     def getWishList(self, userID): # ID
-        """
-        we have multiple rows for one userID, we need a queryset
+        queryset = WishList.objects.filter(owner = User.objects.get(id = userID))
+                                           
+        if queryset.count() == 0:
+            return ([], dataBaseModel.ERR_BAD_USER)
         
-        if userName is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        newOne = WishList.objects.get(Q(owner = userName)) 
-        """
         items = []
-        for item in WishList.objects.filter(owner = User.objects.get(id = userID)):
+        for item in queryset:
             items.append(item.product) # we now only obtain the product model..may be we want some specific field from the table
-        # TODO: fail case
-        return (items, dataBaseModel.SUCCESS, "get wishList successfully")
+
+        return (items, dataBaseModel.SUCCESS)
 
 
     def addComment(self, userID, productID, content): # ID
-        """
-        if userName is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if productName is None :
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
 
-        if len(content) > dataBaseModel.MAX_PASSWORD_LENGTH: # check if password is valid
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
-        """
-        #TODO: validate userID and productID
+        if User.objects.filter(id = userID).count() == 0:
+            return dataBaseModel.ERR_BAD_USER
+        
+        if Product.objects.filter(id = productID).count() == 0:
+            return dataBaseModel.ERR_BAD_PRODUCT
+        
         newOne = Comment(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID), content)
         newOne.save()
-        return (dataBaseModel.SUCCESS, "comment added successfully")
+        return dataBaseModel.SUCCESS
 
 
     def getComment(self, productID): # here we just want to retreive a list of comments on that product
-        """
-        if userName is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if productName is None :
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
-        """
+        if Product.objects.filter(id = productID).count() == 0:
+            return ([], dataBaseModel.ERR_BAD_PRODUCT)
+        
         items = []
         for item in Comment.objects.filter(product = Product.objects.get(id = productID)):
             items.append(item.content)
-        #TODO: fail case
-        return (items, dataBaseModel.SUCCESS, "comment shown")
+        
+        return (items, dataBaseModel.SUCCESS)
 
 
-    def getProducts(self, categoryID): # ID
-
-        if categoryID is None:
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
+    def getProducts(self, category): # ID
+        queryset = Product.objects.filter(category = Category.objects.filter(name = category))
+        if queryset.count() == 0:
+            return ([], dataBaseModel.ERR_BAD_CATEGORY)
         # here you simply get the category, instead of products
         #newOne = Category.objects.get(Q(name = categoryName))
         items = []
-        for item in Product.objects.filter(category = Category.objects.get(id = categoryID)):
+        for item in queryset:
             items.append(item) # here we just append the item model, should add some specfici fields
-        #TODO: fail case
-        return (items, dataBaseModel.SUCCESS, "products list")
+            
+        return (items, dataBaseModel.SUCCESS)
     
     
 """  sth idk how to do
