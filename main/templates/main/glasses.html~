@@ -20,27 +20,17 @@
 
 <script type="text/javascript">
 	
-
+$(document).ready(function(){
 	$("#items").load("item", function(data){
 		for ( var i = 0; i < 24; i++ ) {
 			$(this).append(data);
 		}
 		$("a#item-img").html('<img src="{% static 'main/assets/img/glasses_demo.jpg' %}" alt="Elegant evening Dress"/>');
 		$("a.title").html('Awesome glasses');
+		$("a#item-img").click(function(){
+			$(".contain-page").load("mainpage");
+		});
 	});
 	$(".header-wrap").load("top_menu");
-	$.ajax({
-		url: "glasses",
-		contentType: "application/json",
-		dataType: "json",
-		success:
-		function(data){
-			alert("success");
-		}
-		error:
-		function(data){
-			alert("failure");
-		}
-	});
-
+});
 </script>
