@@ -35,8 +35,6 @@ class WishList(models.Model):
     class meta:
         unique_together = ('owner', 'product')
 
-
-        
 class Comment(models.Model):
     product = models.ForeignKey(Product)
     owner = models.ForeignKey(User)
