@@ -30,7 +30,7 @@ class WishList(models.Model):
     #owner = models.OneToOneField(User, primary_key = True)
     owner = models.ForeignKey(User)
     product = models.ForeignKey(Product)
-    create_time = models.DateField()
+    #create_time = models.DateField()
     
     class meta:
         unique_together = ('owner', 'product')
