@@ -11,6 +11,6 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^$', index, name='index'),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
-                       #url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/$', main, name='main'),
-                       #url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/info/$', detail, name='detail'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/$', main, name='main'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/info/$', detail, name='detail'),
 )   
