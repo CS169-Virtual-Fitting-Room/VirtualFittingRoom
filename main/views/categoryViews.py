@@ -9,6 +9,7 @@ def listProduct(request, category):
     pass
     
 def listCategory(request):
+    #a = lineproduct
     return render(request, "main/category_list.html")
     
 
