@@ -7,6 +7,9 @@ from main.dataBaseModel import dataBaseModel
 from main.ImageRW import ImageRW
 import json
 
+def category_list(request, category):
+    return render(request, 'main/category_list.html')
+
 def listProduct(request, category):
     db = dataBaseModel()
     result = db.getProducts(category.lower())
@@ -27,13 +30,4 @@ def listProduct(request, category):
         
     data = {'category_name': category, 'image' : image, 'item_name' : item_name, 'price' : price}
     return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
-    
-def listCategory(request, category):
-    #a = lineproduct
-    return render(request, "main/category_list.html")
-    
 
-
-
-def item(request):
-    return render(request, "main/item.html")
