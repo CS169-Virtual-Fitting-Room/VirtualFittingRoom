@@ -12,9 +12,9 @@
 				<li id="head"><a>Wishlist</a></li>
 				<li id="head">
 					{% if user.is_authenticated == False%}
-					<a href="login/google-oauth2/">Login</a> 
+					<a href="/login/google-oauth2/">Login</a> 
 					{% else %}
-					<a href="logout/">Logout</a>
+					<a href="/logout/">Logout</a>
 					{% endif %}</li>
 			</ul>
 		</nav>
