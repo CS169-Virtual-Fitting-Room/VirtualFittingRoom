@@ -9,7 +9,7 @@ import json
 
 def listProduct(request, category):
     db = dataBaseModel()
-    result = db.getProducts(category)
+    result = db.getProducts(category.lower())
     if (result[1] != dataBaseModel.SUCCESS): # fail to get products
         failData = {'image': [], 'item_name' : [], 'price' : []}
         return HttpResponse(json.dumps(failData), content_type='applicatoin/json')
