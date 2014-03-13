@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt 
-
+import dataBaseModel
+import json
 
 @csrf_exempt
 def addComment(request):   ## userID, productID, content
