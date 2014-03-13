@@ -97,7 +97,7 @@ class dataBaseModel (object):
         
         items = []
         for item in queryset:
-            items.append(item.product) # we now only obtain the product model..may be we want some specific field from the table
+            items.append(item) # we now only obtain the product model..may be we want some specific field from the table
 
         return (items, dataBaseModel.SUCCESS)
 
@@ -110,7 +110,7 @@ class dataBaseModel (object):
         if Product.objects.filter(id = productID).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
         
-        newOne = Comment(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID), content)
+        newOne = Comment(owner = User.objects.get(id = userID), product = Product.objects.get(id = productID), content = content)
         newOne.save()
         return dataBaseModel.SUCCESS
 
@@ -121,12 +121,12 @@ class dataBaseModel (object):
         
         items = []
         for item in Comment.objects.filter(product = Product.objects.get(id = productID)):
-            items.append(item.content)
+            items.append(item)
         
         return (items, dataBaseModel.SUCCESS)
 
 
-    def getProducts(self, category): # ID
+    def getProducts(self, category):
         queryset = Product.objects.filter(category = Category.objects.filter(name = category))
         if queryset.count() == 0:
             return ([], dataBaseModel.ERR_BAD_CATEGORY)
@@ -134,9 +134,15 @@ class dataBaseModel (object):
         #newOne = Category.objects.get(Q(name = categoryName))
         items = []
         for item in queryset:
-            items.append(item) # here we just append the item model, should add some specfici fields
+            items.append(item)
             
         return (items, dataBaseModel.SUCCESS)
+    
+    def getDetail(self, product):
+        if Product.objects.filter(name=product).count() == 0:
+            return dataBaseModel.ERR_BAD_PRODUCT
+        
+        return Product.objects.get(name=product)
     
     
 """  sth idk how to do
