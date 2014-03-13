@@ -3,15 +3,14 @@ from django.shortcuts import render
 from django.contrib.auth import logout as google_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+import json
 
-def glasses(request):
-    return render(request, "main/glasses.html")
-
-def hats(request):
-    return render(request, "main/hats.html")
-
-def headphones(request):
-    return render(request, "main/headphones.html")
+def listProduct(request, category):
+    pass
+    
+def listCategory(request):
+    return render(request, "main/category_list.html")
+    
 
 def top_menu(request):
     return render(request, "main/top_menu.html")
