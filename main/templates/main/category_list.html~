@@ -20,16 +20,14 @@
 
 <script type="text/javascript">
 	
-$(document).ready(function(){
+
 	$("#items").load("item", function(data){
 		for ( var i = 0; i < 24; i++ ) {
 			$(this).append(data);
 		}
 		$("a#item-img").html('<img src="{% static 'main/assets/img/glasses_demo.jpg' %}" alt="Elegant evening Dress"/>');
 		$("a.title").html('Awesome glasses');
-	});
-	$(".header-wrap").load("top_menu");
-	$.ajax({
+		$.ajax({
 		url: "glasses",
 		contentType: "application/json",
 		dataType: "json",
@@ -42,5 +40,8 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-});
+	});
+	$(".header-wrap").load("top_menu");
+	
+
 </script>
