@@ -15,7 +15,7 @@ def listProduct(request, category):
     result = db.getProducts(category.lower())
     if (result[1] != dataBaseModel.SUCCESS): # fail to get products
         failData = {'category_name': '', 'image': [], 'item_name' : [], 'price' : []}
-        return HttpResponse(json.dumps(failData), content_type='applicatoin/json')
+        return HttpResponse(json.dumps(failData), content_type='application/json')
     items = result[0]
     
     # json raw data
