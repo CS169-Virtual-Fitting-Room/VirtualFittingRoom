@@ -3,10 +3,9 @@ from dataBaseModel import dataBaseModel
 from main.models import Product
 from main.models import Category
 from main.models import Comment
-from main.models import User
 from main.models import WishList
 from django.contrib.auth.models import User as AUser
-
+from django.utils import timezone
 ###    Create your tests here.
 
 ###    google account: fittingroomtem@gmail.com
@@ -19,36 +18,33 @@ class testUnit(TestCase):
     ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
     ERR_BAD_CATEGORY = -4
 
-    testUsersID = []
     testUsers = []
+    testUsersID = []
     testCategory = []
     testProducts = []
     testComments = []
     testWishLists = []
+    
+    
     def setUp(self):
-
 ###### create Users #######
-        addUser = ["a", "b", "c", "d"]
-
+        import datetime
+        users = ['UserA', 'UserB', 'UserC', 'UserD']
         for i in range(4):
-            auser = AUser(username = addUser[i], password = "berkeleycs169")
-            auser.save()
-            newUser = User(user = auser, user_image = "null")
+            newUser = AUser(password = '', last_login = timezone.now(), is_superuser = True, username = users[i], first_name = 'Firstname', last_name = 'Lastname', email = 'a@email.com', is_staff = True, is_active = True, date_joined = timezone.now())
             newUser.save()
             testUnit.testUsers.append(newUser)
             testUnit.testUsersID.append(newUser.pk)
-
-######   add Category ######
-        category1 = Category(name = "hat")
+######  add Category ######
+        category1 = Category(name = "hats")
         testUnit.testCategory.append(category1)
         category1.save()
 
 
 ######   add product ######
-        addProducts = ["aaaa","bbbb","cccc","dddd"]
+        addProducts = ["ProductA","ProductB","ProductC","ProductD"]
         for i in range(4):  ## add products
-            newOne = Product(category = category1, name = addProducts[i], brand = "null", \
-                             url = "null", photo = "null", price = 1.0 )
+            newOne = Product(category = category1, name = addProducts[i], brand = 'brand', url = 'url', photo = 'photo', price = 1.0, description = '')
             newOne.save()
             testUnit.testProducts.append(newOne)
 
@@ -58,65 +54,83 @@ class testUnit(TestCase):
             newOne.save()
             testUnit.testComments.append(newOne)
 
-
-######  add wishList   ######
+# add to wishlist first
         for i in range(4):
-            newOne = WishList(owner = testUnit.testUsers[i], product = testUnit.testProducts[i])
+            newOne = WishList(product = testUnit.testProducts[i], owner = testUnit.testUsers[i])
             newOne.save()
-            testUnit.testWishLists.append(newOne)
+            
+    def tearDown(self):
+        WishList.objects.all().delete()
+        Comment.objects.all().delete()
+        Product.objects.all().delete()
+        Category.objects.all().delete()
 
 
 
-    def testGetProduct(self):
+    def testGetProducts(self):
         baseModel = dataBaseModel()
         products = baseModel.getProducts(testUnit.testCategory[0])
-        for i in range(4):
-            self.assertTrue(testUnit.testProducts[i] in products[0] and products[1] == testUnit.SUCCESS, "addProduct failed")
-        self.assertTrue("eeee" not in products[0], "addProduct failed")
+  
+        self.assertTrue(set(testUnit.testProducts) == set(products[0]) and products[1] == testUnit.SUCCESS, "getProduct failed")
 
 
-    def testGetDetail(self):
+    def testGetDetailWithValidProductName(self):
         baseModel = dataBaseModel()
         for i in range(4):
             productDetail = baseModel.getDetail(testUnit.testProducts[i])
             self.assertTrue(productDetail != None, "getDetail failed, can not find the product")
             self.assertTrue(productDetail[0].category == testUnit.testCategory[0], "getDetail failed, wrong category")
-            self.assertTrue(productDetail[0].brand == "null", "getDetail failed, wrong brand")
-            self.assertTrue(productDetail[0].url == "null", "getDetail failed, wrong url")
-            self.assertTrue(productDetail[0].photo == "null", "getDetail failed, wrong photo")
+            self.assertTrue(productDetail[0].brand == "brand", "getDetail failed, wrong brand")
+            self.assertTrue(productDetail[0].url == "url", "getDetail failed, wrong url")
+            self.assertTrue(productDetail[0].photo == "photo", "getDetail failed, wrong photo")
             self.assertTrue(productDetail[0].price == 1.0, "getDetail failed, wrong price")
-        productDetail = baseModel.getDetail("eeee")
+            
+    def testGetDetailWithNonExistingProductName(self):
+        baseModel = dataBaseModel()
+        productDetail = baseModel.getDetail("non-existing")
         self.assertTrue(productDetail[0] == None, "getDetail failed, can not detect non exist product")
 
 
     def testAddToWishList(self):
         baseModel = dataBaseModel()
+        WishList.objects.all().delete()
+        from django.db.models import Q
         for i in range(4):
-            response = baseModel.addToWishList(testUnit.testUsersID[i], testUnit.testProducts[i])
-            self.assertTrue(response == testUnit.SUCCESS, "addToWishList failed, can not add")
+            response = baseModel.addToWishList(testUnit.testUsersID[i], testUnit.testProducts[i].name)
+            queryset = WishList.objects.filter(Q(owner = testUnit.testUsers[i]), Q(product = testUnit.testProducts[i]))
+            self.assertTrue(response == testUnit.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
 
 
     def testRemoveFromWishList(self):
         baseModel = dataBaseModel()
+        from django.db.models import Q
+                   
         for i in range(4):
-            response = baseModel.removeFromWishList(testUnit.testUsers[i], testUnit.testProducts[i])
-            self.assertTrue(response == testUnit.SUCCESS, "can not do removeFromWishList")
+            response = baseModel.removeFromWishList(testUnit.testUsersID[i], testUnit.testProducts[i].name)
+            queryset = WishList.objects.filter(Q(owner = testUnit.testUsers[i]), Q(product = testUnit.testProducts[i]))
+            self.assertTrue(response == testUnit.SUCCESS and queryset.count() == 0, "can not do removeFromWishList")
 
-        response = baseModel.removeFromWishList(testUnit.testUsers[0], "eeee")
-        self.assertTrue(response == testUnit.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist product  fails")
+    def testRemoveFromWishListWithBadProduct(self):
+        baseModel = dataBaseModel()
+        response = baseModel.removeFromWishList(testUnit.testUsersID[0], "Wrong Product")
+        self.assertTrue(response == testUnit.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
 
-        response = baseModel.removeFromWishList("a", testUnit.testProducts[0])
-        self.assertTrue(response == testUnit.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist product  fails")
+    def testRemoveFromWishListWithBadUser(self):
+        baseModel = dataBaseModel()
+        response = baseModel.removeFromWishList(100, testUnit.testProducts[0])
+        self.assertTrue(response == testUnit.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
 
 
     def testGetWishList(self):
         baseModel = dataBaseModel()
         for i in range(4):
             response = baseModel.getWishList(testUnit.testUsersID[i])
-            self.assertTrue(response == testUnit.SUCCESS, "can not get WishList")
+            self.assertTrue(response[1] == testUnit.SUCCESS and len(response[0]) > 0, "can not get WishList")
 
+    def testGetWishListFromNonExistUser(self):
+        baseModel = dataBaseModel()
         response = baseModel.getWishList(6)  ## "e" user does not exist
-        self.assertTrue(response == testUnit.ERR_BAD_USER, "get wishList from non exist user")
+        self.assertTrue(response[1] == testUnit.ERR_BAD_USER and len(response[0]) == 0, "get wishList from non exist user")
 
 
 

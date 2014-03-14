@@ -57,18 +57,7 @@ class dataBaseModel (object):
             newOne = User.objects.get(Q(name = userName),)
     """                
     def addToWishList(self, userID, product): # eddie: use ID instead of name
-        '''
-        if userID is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if productName is None :
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
-        '''
-        
-        '''
-        no need to query from db, we are adding a new row
-        newOne = WishList.objects.get(Q(owner = userName))        
-        newOne.add(productName)
-        '''
+
         if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
         
@@ -81,18 +70,19 @@ class dataBaseModel (object):
 
     def removeFromWishList(self, userID, product): # use id as above
         try:
-            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = User.objects.get(name = product)))
+            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(name = product)))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
         newOne.delete()
         return dataBaseModel.SUCCESS
 
     def getWishList(self, userID): # ID
-        queryset = WishList.objects.filter(owner = User.objects.get(pk = userID))
-                                           
-        if queryset.count() == 0:
+        try:
+            User.objects.get(pk = userID)
+        except:
             return ([], dataBaseModel.ERR_BAD_USER)
         
+        queryset = WishList.objects.filter(owner = User.objects.get(pk = userID))       
         items = []
         for item in queryset:
             items.append(item) # we now only obtain the product model..may be we want some specific field from the table
@@ -137,7 +127,6 @@ class dataBaseModel (object):
         return (items, dataBaseModel.SUCCESS)
     
     def getDetail(self, product):
-        print product
         if Product.objects.filter(name=product).count() == 0:
             return (None,dataBaseModel.ERR_BAD_PRODUCT)
         
