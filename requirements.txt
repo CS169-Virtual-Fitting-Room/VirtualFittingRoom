@@ -10,12 +10,9 @@ gdata==2.0.18
 httplib2==0.8
 ipython==1.1.0
 macholib==1.5
-matplotlib==1.1.1
 modulegraph==0.10.1
 mysql-connector-python==1.1.5
-numpy==1.6.2
 oauth2==1.5.211
-praw==2.1.11
 psycopg2==2.5.2
 py2app==0.7.1
 pyOpenSSL==0.13
@@ -57,7 +54,6 @@ python-dateutil==1.5
 python-openid==2.2.5
 pytz==2012d
 requests==2.0.1
-scipy==0.11.0
 six==1.4.1
 update-checker==0.6
 virtualenv==1.11.2
