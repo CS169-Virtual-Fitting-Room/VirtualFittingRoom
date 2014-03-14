@@ -26,8 +26,10 @@
 charset = iso - 8859 - 1 " />
 </head>
 
+<div id = "loadingMessage">Loading your accessories... </div>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
 
@@ -38,26 +40,51 @@ function loadOverlay(uri) {
 
     resource.onLoad.add( function(event) {
         if ( !event.isLoaded ) {
-            alert("Not loaded");
+            $("#loadingMessage").text("Error occured while loading, please restart this app");
+        } else {
+            $("#loadingMessage").text("Accessories loaded");
         }
     });
     overlay = resource.createFaceTrackingOverlay(
         {'trackingFeature': gapi.hangout.av.effects.FaceTrackingFeature.NOSE_ROOT,
          'scaleWithFace': true,
          'rotateWithFace': true,
-         'scale': 0.45,
+         'scale': 0.5,
          'scaleWithFace' : true});
     overlay.setOffset(-0.12,-1);
     overlay.setVisible(true);
     console.log('loaded');
 }
 
+$.fn.textWidth = function(){
+  var html_org = $(this).html();
+  var html_calc = '<span>' + html_org + '</span>';
+  $(this).html(html_calc);
+  var width = $(this).find('span:first').width();
+  $(this).html(html_org);
+  return width;
+};
+
+
 function init() {
   gapi.hangout.onApiReady.add(function(eventObj) {
-    console.log("everything ready");
     var vCanvas = gapi.hangout.layout.getVideoCanvas();
-    vCanvas.setPosition(350,10);
+    var wHeight = $(window).height();
+    var wWidth = $(window).width();
+    console.log(wWidth);
+    console.log("offset");
     vCanvas.setVisible(true);
+    console.log(vCanvas.getHeight());
+    var newSize = vCanvas.setHeight(380);
+    var cHeight = newSize["height"];
+    var cWidth = newSize["width"];
+    console.log("new Size:");
+    console.log(cHeight);
+    console.log(cWidth);
+    console.log($("#loadingMessage").textWidth());
+    $("#loadingMessage").offset({top:cHeight+20,left: wWidth/2-($("#loadingMessage").textWidth()/2)});
+    console.log($("#loadingMessage").offset());
+    vCanvas.setPosition(wWidth/2-(cWidth/2),0);
     loadOverlay("https://dl.dropboxusercontent.com/u/69037120/site/cap2.png");
   });
 }
