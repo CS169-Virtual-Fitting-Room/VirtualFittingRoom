@@ -1,5 +1,4 @@
 {% load staticfiles %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -15,21 +14,26 @@
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 </head>
-
-<body>
 <div class="header-wrap" >
 </div>
+<body>
+
 <script src="https://apis.google.com/js/platform.js"></script>
 <div style="position:relative;top:50%;vertical-align:middle;text-align:center;">
     <div id="placeholder-div2"></div>
 </div>​
-</body>
-
+<body>
 <script>
   gapi.hangout.render('placeholder-div2', {
     'render': 'createhangout',
     'initial_apps': [{'app_id' : '60097234437', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'LOCAL_APP' }],
     'widget_size': 136
   });
+</script>
+<script type='text/javascript'>
+$(document).ready(function(){
+	//$(".contain-page").append("<p>Test</p>");
+	$(".header-wrap").load("top_menu");
+}); 
 </script>
 </html>
