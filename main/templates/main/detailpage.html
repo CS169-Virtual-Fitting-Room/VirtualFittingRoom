@@ -4,6 +4,11 @@
 <head>
 <meta charset="utf-8">
 <title>Virtual Awesome Fantastic Fitting Room!!!!!!!!!!</title>
+
+<title>Item List</title>
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
@@ -34,9 +39,14 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
+	function capitaliseFirstLetter(string)
+	{
+    	return string.charAt(0).toUpperCase() + string.slice(1);
+	}
 	function renderpage(desp, image, item_name, price){
-		$("#price").html("&pound;"+price);
-		$("#breadcrumb").html('<a href="">Glasses</a> >'+item_name );
+		$("#price").html("&dollar;"+price);
+		var current_category = capitaliseFirstLetter(window.location.pathname.split('/')[1]);
+		$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
 		$("h1#item_name").html(item_name );
 		$("p#desp").html(desp);
 		b64imgData = btoa(image);
