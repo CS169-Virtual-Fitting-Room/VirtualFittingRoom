@@ -17,7 +17,7 @@ class Category(models.Model):
 class Product(models.Model):  
     category = models.ForeignKey(Category)
     #wishList = models.ForeignKey(WishList)
-    name = models.CharField(max_length = 128)
+    name = models.CharField(max_length = 128, unique = True)
     brand = models.CharField(max_length = 128)
     url = models.CharField(max_length = 256)
     photo = models.CharField(max_length = 256)
