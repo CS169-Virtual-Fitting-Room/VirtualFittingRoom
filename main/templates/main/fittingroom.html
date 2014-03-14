@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Detail Page</title>
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+</head>
+
+<body>
+<div class="header-wrap" >
+</div>
+<script src="https://apis.google.com/js/platform.js"></script>
+<div style="position:relative;top:50%;vertical-align:middle;text-align:center;">
+    <div id="placeholder-div2"></div>
+</div>​
+</body>
+
+<script>
+  gapi.hangout.render('placeholder-div2', {
+    'render': 'createhangout',
+    'initial_apps': [{'app_id' : '60097234437', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'LOCAL_APP' }],
+    'widget_size': 136
+  });
+</script>
+</html>

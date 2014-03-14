@@ -24,3 +24,6 @@ def top_menu(request):
 def qunit(request):
     return render(request, "main/qunit_test.html")
 
+def fittingroom(request):
+    return render(request, "main/fittingroom.html")
+

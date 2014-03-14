@@ -1,16 +1,17 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+<!--DOCTYPE html-->
 
 <html>
 <head>
-
-	<title>Virtual Fitting Room</title>
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<title>Virtual Fitting Room</title>
 <meta name='description' content='' />
 <link rel='canonical' href='localhost:8000' />
 
 	<!-- Stylesheets -->
-	<!-- http://pacelaw.com/ -->
 	<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+	<script src="https://apis.google.com/js/platform.js"></script>
 	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 	
 
