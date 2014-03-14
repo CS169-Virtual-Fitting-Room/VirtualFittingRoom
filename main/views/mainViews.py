@@ -21,6 +21,9 @@ def mainpage(request):
 def top_menu(request):
     return render(request, "main/top_menu.html")
 
+def qunit(request):
+    return render(request, "main/qunit_test.html")
+
 def fittingroom(request):
     return render(request, "main/fittingroom.html")
 
