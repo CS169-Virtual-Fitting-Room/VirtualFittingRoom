@@ -6,7 +6,7 @@
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <!--link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'-->
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
-<script src='{% static "main/assets/js/category_list.js" %}'></script>
+<script src='{% static "main/assets/js/general.js" %}'></script>
 <div class="header-wrap" >
 </div>
 <article id="grid">
@@ -32,8 +32,8 @@ $(document).ready(function() {
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
+			alert(jQuery.type(images)+" " +jQuery.type(item_names)+" "+ jQuery.type(prices));
 			rendergrids(images.length, images, item_names, prices);
-			alert(data.image.length);
 		},
 		error:
 		function(data){
