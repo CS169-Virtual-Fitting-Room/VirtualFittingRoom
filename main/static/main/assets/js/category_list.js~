@@ -1,0 +1,33 @@
+$(document).ready(function() {
+	
+	$.ajax({
+		url: "list",
+		content_type: "application/json",
+		dataType: "json",
+		success:
+		function(data){
+			var images = data.image;
+			var item_names=data.item_name;
+			var prices = data.price;
+			rendergrids(images.length, images, item_names, prices);
+			alert(data.image.length);
+		},
+		error:
+		function(data){
+			alert("failure");
+		}
+	});
+	function rendergrids(num_of_items, images, item_names, prices){
+	
+		for ( var i = 0; i < num_of_items; i++ ) {
+			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="'+item_names[i]+'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i]+'</strong></li>'
+			$("#items").append(item);
+			b64imgData = btoa(images[i]);
+			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+			
+		}
+		
+		
+		$(".header-wrap").load("/top_menu");
+	}
+});
