@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "main/assets/js/qunit-1.14.0.js" %}'></script>
+<link rel="stylesheet" href='{% static "main/assets/css/qunit-1.14.0.css" %}' />
+<meta charset="utf-8">
+<title>QUnit Example</title>
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="tests.js"></script>
+</body>
+</html>
