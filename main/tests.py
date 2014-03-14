@@ -8,9 +8,6 @@ from django.contrib.auth.models import User as AUser
 from django.utils import timezone
 ###    Create your tests here.
 
-###    google account: fittingroomtem@gmail.com
-###    password : berkeleycs169
-
 class testUnit(TestCase):
     SUCCESS = 1
     ERR_BAD_PRODUCT = -1
@@ -28,7 +25,6 @@ class testUnit(TestCase):
     
     def setUp(self):
 ###### create Users #######
-        import datetime
         users = ['UserA', 'UserB', 'UserC', 'UserD']
         for i in range(4):
             newUser = AUser(password = '', last_login = timezone.now(), is_superuser = True, username = users[i], first_name = 'Firstname', last_name = 'Lastname', email = 'a@email.com', is_staff = True, is_active = True, date_joined = timezone.now())
@@ -69,8 +65,7 @@ class testUnit(TestCase):
 
     def testGetProducts(self):
         baseModel = dataBaseModel()
-        products = baseModel.getProducts(testUnit.testCategory[0])
-  
+        products = baseModel.getProducts(testUnit.testCategory[0].name)
         self.assertTrue(set(testUnit.testProducts) == set(products[0]) and products[1] == testUnit.SUCCESS, "getProduct failed")
 
 
@@ -100,6 +95,17 @@ class testUnit(TestCase):
             queryset = WishList.objects.filter(Q(owner = testUnit.testUsers[i]), Q(product = testUnit.testProducts[i]))
             self.assertTrue(response == testUnit.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
 
+    def testAddToWishListWithBadProduct(self):
+        baseModel = dataBaseModel()
+        WishList.objects.all().delete()
+        response = baseModel.addToWishList(testUnit.testUsersID[0], 'Wrong Product')
+        self.assertTrue(response == testUnit.ERR_BAD_PRODUCT, 'addToWishList adding non existing product')
+        
+    def testAddToWishListWithBadUser(self):
+        baseModel = dataBaseModel()
+        WishList.objects.all().delete()
+        response = baseModel.addToWishList(6, testUnit.testProducts[0].name)
+        self.assertTrue(response == testUnit.ERR_BAD_USER, 'addToWishList adding product to non existing user')
 
     def testRemoveFromWishList(self):
         baseModel = dataBaseModel()
@@ -137,14 +143,18 @@ class testUnit(TestCase):
     def testAddComment(self):
         baseModel = dataBaseModel()
         for i in range(4):
-            response = baseModel.addComment(testUnit.testUsersID[i], testUnit.testProducts[i], "this is comment from user " + str(i))
+            response = baseModel.addComment(testUnit.testUsersID[i], testUnit.testProducts[i].name, "this is comment from user " + str(i))
             self.assertTrue(response == testUnit.SUCCESS, "add comment not success")
 
-        response = baseModel.addComment(testUnit.testUsersID[0], "eeee", "this is comment from user non exist")
-        self.assertTrue(response == testUnit.ERR_BAD_PRODUCT, " add comment to non exist product")
+    def testAddCommentWithBadProduct(self):
+        baseModel = dataBaseModel()
+        response = baseModel.addComment(testUnit.testUsersID[0], "Bad Product", "this is comment is on a non existing product")
+        self.assertTrue(response == testUnit.ERR_BAD_PRODUCT, " added comment to non exist product")
 
-        response = baseModel.addComment(6, testUnit.testProducts[0], "this is comment from user e" )
-        self.assertTrue(response == testUnit.ERR_BAD_USER, "add comment to non-exist user")
+    def testAddCommentWithBadUser(self):
+        baseModel = dataBaseModel()
+        response = baseModel.addComment(6, testUnit.testProducts[0].name, "this is comment from a non-existing user" )
+        self.assertTrue(response == testUnit.ERR_BAD_USER, "added comment to non-exist user")
 
 
 
@@ -155,6 +165,8 @@ class testUnit(TestCase):
             response = baseModel.getComment(testUnit.testProducts[i])
             self.assertTrue(temp in response[0] and response[1] == testUnit.SUCCESS, " can not find the comment")
 
-        response = baseModel.getComment("eeee") # product not exist
-        self.assertTrue(response[0] == [] and response[1] == testUnit.ERR_BAD_PRODUCT, "get comment from a non exist product")
+    def testGetCommentWithBadProduct(self):
+        baseModel = dataBaseModel()
+        response = baseModel.getComment("Bad Product") # product not exist
+        self.assertTrue(response[0] == [] and response[1] == testUnit.ERR_BAD_PRODUCT, "got comment from a non exist product")
 
