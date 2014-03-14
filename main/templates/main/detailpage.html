@@ -16,6 +16,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "main/assets/js/general.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
@@ -37,19 +38,7 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-	function capitaliseFirstLetter(string)
-	{
-    	return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-	function renderpage(desp, image, item_name, price){
-		$("#price").html("&dollar;"+price);
-		var current_category = capitaliseFirstLetter(window.location.pathname.split('/')[1]);
-		$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
-		$("h1#item_name").html(item_name );
-		$("p#desp").html(desp);
-		b64imgData = btoa(image);
-		$("div#images").html("<a href='data:image/jpeg;base64,"+b64imgData+"'><img src='data:image/jpeg;base64,"+b64imgData+"'/>");
-	}
+
 
 });
 </script>

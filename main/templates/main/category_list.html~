@@ -1,9 +1,12 @@
 <!--p id="test"> 	category list </p-->
 {% load staticfiles %}
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <!--link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'-->
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "main/assets/js/category_list.js" %}'></script>
 <div class="header-wrap" >
 </div>
 <article id="grid">
@@ -13,13 +16,11 @@
     </ul>
     <footer>
         <div class="paging">
-            Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a>
+            Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
     </footer>
 </article>
-
-<script type="text/javascript">
-	
+<script type='text/javascript'>
 $(document).ready(function() {
 	
 	$.ajax({
@@ -32,26 +33,14 @@ $(document).ready(function() {
 			var item_names=data.item_name;
 			var prices = data.price;
 			rendergrids(images.length, images, item_names, prices);
-			alert(data.item_name.length);
+			alert(data.image.length);
 		},
 		error:
 		function(data){
 			alert("failure");
 		}
 	});
-	function rendergrids(num_of_items, images, item_names, prices){
-		
-	
-		for ( var i = 0; i < num_of_items; i++ ) {
-			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="index.html" class="title">'+item_names[i]+'</a><strong>&pound;'+prices[i]+'</strong></li>'
-			$("#items").append(item);
-			b64imgData = btoa(images[i]);
-			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
-			
-		}
-		
-		
-		$(".header-wrap").load("/top_menu");
-	}
+	rendertopmenu();
 });
 </script>
+
