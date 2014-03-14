@@ -1,10 +1,13 @@
 <header>
+<<<<<<< HEAD
 	
 	<div class="logo">
 		<a href="/">
 			<div class="header-logo">Fitting Room</div>
 		</a>
 	</div>
+=======
+>>>>>>> d822d43e548bd61af31f660b39af3b5f470b4542
 	<div class="nav">
 		<nav>
 			<ul class="global-nav">
@@ -27,7 +30,7 @@
   	gapi.hangout.render('placeholder-div2', {
     	'render': 'createhangout',
     	'initial_apps': [{'app_id' : '60097234437', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'LOCAL_APP' }],
-   	 	'widget_size': 72
+   	 	'widget_size': 50
   	});
 	</script>
 </header>

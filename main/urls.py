@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from views.mainViews import index, members, logout, mainpage, top_menu
 from views.categoryViews import listProduct, category_list
-from views.productViews import detail, main
+from views.productViews import detail, detailpage
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^members', members, name='members'),
@@ -11,6 +11,6 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^$', index, name='index'),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
-                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/$', main, name='main'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/$', detailpage, name='detailpage'),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/info/$', detail, name='detail'),
 )   
