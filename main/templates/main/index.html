@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 	<script src="https://apis.google.com/js/platform.js"></script>
 	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
-	<script src='{% static "main/assets/js/index.js" %}'></script>
+	<script src='{% static "main/assets/js/general.js" %}'></script>
 	
 
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -30,8 +30,11 @@
 
 
 </body>
-<!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
-<script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
--->
-
+<script type='text/javascript'>
+$(document).ready(function(){
+	rendermainpage();
+	rendertopmenu();
+	homeclick();
+}); 
+</script>
 </html>
