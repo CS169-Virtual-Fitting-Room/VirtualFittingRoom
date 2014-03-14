@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<!--DOCTYPE html-->
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -12,6 +12,7 @@
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 	<script src="https://apis.google.com/js/platform.js"></script>
+	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 	<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 	
 
@@ -33,14 +34,4 @@
 <script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
 -->
 
-<script type='text/javascript'>
-$(document).ready(function(){
-	//$(".contain-page").append("<p>Test</p>");
-	$(".contain-page").load("mainpage");
-	$(".header-wrap").load("top_menu");
-	$("#home").click(function(){
-		$(".contain-page").load("mainpage");
-	});
-}); 
-</script>
 </html>

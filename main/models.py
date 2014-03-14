@@ -17,7 +17,7 @@ class Category(models.Model):
 class Product(models.Model):  
     category = models.ForeignKey(Category)
     #wishList = models.ForeignKey(WishList)
-    name = models.CharField(max_length = 128)
+    name = models.CharField(max_length = 128, unique = True)
     brand = models.CharField(max_length = 128)
     url = models.CharField(max_length = 256)
     photo = models.CharField(max_length = 256)
@@ -28,18 +28,19 @@ class Product(models.Model):
 
 class WishList(models.Model):
     #owner = models.OneToOneField(User, primary_key = True)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(AUser)
     product = models.ForeignKey(Product)
-    create_time = models.DateField()
+    #create_time = models.DateField()
     
     class meta:
         unique_together = ('owner', 'product')
-
-
         
+    def __unicode__(self):
+        return str(self.owner) + str(self.product)
+
 class Comment(models.Model):
     product = models.ForeignKey(Product)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(AUser)
 
     content = models.CharField(max_length = 256)
-    time_added = models.DateTimeField()
+    #time_added = models.DateTimeField()
