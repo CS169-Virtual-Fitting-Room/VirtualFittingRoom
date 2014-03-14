@@ -1,0 +1,31 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.contrib.auth import logout as google_logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
+def index(request):
+    return render(request, 'main/index.html')
+
+@login_required(login_url='/')
+def members(request):
+    return render(request, 'main/members.html')
+
+def logout(request):
+    google_logout(request)
+    return HttpResponseRedirect('/')
+
+def mainpage(request):
+    return render(request, 'main/mainpage.html')
+
+def top_menu(request):
+    return render(request, "main/top_menu.html")
+
+<<<<<<< HEAD
+def qunit(request):
+    return render(request, "main/qunit_test.html")
+=======
+def fittingroom(request):
+    return render(request, "main/fittingroom.html")
+>>>>>>> a98a7def7c321cfff0f4be8871ee9fff89ca2488
+
