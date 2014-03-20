@@ -1,18 +1,14 @@
 <header>
-	<div class="nav">
+	<div class=nav>
 		<nav>
-			<ul class="global-nav">
-				<li id="head"><a id ="home" href="/">Home</a></li>
-				<li id="head"><a id ="fitting_room" href="/fittingroom">Fitting Room</a></li>
-				<li id="head"><a>Wishlist</a></li>
-				<li id="head">
-					{% if user.is_authenticated == False%}
-					<a href="/login/google-oauth2/">Login</a> 
-					{% else %}
-					<a href="/logout/">Logout</a>
-					{% endif %}</li>
+			<ul class=global-nav>
+				<li id=head><a id=home href="/">Home</a></li>
+				<li id=head><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
+				<li id=head><a>Wishlist</a></li>
+				<li id=head>
+					<a href="/login/google-oauth2/">Login</a>
+				</li>
 			</ul>
 		</nav>
 	</div>
 </header>
-
