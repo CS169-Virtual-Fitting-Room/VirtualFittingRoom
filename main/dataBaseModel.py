@@ -108,7 +108,7 @@ class dataBaseModel (object):
             return ([], dataBaseModel.ERR_BAD_PRODUCT)
         
         items = []
-        for item in Comment.objects.filter(product = Product.objects.get(pk = productID)).order_by('-time'):
+        for item in Comment.objects.filter(product = Product.objects.get(pk = productID)).order_by('time'):
             items.append(item)
         
         return (items, dataBaseModel.SUCCESS)

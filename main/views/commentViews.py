@@ -25,7 +25,7 @@ def getComments(request, category, product, id):
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	data = []
 	for comment in result[0]:
-		map = {'Name' : comment.owner.first_name, 'Content' : comment.content, 'Time' : str(comment.time)}
+		map = {'name' : comment.owner.first_name, 'content' : comment.content, 'time' : str(comment.time)}
 		data.append(map)
 		
 	return HttpResponse(json.dumps(data), content_type='application/json')
