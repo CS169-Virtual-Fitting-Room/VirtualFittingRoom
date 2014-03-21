@@ -1,6 +1,8 @@
 # don't change!
-from main.models import *
+from main.models import User, Category, Product, WishList, FitList, Comment
 from django.http import HttpResponse
+from django.utils import timezone
+from django.contrib.auth.models import User as AUser
 
 def setUpDb(request):
     User.objects.all().delete()
@@ -29,5 +31,8 @@ def setUpDb(request):
     levis.save()
     beats.save()
     sony.save()
+    
+    comment = Comment(product = rayban, owner = AUser.objects.get(pk=1), time=timezone.now(), content="Very nice glasses!")
+    comment.save()
     
     return HttpResponse("Success!")
