@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url, include
 from views.mainViews import index, members, logout, mainpage, top_menu, fittingroom,qunit
 from views.categoryViews import listProduct, category_list
 from views.productViews import detail, detailpage
-from views.commentViews import addComments, getComments
+from views.commentViews import addComment, getComments
 from views.internalViews import setUpDb
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
@@ -18,5 +18,6 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/$', detailpage, name='detailpage'),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/info/$', detail, name='detail'),
-                       #url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)/comments/$', getComments, name='getComments'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/comments/add/$', addComment, name='addComment'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/comments/get/$', getComments, name='getComments'),
 )   

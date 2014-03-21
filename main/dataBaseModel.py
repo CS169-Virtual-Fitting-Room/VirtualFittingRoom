@@ -56,21 +56,21 @@ class dataBaseModel (object):
         try{
             newOne = User.objects.get(Q(name = userName),)
     """                
-    def addToWishList(self, userID, product): # eddie: use ID instead of name
+    def addToWishList(self, userID, productID): # eddie: use ID instead of name
 
         if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
         
-        if Product.objects.filter(name = product).count() == 0:
+        if Product.objects.filter(pk = productID).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
-        newOne = WishList(owner = User.objects.get(pk = userID), product = Product.objects.get(name = product))
+        newOne = WishList(owner = User.objects.get(pk = userID), product = Product.objects.get(pk = productID))
         newOne.save()
         return dataBaseModel.SUCCESS
 
 
-    def removeFromWishList(self, userID, product): # use id as above
+    def removeFromWishList(self, userID, productID): # use id as above
         try:
-            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(name = product)))
+            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(pk = productID)))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
         newOne.delete()
@@ -90,25 +90,25 @@ class dataBaseModel (object):
         return (items, dataBaseModel.SUCCESS)
 
 
-    def addComment(self, userID, product, content): # ID
+    def addComment(self, userID, productID, content, time): # ID
 
         if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
         
-        if Product.objects.filter(name = product).count() == 0:
+        if Product.objects.filter(pk = productID).count() == 0:
             return dataBaseModel.ERR_BAD_PRODUCT
         
-        newOne = Comment(owner = User.objects.get(pk = userID), product = Product.objects.get(name = product), content = content)
+        newOne = Comment(owner = User.objects.get(pk = userID), product = Product.objects.get(pk = productID), content = content, time=time)
         newOne.save()
         return dataBaseModel.SUCCESS
 
 
-    def getComments(self, product): # here we just want to retreive a list of comments on that product
-        if Product.objects.filter(name = product).count() == 0:
+    def getComments(self, productID): # here we just want to retreive a list of comments on that product
+        if Product.objects.filter(pk = productID).count() == 0:
             return ([], dataBaseModel.ERR_BAD_PRODUCT)
         
         items = []
-        for item in Comment.objects.filter(product = Product.objects.get(name = product)):
+        for item in Comment.objects.filter(product = Product.objects.get(pk = productID)).order_by('-time'):
             items.append(item)
         
         return (items, dataBaseModel.SUCCESS)
@@ -126,11 +126,11 @@ class dataBaseModel (object):
             
         return (items, dataBaseModel.SUCCESS)
     
-    def getDetail(self, product, productID):
-        if Product.objects.filter(Q(pk=productID), Q(name=product)).count() != 1:
+    def getDetail(self, productID):
+        if Product.objects.filter(pk=productID).count() != 1:
             return (None,dataBaseModel.ERR_BAD_PRODUCT)
         
-        return (Product.objects.get(Q(pk=productID), Q(name=product)), dataBaseModel.SUCCESS)
+        return (Product.objects.get(pk=productID), dataBaseModel.SUCCESS)
     
     
 """  sth idk how to do

@@ -10,7 +10,7 @@ def detailpage(request, category, product, id):
 
 def detail(request, category, product, id):
 	db = dataBaseModel()
-	item = db.getDetail(product, id)
+	item = db.getDetail(id)
 	if item[1] != dataBaseModel.SUCCESS:
 		failData = {'image' : '', 'item_name': '', 'price' : -1, 'description' : ''}
 		return HttpResponse(json.dumps(failData), content_type='application/json')
