@@ -103,7 +103,7 @@ class dataBaseModel (object):
         return dataBaseModel.SUCCESS
 
 
-    def getComment(self, product): # here we just want to retreive a list of comments on that product
+    def getComments(self, product): # here we just want to retreive a list of comments on that product
         if Product.objects.filter(name = product).count() == 0:
             return ([], dataBaseModel.ERR_BAD_PRODUCT)
         
