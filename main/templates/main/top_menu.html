@@ -5,7 +5,12 @@
 				<li id="head"><a id=home href="/">Home</a></li>
 				<li id="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
 				<li id="head"><a>Wishlist</a></li>
-				<li id="head"><a href="/login/google-oauth2/">Login</a>
+				<li id="head">
+					{% if user.is_authenticated == False %}
+					<a href="/login/google-oauth2/">Login</a>
+					{% else %}
+					<a href="/login/google-oauth2/">Logout</a>
+					{% endif %}
 				</li>
 			</ul>
 		</nav>
