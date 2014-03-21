@@ -3,8 +3,10 @@ from views.mainViews import index, members, logout, mainpage, top_menu, fittingr
 from views.categoryViews import listProduct, category_list
 from views.productViews import detail, detailpage
 from views.commentViews import addComments, getComments
+from views.internalViews import setUpDb
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
+                       url(r'^internal', setUpDb, name='internal'),
                        url(r'^members', members, name='members'),
                        url(r'^logout', logout, name='logout'),
                        url(r'^mainpage', mainpage, name='mainpage'),
