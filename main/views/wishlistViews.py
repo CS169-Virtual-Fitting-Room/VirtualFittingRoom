@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from main.views.mainViews import index
 
 def getWishlist(request):
+    if request.user.is_authenticated() == False:
+        return redirect('index')
     db = dataBaseModel()
     result = db.getWishList(request.user.id)
     data = []
@@ -22,7 +24,7 @@ def getWishlist(request):
         
 
 def addToWishlist(request, category, product, id):
-    if request.user.is_authenticated == False:
+    if request.user.is_authenticated() == False:
         return redirect('index')
     db = dataBaseModel()
     result = db.addToWishList(request.user.id, product, id)
@@ -30,7 +32,7 @@ def addToWishlist(request, category, product, id):
     
 
 def removeFromWishlist(request, category, product, id):
-    if request.user.is_authenticated == False:
+    if request.user.is_authenticated() == False:
         return redirect('index')
     db = dataBaseModel()
     result = db.removeFromWishList(request.user.id, product, id)
