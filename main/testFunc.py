@@ -54,25 +54,25 @@ class testFunc (TestCase):
      
     # test load detail page   
     def testDetailPage(self):
-        self.conn.request('GET', '/glasses/rayban%20glasses/')
+        self.conn.request('GET', '/glasses/rayban%20glasses_1/')
         resp = self.conn.getresponse()
         self.assertTrue(resp.status == 200, 'Can\'t make request to server')
         data = resp.read()
         self.assertTrue('<title>Detail Page</title>' in data, 'Detail page not loaded')
         
-        self.conn.request('GET', '/hats/adidas%20cap/')
+        self.conn.request('GET', '/hats/adidas%20cap_3/')
         resp = self.conn.getresponse()
         self.assertTrue(resp.status == 200, 'Can\'t make request to server')
         data = resp.read()
         self.assertTrue('<title>Detail Page</title>' in data, 'Detail page not loaded')
         
-        self.conn.request('GET', '/headphones/beats%20headphones/')
+        self.conn.request('GET', '/headphones/beats%20headphones_5/')
         resp = self.conn.getresponse()
         self.assertTrue(resp.status == 200, 'Can\'t make request to server')
         data = resp.read()
         self.assertTrue('<title>Detail Page</title>' in data, 'Detail page not loaded')
         
-        self.conn.request('GET', '/somerandomcategory/somerandomproduct/')
+        self.conn.request('GET', '/somerandomcategory/somerandomproduct_10/')
         resp = self.conn.getresponse()
         self.assertTrue(resp.status == 200, 'Can\'t make request to server')
         data = resp.read()
@@ -80,9 +80,9 @@ class testFunc (TestCase):
         
     # test load product detail
     def testProductDetail(self):
-        self.assertValidProductDetailRequest('/glasses/rayban%20glasses/info/')
-        self.assertValidProductDetailRequest('/hats/adidas%20cap/info/')
-        self.assertInvalidProductDetailRequest('/somecategory/someproduct/info/')
+        self.assertValidProductDetailRequest('/glasses/rayban%20glasses_1/info/')
+        self.assertValidProductDetailRequest('/hats/adidas%20cap_3/info/')
+        self.assertInvalidProductDetailRequest('/somecategory/someproduct_5/info/')
         
     def assertValidCategoryListRequest(self, url):
         self.conn.request('GET', url)

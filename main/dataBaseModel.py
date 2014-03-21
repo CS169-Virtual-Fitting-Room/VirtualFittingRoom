@@ -126,11 +126,11 @@ class dataBaseModel (object):
             
         return (items, dataBaseModel.SUCCESS)
     
-    def getDetail(self, product):
-        if Product.objects.filter(name=product).count() == 0:
+    def getDetail(self, product, productID):
+        if Product.objects.filter(Q(pk=productID), Q(name=product)).count() != 1:
             return (None,dataBaseModel.ERR_BAD_PRODUCT)
         
-        return (Product.objects.get(name=product), dataBaseModel.SUCCESS)
+        return (Product.objects.get(Q(pk=productID), Q(name=product)), dataBaseModel.SUCCESS)
     
     
 """  sth idk how to do

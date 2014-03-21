@@ -77,7 +77,7 @@ class testDBModel(TestCase):
     def testGetDetailWithValidProductName(self):
         baseModel = dataBaseModel()
         for i in range(4):
-            productDetail = baseModel.getDetail(testDBModel.testProducts[i])
+            productDetail = baseModel.getDetail(testDBModel.testProducts[i], i+1) # pk starts from 1
             self.assertTrue(productDetail != None, "getDetail failed, can not find the product")
             self.assertTrue(productDetail[0].category == testDBModel.testCategory[0], "getDetail failed, wrong category")
             self.assertTrue(productDetail[0].brand == "brand", "getDetail failed, wrong brand")
@@ -87,8 +87,13 @@ class testDBModel(TestCase):
             
     def testGetDetailWithNonExistingProductName(self):
         baseModel = dataBaseModel()
-        productDetail = baseModel.getDetail("non-existing")
+        productDetail = baseModel.getDetail("non-existing", 1)
         self.assertTrue(productDetail[0] == None, "getDetail failed, can not detect non exist product")
+        
+    def testGetDetailWithBadID(self):
+        baseModel = dataBaseModel()
+        productDetail = baseModel.getDetail("rayban glasses", 10)
+        self.assertTrue(productDetail[0] == None, "getDetail failed, can not detect bad ID")
 
 
     def testAddToWishList(self):
