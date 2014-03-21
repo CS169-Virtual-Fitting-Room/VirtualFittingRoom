@@ -9,15 +9,14 @@ function homeclick(){
 		$(".contain-page").load("/mainpage");
 	});
 }
-function rendergrids(num_of_items, images, item_names, prices){
+function rendergrids(num_of_items, images, item_names, prices, ids){
 		if(jQuery.type(num_of_items)!="number" || jQuery.type(images)!="array" || jQuery.type(item_names)!="array"|| jQuery.type(prices)!="array"){
 			return false;
 		}
 		for ( var i = 0; i < num_of_items; i++ ) {
-			var item = '<li> <a href="'+item_names[i]+'" id="item-img'+i+'"></a> <a href="'+item_names[i]+'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i]+'</strong></li>'
+			var item = '<li> <a href="'+item_names[i] + "_" + ids[i] + '" id="item-img'+i+'"></a> <a href="'+item_names[i] + "_" + ids[i] +'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i]+'</strong></li>'
 			$("#items").append(item);
-			b64imgData = btoa(images[i]);
-			$("a#item-img"+i).html("<img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+			$("a#item-img"+i).html("<img src='"+images[i]+"'/>");
 		}
 		return true;
 }
@@ -37,7 +36,6 @@ function renderpage(desp, image, item_name, price){
 	$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
 	$("h1#item_name").html(item_name );
 	$("p#desp").html("Description: "+desp);
-	b64imgData = btoa(image);
-	$("div#images").html("<a href='data:image/jpeg;base64,"+b64imgData+"'><img src='data:image/jpeg;base64,"+b64imgData+"'/>");
+	$("div#images").html("<img src='"+image+"'/>");
 	return true;
 }

@@ -32,7 +32,8 @@ $(document).ready(function() {
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
-			rendergrids(images.length, images, item_names, prices);
+			var ids = data.id;
+			rendergrids(images.length, images, item_names, prices, ids);
 		},
 		error:
 		function(data){
