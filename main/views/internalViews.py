@@ -35,4 +35,7 @@ def setUpDb(request):
     comment = Comment(product = rayban, owner = AUser.objects.get(pk=1), time=timezone.now(), content="Very nice glasses!")
     comment.save()
     
+    wish = WishList(owner=AUser.objects.get(pk=1), product=rayban)
+    wish.save()
+    
     return HttpResponse("Success!")

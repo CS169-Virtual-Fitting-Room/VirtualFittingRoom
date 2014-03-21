@@ -40,6 +40,7 @@ class dataBaseModel (object):
     ERR_BAD_USER = -2
     ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
     ERR_BAD_CATEGORY = -4
+    ERR_WISHLIST_ALREADY_EXIST = -5
 
     
     
@@ -56,21 +57,27 @@ class dataBaseModel (object):
         try{
             newOne = User.objects.get(Q(name = userName),)
     """                
-    def addToWishList(self, userID, productID): # eddie: use ID instead of name
-
+    def addToWishList(self, userID, product, productID): 
+        """
         if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
-        
-        if Product.objects.filter(pk = productID).count() == 0:
-            return dataBaseModel.ERR_BAD_PRODUCT
-        newOne = WishList(owner = User.objects.get(pk = userID), product = Product.objects.get(pk = productID))
-        newOne.save()
-        return dataBaseModel.SUCCESS
-
-
-    def removeFromWishList(self, userID, productID): # use id as above
+        """
         try:
-            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(pk = productID)))
+            user = User.objects.get(pk = userID)
+            p = Product.objects.get(Q(pk = productID), Q(name = product))
+            if WishList.objects.filter(Q(owner = user), Q(product = p)).count() != 0:
+                return dataBaseModel.ERR_WISHLIST_ALREADY_EXIST
+        
+            newOne = WishList(owner = user, product = p)
+            newOne.save()
+            return dataBaseModel.SUCCESS
+        except:
+            return dataBaseModel.ERR_BAD_PRODUCT
+
+
+    def removeFromWishList(self, userID, product, productID): # use id as above
+        try:
+            newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(Q(pk = productID), Q(name=product))))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
         newOne.delete()
@@ -90,28 +97,33 @@ class dataBaseModel (object):
         return (items, dataBaseModel.SUCCESS)
 
 
-    def addComment(self, userID, productID, content, time): # ID
-
+    def addComment(self, userID, product, pid, content, time): # ID
+        """
         if User.objects.filter(pk = userID).count() == 0:
             return dataBaseModel.ERR_BAD_USER
-        
-        if Product.objects.filter(pk = productID).count() == 0:
+        """
+        try:
+            user = User.objects.get(pk=userID)
+            p = Product.objects.get(Q(pk=pid), Q(name=product))
+            newOne = Comment(owner = user, product = p, content = content, time=time)
+            newOne.save()
+            return dataBaseModel.SUCCESS
+        except:
             return dataBaseModel.ERR_BAD_PRODUCT
-        
-        newOne = Comment(owner = User.objects.get(pk = userID), product = Product.objects.get(pk = productID), content = content, time=time)
-        newOne.save()
-        return dataBaseModel.SUCCESS
 
 
-    def getComments(self, productID): # here we just want to retreive a list of comments on that product
-        if Product.objects.filter(pk = productID).count() == 0:
-            return ([], dataBaseModel.ERR_BAD_PRODUCT)
-        
-        items = []
-        for item in Comment.objects.filter(product = Product.objects.get(pk = productID)).order_by('time'):
-            items.append(item)
-        
-        return (items, dataBaseModel.SUCCESS)
+    def getComments(self, product, pid): # here we just want to retreive a list of comments on that product
+        try :
+            p = Product.objects.get(Q(pk = pid), Q(name=product))
+                
+            
+            items = []
+            for item in Comment.objects.filter(product = p).order_by('time'):
+                items.append(item)
+            
+            return (items, dataBaseModel.SUCCESS)
+        except:
+            return ([], dataBaseModel.ERR_BAD_PRODUCT) 
 
 
     def getProducts(self, category):
@@ -126,11 +138,12 @@ class dataBaseModel (object):
             
         return (items, dataBaseModel.SUCCESS)
     
-    def getDetail(self, productID):
-        if Product.objects.filter(pk=productID).count() != 1:
+    def getDetail(self, product, productID):
+        try:
+            return (Product.objects.get(Q(pk=productID), Q(name=product)), dataBaseModel.SUCCESS)
+        except:
             return (None,dataBaseModel.ERR_BAD_PRODUCT)
-        
-        return (Product.objects.get(pk=productID), dataBaseModel.SUCCESS)
+            
     
     
 """  sth idk how to do

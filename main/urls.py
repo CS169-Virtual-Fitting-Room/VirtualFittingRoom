@@ -4,6 +4,8 @@ from views.categoryViews import listProduct, category_list
 from views.productViews import detail, detailpage
 from views.commentViews import addComment, getComments
 from views.internalViews import setUpDb
+from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
+
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^internal', setUpDb, name='internal'),
@@ -20,4 +22,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/info/$', detail, name='detail'),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/comments/add/$', addComment, name='addComment'),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/comments/get/$', getComments, name='getComments'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/wishlist/add/$', addToWishlist, name='addToWishlist'),
+                       url(r'^wishlist/get/$', getWishlist, name='getWishlist'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/wishlist/remove/$', removeFromWishlist, name='removeFromWishlist'),
 )   
