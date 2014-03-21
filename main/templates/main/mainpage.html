@@ -1,62 +1,53 @@
-{% load staticfiles %}
-<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
-<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
-<div class="dimmer"></div>
 
-<div id="top" class="home-top-wrap cycle-slideshow" data-cycle-slides="div.top-slide" data-cycle-timeout="5000">
-	
-	<div class="top-slide" style='background-image: url({% static "main/assets/img/mainbathroom.jpg" %});'>
-		<div class="overlay"></div>
-		<div class="top-info">
-			<div class="top-logo">
+<link rel="shortcut icon" href='/static/main/assets/img/fitting_room_icon.ico'>
+<link rel=icon type="image/ico" href='/static/main/assets/img/fitting_room_icon.ico'>
+<div class=dimmer></div>
+<div id=top class="home-top-wrap cycle-slideshow" data-cycle-slides=div.top-slide data-cycle-timeout=5000>
+	<div class=top-slide style='background-image: url(/static/main/assets/img/mainbathroom.jpg);'>
+		<div class=overlay></div>
+		<div class=top-info>
+			<div class=top-logo>
 				Virtual Fitting Room
 			</div>
-			<p class="top-subtitle">
+			<p class=top-subtitle>
 				Virtually Try Before You Buy!
 			</p>
 		</div>
 	</div>
-	
 </div>
-
 <div class="strip first">
-
 </div>
-
 <footer class="strip dark footer-strip">
-	<div >
-		<h1 class="process-heading">Categories</h1>
+	<div>
+		<h1 class=process-heading>Categories</h1>
 	</div>
-	<section id="focus" class="focus">
-		<div class="focus-areas">
-			<div class="focus-areas-inner">
+	<section id=focus class=focus>
+		<div class=focus-areas>
+			<div class=focus-areas-inner>
 				<ul>
-					<li class="service-count1">
-						<a class="service-link" rel="1" href="glasses">
-							<div class="inner">
-								<span class="count"></span><br />
-								<img style='border:2px solid #000000' id = "img" src='{% static "main/assets/img/glasses.jpg" %}'/>
+					<li class=service-count1>
+						<a class=service-link rel=1 href=glasses>
+							<div class=inner>
+								<span class=count></span><br/>
+								<img style='border:2px solid #000000' id=img src='/static/main/assets/img/glasses.jpg'/>
 								<h3>Glasses</h3>
 							</div>
 						</a>
 					</li>
-					
-					<li class="service-count2">
-						<a class="service-link" rel="2" href="hats">
-							<div class="inner">
-								<span class="count"></span><br />
-								<img style='border:2px solid #000000' src='{% static "main/assets/img/hat.jpg" %}' />
+					<li class=service-count2>
+						<a class=service-link rel=2 href=hats>
+							<div class=inner>
+								<span class=count></span><br/>
+								<img style='border:2px solid #000000' src='/static/main/assets/img/hat.jpg'/>
 								<h3>Hats</h3>
 							</div>
 						</a>
 					</li>
-
-					
-					<li class="service-count3">
-						<a class="service-link" rel="3" href="headphones">
-							<div class="inner">
-								<span class="count"></span><br />
-								<img style='border:2px solid #000000' src='{% static "main/assets/img/headphones.jpg" %}'/>
+					<li class=service-count3>
+						<a class=service-link rel=3 href=headphones>
+							<div class=inner>
+								<span class=count></span><br/>
+								<img style='border:2px solid #000000' src='/static/main/assets/img/headphones.jpg'/>
 								<h3>Headphones</h3>
 							</div>
 						</a>
@@ -66,11 +57,5 @@
 		</div>
 	</section>
 </footer>
-
-
 <div class="strip first">
-
 </div>
-<!--  disabled external js, django template language can't be used in a static js file (ways to get around it??) 
-<script src='{% static "main/assets/js/mainpage_action.js"%}'></script>
--->
