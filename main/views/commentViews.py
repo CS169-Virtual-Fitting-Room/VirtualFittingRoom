@@ -12,14 +12,14 @@ def addComment(request, category, product, id):   ## userID, productID, content
 	if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
 		content = json.loads(request.body)
 		dbModel = dataBaseModel()
-		response = dbModel.addComment(request.user.id, id, content['content'], timezone.now())        	
+		response = dbModel.addComment(request.user.id, product, id, content['content'], timezone.now())        	
 		return HttpResponse(json.dumps({'errCode' : response}), content_type = 'application/json')
 	return redirect('index')
 
 
 def getComments(request, category, product, id):
 	dbModel = dataBaseModel()
-	result = dbModel.getComments(id)
+	result = dbModel.getComments(product, id)
 	if result[1] != dataBaseModel.SUCCESS:
 		data = []
 		return HttpResponse(json.dumps(data), content_type='application/json')
