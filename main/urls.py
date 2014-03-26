@@ -5,7 +5,7 @@ from views.productViews import detail, detailpage
 from views.commentViews import addComment, getComments
 from views.internalViews import setUpDb
 from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
-
+from views.fitlistViews import getFitlist, removeFromFitlist, addToFitlist
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^internal', setUpDb, name='internal'),
@@ -15,7 +15,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^top_menu', top_menu, name='top_menu'),
 					   url(r'^qunit', qunit, name='qunit'),
                        url(r'^fittingroom', fittingroom, name='fittingroom'),
-					   url(r'^wishlist', wishlist, name='wishlist'),
+					   url(r'^wishlist/$', wishlist, name='wishlist'),
                        url(r'^$', index, name='index'),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
@@ -26,4 +26,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/wishlist/add$', addToWishlist, name='addToWishlist'),
                        url(r'^wishlist/get/$', getWishlist, name='getWishlist'),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/wishlist/remove$', removeFromWishlist, name='removeFromWishlist'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/fitlist/add$', addToFitlist, name='addToFitlist'),
+                       url(r'^fitlist/get/$', getFitlist, name='getFitlist'),
+                       url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/fitlist/remove$', removeFromFitlist, name='removeFromFitlist'),
 )   

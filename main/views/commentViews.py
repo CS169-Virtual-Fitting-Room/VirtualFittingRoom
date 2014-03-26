@@ -15,7 +15,7 @@ def addComment(request, category, product, id):   ## userID, productID, content
 		dbModel = dataBaseModel()
 		response = dbModel.addComment(request.user.id, product, id, content['content'], timezone.now())        	
 		return HttpResponse(json.dumps({'errCode' : response}), content_type = 'application/json')
-	return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_USER}), content_type = 'application/json')
+	return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type = 'application/json')
 
 
 def getComments(request, category, product, id):
