@@ -109,7 +109,22 @@ $(document).ready(function(){
 		});
 	});
 	
-	//$("#add_to_wishlist")
+	$("#add_to_wishlist").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"wishlist/add",
+			contentType:"application/json",
+			dataType: "json",
+			success:
+			function(data){
+				console.log("success");
+			},
+			error:
+			function(){
+				alert("failure");
+			}
+		});
+	});
 
 });
 </script>
