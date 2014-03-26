@@ -38,4 +38,7 @@ def setUpDb(request):
     wish = WishList(owner=AUser.objects.get(pk=1), product=rayban)
     wish.save()
     
+    fit = FitList(owner=AUser.objects.get(pk=1), product=nike)
+    fit.save()
+    
     return HttpResponse("Success!")

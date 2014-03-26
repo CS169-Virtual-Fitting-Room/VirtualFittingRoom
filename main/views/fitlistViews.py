@@ -6,11 +6,11 @@ from django.shortcuts import redirect
 from main.views.mainViews import index
 from django.views.decorators.csrf import csrf_exempt
 
-def getWishlist(request):
+def getFitlist(request):
     if request.user.is_authenticated() == False:
         return HttpResponse(json.dumps([]), content_type='application/json')
     db = dataBaseModel()
-    result = db.getWishList(request.user.id)
+    result = db.getFitList(request.user.id)
     data = []
     if result[1] != dataBaseModel.SUCCESS:       
         return HttpResponse(json.dumps(data), content_type='application/json')
@@ -24,17 +24,17 @@ def getWishlist(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
         
 @csrf_exempt
-def addToWishlist(request, category, product, id):
+def addToFitlist(request, category, product, id):
     if not (request.method == 'POST' and 'application/json' in request.META['CONTENT_TYPE'] and request.user.is_authenticated()):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     db = dataBaseModel()
-    result = db.addToWishList(request.user.id, product, id)
+    result = db.addToFitList(request.user.id, product, id)
     return HttpResponse(json.dumps({'errCode' : result}), content_type='application/json')
     
 @csrf_exempt
-def removeFromWishlist(request, category, product, id):
+def removeFromFitlist(request, category, product, id):
     if not (request.method == 'POST' and 'application/json' in request.META['CONTENT_TYPE'] and request.user.is_authenticated()):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     db = dataBaseModel()
-    result = db.removeFromWishList(request.user.id, product, id)
+    result = db.removeFromFitList(request.user.id, product, id)
     return HttpResponse(json.dumps({'errCode' : result}), content_type='application/json')
