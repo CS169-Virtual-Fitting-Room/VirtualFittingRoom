@@ -41,19 +41,51 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-	$.ajax({
-		url: "comments/get",
-		contentType: "application/json",
-		dataType: "json",
-		success:
-		function(data){
-			alert(data);
-		},
-		error:
-		function(data){
-			alert("failure");
+	getcomments();
+	function rendercomments(data){
+		var len = data.length;
+		for(var i=0; i<len; i++){
+			var content = data[i].content;
+			var name = data[i].name;
+			var time = data[i].time;
+			rendercomment(content, name, time);
 		}
-	});
+	}
+	function rendercomment(content, name, time){
+		var comment = '<li class="cmmnt"><div class="avatar"><a href="javascript:void(0);"><img src=\'{% static "main/assets/img/anonymous-user.png" %}\' width="55" height="55" alt="'+name+'"></a></div><div class="cmmnt-content"><header><a href="javascript:void(0);" class="userlink">'+name+'</a> - <span class="pubdate">posted '+time+'</span></header><p>'+content+'</p></div></li>';
+		$("#comment-list").append(comment);
+	}
+	function getcomments(){
+		$.ajax({
+			url: "comments/get",
+			contentType: "application/json",
+			dataType: "json",
+			success:
+			function(data){
+				rendercomments(data);
+			},
+			error:
+			function(data){
+				alert("failure");
+			}
+		});
+	}
+	function updatecomment(){
+		$.ajax({
+			url: "comments/get",
+			contentType: "application/json",
+			dataType: "json",
+			success:
+			function(data){
+				var last=data.length-1;
+				rendercomment(data[last].content, data[last].name, data[last].time);
+			},
+			error:
+			function(data){
+				alert("failure");
+			}
+		});
+	}
 	$("#submitcomment").click(function(){
 		
 		var content = $("#textarea").val();
@@ -67,6 +99,25 @@ $(document).ready(function(){
 			success:
 			function(data){
 				console.log(content);
+				updatecomment();
+				$("#textarea").val("");
+			},
+			error:
+			function(){
+				alert("failure");
+			}
+		});
+	});
+	
+	$("#add_to_wishlist").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"wishlist/add",
+			contentType:"application/json",
+			dataType: "json",
+			success:
+			function(data){
+				console.log("success");
 			},
 			error:
 			function(){
@@ -86,16 +137,30 @@ $(document).ready(function(){
     <div id="breadcrumb"></div>
     <div id="description">
         <h1 id = "item_name"></h1>
-        <strong id="price"> </strong><p id = "desp"></p>
-        
-        <p><button type="submit" class="continue">Add Item to Wish List</button></p>
-        <p><button type="button">Tell a friend</button></p>
-        <div id="tabs">
-        </div>
+		<table>
+		<col style="width:50%">
+		<col style="width:50%">
+		<thead>
+		<th></th>
+		<th></th>
+		</thead>
+		<tbody>
+		<tr>
+			<td>
+				<div id="images" style="width:300px">
+				</div>
+			</td>
+			<td>
+				<strong id="price"> </strong>
+				<div id = "desp"></div>
+				<div><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></div>
+				<div><button type="button">Tell a friend</button></div>
+			</td>
+		</tr>
+		<tbody>
+		</table>
     </div>
-    <div id="images">
-    	
-    </div>
+    
 </article>
 
   <div id="w">
@@ -103,18 +168,14 @@ $(document).ready(function(){
     
     <div id="container">
       <ul id="comments">
-				<li class="cmmnt">
-				  <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="DarkCubes photo avatar"></a></div>
-				  <div class="cmmnt-content">
-				    <header><a href="javascript:void(0);" class="userlink">DarkCubes</a> - <span class="pubdate">posted 1 week ago</span></header>
-				    <p>Testing.</p>
-				  </div>
+		<div id="comment-list">
+		</div>
 		
 		<li class="cmmnt">
           <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="default avatar"></a></div>
           <div class="cmmnt-content">
             <form id = "commentForm">
-			<textarea id = "textarea" rows="4" cols = "10">
+			<textarea id = "textarea" rows="4" cols = "50">
 			</textarea>
             </form>
 			<button id="submitcomment" type="button"> Submit </button>
