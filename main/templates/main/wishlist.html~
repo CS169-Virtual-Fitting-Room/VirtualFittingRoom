@@ -27,7 +27,8 @@
 <![endif]-->
 </head>
 <body>
-
+<div class="header-wrap" >
+</div>
 <aside id="top">
 	<div class="wrapper">
         <ul id="social">
@@ -52,42 +53,6 @@
         	<dl>
                 <dt>Product ID</dt>
                 <dd>6442567</dd>
-                <dt>Colour:</dt>
-                <dd>Light blue</dd>
-                <dt>Size:</dt>
-                <dd>S</dd>
-                <dt>Quantity:</dt>
-                <dd>1</dd>
-            </dl>
-            <button>Change details</button>
-        </td>
-        <td align="right" valign="top" class="price">&pound;249</td>
-    </tr>
-    <tr>
-    	<td align="left" valign="top" class="description"><a href="main.html"><img src="images/thumb1.jpg" alt="Elegant evening Dress" class="left" /></a><p><a href="main.html">Elegant evening Dress</a><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ultricies fringilla. Suspendisse iaculis tristique leo, id adipiscing massa aliquet ut. Etiam adipiscing auctor enim nec tincidunt. </p>
-        <a href="#">Remove</a></td>
-        <td align="left" valign="top" class="options">
-        	<dl>
-                <dt>Product ID</dt>
-                <dd>1936246</dd>
-                <dt>Colour:</dt>
-                <dd>Light blue</dd>
-                <dt>Size:</dt>
-                <dd>S</dd>
-                <dt>Quantity:</dt>
-                <dd>1</dd>
-            </dl>
-            <button>Change details</button>
-        </td>
-        <td align="right" valign="top" class="price">&pound;249</td>
-    </tr>
-    <tr>
-    	<td align="left" valign="top" class="description"><a href="main.html"><img src="images/thumb1.jpg" alt="Elegant evening Dress" class="left" /></a><p><a href="main.html">Elegant evening Dress</a><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ultricies fringilla. Suspendisse iaculis tristique leo, id adipiscing massa aliquet ut. Etiam adipiscing auctor enim nec tincidunt. </p>
-        <a href="#">Remove</a></td>
-        <td align="left" valign="top" class="options">
-        	<dl>
-                <dt>Product ID</dt>
-                <dd>1936246</dd>
                 <dt>Colour:</dt>
                 <dd>Light blue</dd>
                 <dt>Size:</dt>
