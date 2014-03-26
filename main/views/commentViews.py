@@ -4,17 +4,18 @@ from django.shortcuts import render
 from main.dataBaseModel import dataBaseModel
 from main.views.mainViews import index
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 import json
-from django.contrib.auth.decorators import login_required
 
 
+@csrf_exempt
 def addComment(request, category, product, id):   ## userID, productID, content
 	if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
 		content = json.loads(request.body)
 		dbModel = dataBaseModel()
 		response = dbModel.addComment(request.user.id, product, id, content['content'], timezone.now())        	
 		return HttpResponse(json.dumps({'errCode' : response}), content_type = 'application/json')
-	return redirect('index')
+	return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_USER}), content_type = 'application/json')
 
 
 def getComments(request, category, product, id):
