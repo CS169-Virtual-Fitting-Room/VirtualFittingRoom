@@ -4,6 +4,7 @@ import json
 from django.templatetags.static import static
 from django.shortcuts import redirect
 from main.views.mainViews import index
+from django.views.decorators.csrf import csrf_exempt
 
 def getWishlist(request):
     if request.user.is_authenticated() == False:
@@ -22,18 +23,18 @@ def getWishlist(request):
         data.append(map)
     return HttpResponse(json.dumps(data), content_type='application/json')
         
-
+@csrf_exempt
 def addToWishlist(request, category, product, id):
-    if request.user.is_authenticated() == False:
-        return redirect('index')
+    if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_USER}), content_type='application/json')
     db = dataBaseModel()
     result = db.addToWishList(request.user.id, product, id)
     return HttpResponse(json.dumps({'errCode' : result}), content_type='application/json')
     
-
+@csrf_exempt
 def removeFromWishlist(request, category, product, id):
-    if request.user.is_authenticated() == False:
-        return redirect('index')
+    if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST}), content_type='application/json')
     db = dataBaseModel()
     result = db.removeFromWishList(request.user.id, product, id)
     return HttpResponse(json.dumps({'errCode' : result}), content_type='application/json')
