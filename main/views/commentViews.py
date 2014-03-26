@@ -10,7 +10,7 @@ import json
 
 @csrf_exempt
 def addComment(request, category, product, id):   ## userID, productID, content
-	if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
+	if request.method == 'POST' and 'application/json' in request.META['CONTENT_TYPE'] and request.user.is_authenticated():
 		content = json.loads(request.body)
 		dbModel = dataBaseModel()
 		response = dbModel.addComment(request.user.id, product, id, content['content'], timezone.now())        	
