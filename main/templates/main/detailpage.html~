@@ -26,7 +26,7 @@ $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	$.ajax({
 		url: "info",
-		content_type: "application/json",
+		contentType: "application/json",
 		dataType: "json",
 		success:
 		function(data){
@@ -41,9 +41,9 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-	/*$.ajax({
+	$.ajax({
 		url: "comments/get",
-		content_type: "application/json",
+		contentType: "application/json",
 		dataType: "json",
 		success:
 		function(data){
@@ -53,20 +53,20 @@ $(document).ready(function(){
 		function(data){
 			alert("failure");
 		}
-	});*/
+	});
 	$("#submitcomment").click(function(){
 		
 		var content = $("#textarea").val();
-		console.log(content);
+		
 		$.ajax({
 			type:"POST",
 			url:"comments/add",
 			data: JSON.stringify({content:content}),
-			content_type:"application/json",
+			contentType:"application/json",
 			dataType: "json",
 			success:
 			function(data){
-				alert(content);
+				console.log(content);
 			},
 			error:
 			function(){

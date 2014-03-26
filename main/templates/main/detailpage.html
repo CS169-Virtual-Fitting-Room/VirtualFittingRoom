@@ -41,23 +41,23 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-	/*$.ajax({
+	$.ajax({
 		url: "comments/get",
-		content_type: "application/json",
+		contentType: "application/json",
 		dataType: "json",
 		success:
 		function(data){
-			alert(data);
+			console.log(data);
 		},
 		error:
 		function(data){
 			alert("failure");
 		}
-	});*/
+	});
 	$("#submitcomment").click(function(){
 		
 		var content = $("#textarea").val();
-		console.log(content);
+		
 		$.ajax({
 			type:"POST",
 			url:"comments/add",
@@ -66,7 +66,7 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
-				alert(content);
+				console.log(content);
 			},
 			error:
 			function(){

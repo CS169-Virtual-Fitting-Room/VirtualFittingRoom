@@ -21,11 +21,12 @@ def mainpage(request):
 def top_menu(request):
     return render(request, "main/top_menu.html")
 
-<<<<<<< HEAD
 def qunit(request):
     return render(request, "main/qunit_test.html")
-=======
+
 def fittingroom(request):
     return render(request, "main/fittingroom.html")
->>>>>>> a98a7def7c321cfff0f4be8871ee9fff89ca2488
+
+def fittingroom(request):
+    return render(request, "main/wishlist.html")
 

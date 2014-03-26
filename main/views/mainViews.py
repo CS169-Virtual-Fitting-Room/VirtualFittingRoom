@@ -27,3 +27,6 @@ def qunit(request):
 def fittingroom(request):
     return render(request, "main/fittingroom.html")
 
+def wishlist(request):
+    return render(request, "main/wishlist.html")
+
