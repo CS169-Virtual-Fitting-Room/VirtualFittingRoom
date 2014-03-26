@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Free ecommerce template by @webdezign</title>
+<title>Virtual Fitting Room WishList</title>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 
@@ -28,7 +28,36 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
+	$.ajax({
+		url:"get",
+		contentType:"application/json",
+		dataType:"json",
+		success:
+		function(data){
+			console.log(data);
+			renderwishlist(data);
+		},
+		error:
+		function(data){
+			alert(failure);
+		}
+	});
+	function renderwishlist(data){
+		var len = data.length;
+		for(var i=0; i<len; i++){
+			var desc = data[i].description;
+			var image = data[i].image;
+			var name = data[i].item_name;
+			var price = data[i].price;
+			renderwishlistelement(desc, image, name, price);
+		}
+	}
+	function renderwishlistelement(desc, image, name, price){
+		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="index.html"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+'</p><a href="#">Remove</a></td><td align="right" valign="top" class="price">'+price+'</td></tr>';
+		$("table").append(item);
+	}
 });
+
 </script>
 </head>
 <body>
@@ -44,31 +73,9 @@ $(document).ready(function(){
 </aside>
 <article id="basket">
 
-<h1>Shopping Bag</h1>
+<h1>Wish List</h1>
 <table width="100" border="1">
-    <tr>
-        <th scope="col" class="description">Product</th>
-        <th scope="col" class="options">Options</th>
-        <th align="right" scope="col" class="price">Price</th>
-    </tr>
-    <tr>
-        <td align="left" valign="top" class="description"><a href="main.html"><img src="images/thumb1.jpg" alt="Elegant evening Dress" class="left" /></a><p><a href="main.html">Elegant evening Dress</a><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ultricies fringilla. Suspendisse iaculis tristique leo, id adipiscing massa aliquet ut. Etiam adipiscing auctor enim nec tincidunt. </p>
-        <a href="#">Remove</a></td>
-        <td align="left" valign="top" class="options">
-        	<dl>
-                <dt>Product ID</dt>
-                <dd>6442567</dd>
-                <dt>Colour:</dt>
-                <dd>Light blue</dd>
-                <dt>Size:</dt>
-                <dd>S</dd>
-                <dt>Quantity:</dt>
-                <dd>1</dd>
-            </dl>
-            <button>Change details</button>
-        </td>
-        <td align="right" valign="top" class="price">&pound;249</td>
-    </tr>
+    
 </table>
 
 <button class="continue">Try In Fitting Room!</button>
