@@ -19,7 +19,9 @@ def getWishlist(request):
         map = {'item_name': wish.product.name, 
                'image' : static('products/' + wish.product.photo), 
                'price' : wish.product.price, 
-               'description' : wish.product.description}
+               'description' : wish.product.description,
+               'category' : wish.product.category.name,
+               'product_id' : wish.product.pk}
         data.append(map)
     return HttpResponse(json.dumps(data), content_type='application/json')
         
