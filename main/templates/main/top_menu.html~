@@ -1,37 +1,18 @@
 <header>
-<<<<<<< HEAD
-	
-	<div class="logo">
-		<a href="/">
-			<div class="header-logo">Fitting Room</div>
-		</a>
-	</div>
-=======
->>>>>>> d822d43e548bd61af31f660b39af3b5f470b4542
-	<div class="nav">
+	<div class=nav>
 		<nav>
-			<ul class="global-nav">
-				<li id="head"><a id ="home" href="/">Home</a></li>
-				<li id="head"><a id ="fitting_room">Fitting Room--> <div id="placeholder-div2"></div></a></li>
-				<li id="head"><a>Wishlist</a></li>
+			<ul class=global-nav>
+				<li id="head"><a id=home href="/">Home</a></li>
+				<li id="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
+				<li id="head"><a id=fitting_room href="/wishlist">Wishlist</a></li>
 				<li id="head">
-					{% if user.is_authenticated == False%}
-					<a href="/login/google-oauth2/">Login</a> 
+					{% if user.is_authenticated == False %}
+					<a href="/login/google-oauth2/">Login</a>
 					{% else %}
 					<a href="/logout/">Logout</a>
-					{% endif %}</li>
+					{% endif %}
+				</li>
 			</ul>
 		</nav>
 	</div>
-	<!--div class="mobile-nav">
-		<a href="#" class="mobile-nav-btn"><i class="icon-reorder"></i></a>
-	</div-->
-	<script type="text/javascript">
-  	gapi.hangout.render('placeholder-div2', {
-    	'render': 'createhangout',
-    	'initial_apps': [{'app_id' : '60097234437', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'LOCAL_APP' }],
-   	 	'widget_size': 50
-  	});
-	</script>
 </header>
-
