@@ -25,7 +25,7 @@ def getWishlist(request):
         
 @csrf_exempt
 def addToWishlist(request, category, product, id):
-    if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
+    if request.method == 'POST' and 'application/json' in request.META['CONTENT_TYPE'] and request.user.is_authenticated():
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_USER}), content_type='application/json')
     db = dataBaseModel()
     result = db.addToWishList(request.user.id, product, id)
@@ -33,7 +33,7 @@ def addToWishlist(request, category, product, id):
     
 @csrf_exempt
 def removeFromWishlist(request, category, product, id):
-    if request.method == 'POST' and request.META['CONTENT_TYPE'] == 'application/json' and request.user.is_authenticated():
+    if request.method == 'POST' and 'application/json' in request.META['CONTENT_TYPE'] and request.user.is_authenticated():
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST}), content_type='application/json')
     db = dataBaseModel()
     result = db.removeFromWishList(request.user.id, product, id)
