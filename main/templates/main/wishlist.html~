@@ -53,9 +53,12 @@ $(document).ready(function(){
 		}
 	}
 	function renderwishlistelement(desc, image, name, price){
-		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="index.html"><img src='+image+' width="70" height="70" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+'</p><a href="#">Remove</a></td><td align="right" valign="top" class="price">'+price+'</td></tr>';
+		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="index.html"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+'</p><a href="#">Remove</a></td><td align="right" valign="top" class="price">'+price+'</td></tr>';
 		$("table").append(item);
 	}
+	$(".continue").click(function(){
+		
+	});
 });
 
 </script>
@@ -77,8 +80,9 @@ $(document).ready(function(){
 <table width="100" border="1">
     
 </table>
-
-<button class="continue">Try In Fitting Room!</button>
+<form method="link" action="/fittingroom">
+<button type ="submit" class="continue" value = "Try In Fitting Room!"></button>
+</form>
 </article>
 
 </body>

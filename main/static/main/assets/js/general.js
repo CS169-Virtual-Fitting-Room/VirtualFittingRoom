@@ -34,8 +34,8 @@ function renderpage(desp, image, item_name, price){
 	$("#price").html("&dollar;"+price);
 	var current_category = capitaliseFirstLetter(window.location.pathname.split('/')[1]);
 	$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
-	$("h1#item_name").html(item_name );
-	$("p#desp").html("Description: "+desp);
-	$("div#images").html("<img src='"+image+"'/>");
+	$("#item_name").html(item_name );
+	$("#desp").html("Description: "+desp);
+	$("#images").html("<img src='"+image+"' align='right'/>");
 	return true;
 }
