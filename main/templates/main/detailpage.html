@@ -9,6 +9,10 @@
 
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href='{% static "main/assets/css/commentblock.css" %}'>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Wellfleet'>
+
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,7 +41,39 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-
+	/*$.ajax({
+		url: "comments/get",
+		content_type: "application/json",
+		dataType: "json",
+		success:
+		function(data){
+			alert(data);
+		},
+		error:
+		function(data){
+			alert("failure");
+		}
+	});*/
+	$("#submitcomment").click(function(){
+		
+		var content = $("#textarea").val();
+		console.log(content);
+		$.ajax({
+			type:"POST",
+			url:"comments/add",
+			data: JSON.stringify({content:content}),
+			content_type:"application/json",
+			dataType: "json",
+			success:
+			function(data){
+				alert(content);
+			},
+			error:
+			function(){
+				alert("failure");
+			}
+		});
+	});
 
 });
 </script>
@@ -62,5 +98,34 @@ $(document).ready(function(){
     </div>
 </article>
 
+  <div id="w">
+    <h1>Customers' Comments</h1>
+    
+    <div id="container">
+      <ul id="comments">
+				<li class="cmmnt">
+				  <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="DarkCubes photo avatar"></a></div>
+				  <div class="cmmnt-content">
+				    <header><a href="javascript:void(0);" class="userlink">DarkCubes</a> - <span class="pubdate">posted 1 week ago</span></header>
+				    <p>Testing.</p>
+				  </div>
+		
+		<li class="cmmnt">
+          <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="default avatar"></a></div>
+          <div class="cmmnt-content">
+            <form id = "commentForm">
+			<textarea id = "textarea" rows="4" cols = "10">
+			</textarea>
+            </form>
+			<button id="submitcomment" type="button"> Submit </button>
+          </div>  
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </body>
 </html>
+
+
+
