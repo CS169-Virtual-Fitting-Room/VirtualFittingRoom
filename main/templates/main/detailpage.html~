@@ -60,7 +60,7 @@ $(document).ready(function(){
 		console.log(content);
 		$.ajax({
 			type:"POST",
-			url:"comments/add/",
+			url:"comments/add",
 			data: JSON.stringify({content:content}),
 			content_type:"application/json",
 			dataType: "json",
