@@ -1,28 +1,3 @@
-"""
-1)
-the validation case needs to be more informative..probably add more err code
-eg. badUserID, badProductID
-
-2)
-also for a ForeignKey field, you need to actually add a reference model to it
-eg. 
-class Comment:
-    owner = ForeignKey(User)
-    ...
-
-to add a new comment, you need
-newComment = Comment()
-newComment.owner = User.objects.get(id = uid)
-newComment.save()
-
-3) we just store a directory of the image in our user table, so when adding an image, we need a new "ImageWriter" class
-to write the image to filesystem. Then here we just insert the URI to it
-
-4) removeProduct
-don't we just get a productID and remove it?
-Product.objects.get(id = pid).delete()
-"""
-
 # This class encapsulates all communication with the DB
 #from models import User
 from django.contrib.auth.models import User
@@ -30,6 +5,7 @@ from models import Comment
 from models import Product
 from models import Category
 from models import WishList
+from models import FitList
 
 from django.db.models import Q
 
@@ -39,69 +15,94 @@ class dataBaseModel (object):
     ERR_BAD_PRODUCT = -1
     ERR_BAD_USER = -2
     ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
-    ERR_BAD_CATEGORY = -4
-    ERR_WISHLIST_ALREADY_EXIST = -5
+    ERR_UNABLE_TO_REMOVE_FROM_FITLIST = -4
+    ERR_BAD_CATEGORY = -5
+    ERR_WISHLIST_ALREADY_EXIST = -6
+    ERR_FITLIST_ALREADY_EXIST = -7
+    ERR_BAD_REQUEST = -8
 
     
     
     def __init__(self):
         # do nothing
         pass
-    """    
-    Sth Idk how to do
-    def addUserPhoto(self, userName, Photo):
-        if userName is None:
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if Photo is None:
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num) 
-        try{
-            newOne = User.objects.get(Q(name = userName),)
-    """                
+            
     def addToWishList(self, userID, product, productID): 
-        """
-        if User.objects.filter(pk = userID).count() == 0:
-            return dataBaseModel.ERR_BAD_USER
-        """
         try:
             user = User.objects.get(pk = userID)
             p = Product.objects.get(Q(pk = productID), Q(name = product))
-            if WishList.objects.filter(Q(owner = user), Q(product = p)).count() != 0:
+            if WishList.objects.filter(Q(owner = user), Q(product = p)).count() != 0: #check if item already exist
                 return dataBaseModel.ERR_WISHLIST_ALREADY_EXIST
         
-            newOne = WishList(owner = user, product = p)
+            newOne = WishList(owner = user, product = p) # create a new wishlist item
             newOne.save()
             return dataBaseModel.SUCCESS
         except:
             return dataBaseModel.ERR_BAD_PRODUCT
 
 
-    def removeFromWishList(self, userID, product, productID): # use id as above
+    def removeFromWishList(self, userID, product, productID):
         try:
+            #try to get the wishlist item
             newOne = WishList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(Q(pk = productID), Q(name=product))))
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST
-        newOne.delete()
+        newOne.delete() # delete the item
         return dataBaseModel.SUCCESS
 
-    def getWishList(self, userID): # ID
+    def getWishList(self, userID):
         try:
             User.objects.get(pk = userID)
         except:
             return ([], dataBaseModel.ERR_BAD_USER)
         
-        queryset = WishList.objects.filter(owner = User.objects.get(pk = userID))       
+        queryset = WishList.objects.filter(owner = User.objects.get(pk = userID)) # query the wishlist of the user 
         items = []
         for item in queryset:
-            items.append(item) # we now only obtain the product model..may be we want some specific field from the table
+            items.append(item)
+
+        return (items, dataBaseModel.SUCCESS)
+    
+    """ fitlist operation is very similar to wishlist...may consider refactor? """
+    
+    def addToFitList(self, userID, product, productID): 
+        try:
+            user = User.objects.get(pk = userID)
+            p = Product.objects.get(Q(pk = productID), Q(name = product))
+            if FitList.objects.filter(Q(owner = user), Q(product = p)).count() != 0: #check if item already exist
+                return dataBaseModel.ERR_FITLIST_ALREADY_EXIST
+        
+            newOne = FitList(owner = user, product = p) # create a new fitlist item
+            newOne.save()
+            return dataBaseModel.SUCCESS
+        except:
+            return dataBaseModel.ERR_BAD_PRODUCT
+
+
+    def removeFromFitList(self, userID, product, productID):
+        try:
+            #try to get the fitlist item
+            newOne = FitList.objects.get(Q(owner = User.objects.get(pk = userID)), Q(product = Product.objects.get(Q(pk = productID), Q(name=product))))
+        except:
+            return dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_FITLIST
+        newOne.delete() # delete the item
+        return dataBaseModel.SUCCESS
+
+    def getFitList(self, userID):
+        try:
+            User.objects.get(pk = userID)
+        except:
+            return ([], dataBaseModel.ERR_BAD_USER)
+        
+        queryset = FitList.objects.filter(owner = User.objects.get(pk = userID)) # query the fitlist of the user 
+        items = []
+        for item in queryset:
+            items.append(item)
 
         return (items, dataBaseModel.SUCCESS)
 
 
-    def addComment(self, userID, product, pid, content, time): # ID
-        """
-        if User.objects.filter(pk = userID).count() == 0:
-            return dataBaseModel.ERR_BAD_USER
-        """
+    def addComment(self, userID, product, pid, content, time):
         try:
             user = User.objects.get(pk=userID)
             p = Product.objects.get(Q(pk=pid), Q(name=product))
@@ -112,7 +113,7 @@ class dataBaseModel (object):
             return dataBaseModel.ERR_BAD_PRODUCT
 
 
-    def getComments(self, product, pid): # here we just want to retreive a list of comments on that product
+    def getComments(self, product, pid):
         try :
             p = Product.objects.get(Q(pk = pid), Q(name=product))
                 
@@ -130,8 +131,7 @@ class dataBaseModel (object):
         queryset = Product.objects.filter(category = Category.objects.filter(name = category))
         if queryset.count() == 0:
             return ([], dataBaseModel.ERR_BAD_CATEGORY)
-        # here you simply get the category, instead of products
-        #newOne = Category.objects.get(Q(name = categoryName))
+
         items = []
         for item in queryset:
             items.append(item)
@@ -142,15 +142,4 @@ class dataBaseModel (object):
         try:
             return (Product.objects.get(Q(pk=productID), Q(name=product)), dataBaseModel.SUCCESS)
         except:
-            return (None,dataBaseModel.ERR_BAD_PRODUCT)
-            
-    
-    
-"""  sth idk how to do
-    def removeProduct(userName, productName):
-        if userName is None or (userName) > dataBaseModel.MAX_USERNAME_LENGTH or len(userName) == 0 :
-            return (dataBaseModel.ERR_BAD_USERNAME, self.Err_Num)
-        if productName is None 
-            return (dataBaseModel.ERR_BAD_OTHERS, self.Err_Num)
-        newOne = Product.objects.get(Q(owner = userName))     
-"""   
+            return (None,dataBaseModel.ERR_BAD_PRODUCT) 
