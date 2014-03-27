@@ -118,6 +118,11 @@ $(document).ready(function(){
 			success:
 			function(data){
 				console.log("success");
+				if(data.errCode<0){
+					alert("Error! Fail to verify a valid user. Please log in first! OR Item is already added!");
+				}else{
+					alert("Item is successfully added.");
+				}
 			},
 			error:
 			function(){
