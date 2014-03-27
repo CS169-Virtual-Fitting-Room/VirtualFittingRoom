@@ -118,6 +118,11 @@ $(document).ready(function(){
 			success:
 			function(data){
 				console.log("success");
+				if(data.errCode<0){
+					alert("Error! Fail to verify a valid user. Please log in first!");
+				}else{
+					alert("Item is successfully added.");
+				}
 			},
 			error:
 			function(){
@@ -152,9 +157,9 @@ $(document).ready(function(){
 			</td>
 			<td>
 				<strong id="price"> </strong>
-				<div id = "desp"></div>
-				<div><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></div>
-				<div><button type="button">Tell a friend</button></div>
+				<p id = "desp"></p>
+				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
+				<p><button type="button">Tell a friend</button></p>
 			</td>
 		</tr>
 		<tbody>

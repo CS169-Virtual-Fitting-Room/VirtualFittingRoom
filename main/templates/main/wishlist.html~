@@ -28,20 +28,23 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
-	$.ajax({
-		url:"get",
-		contentType:"application/json",
-		dataType:"json",
-		success:
-		function(data){
-			console.log(data);
-			renderwishlist(data);
-		},
-		error:
-		function(data){
-			alert(failure);
-		}
-	});
+	getItemFromWishListAndStartRender();
+	function getItemFromWishListAndStartRender(){
+		$.ajax({
+			url:"get",
+			contentType:"application/json",
+			dataType:"json",
+			success:
+			function(data){
+				//console.log(data);
+				renderwishlist(data);
+			},
+			error:
+			function(data){
+				alert("failure");
+			}
+		});
+	}
 	function renderwishlist(data){
 		var len = data.length;
 		for(var i=0; i<len; i++){
@@ -49,16 +52,48 @@ $(document).ready(function(){
 			var image = data[i].image;
 			var name = data[i].item_name;
 			var price = data[i].price;
-			renderwishlistelement(desc, image, name, price);
+			var id = data[i].product_id;
+			var category = data[i].category;
+			//console.log(data);
+			renderwishlistelement(desc, image, name, price, id, category);
 		}
+		$("button").click(function(event){
+			var id = event.target.id.split('_');
+			var category = id[0];
+			var name = id[1];
+			var item_id = id[2];
+			//console.log(category+'/'+name+'_'+item_id+'/wishlist/remove');
+			$.ajax({
+				type:"post",
+				url: '/'+category+'/'+name+'_'+item_id+'/wishlist/remove',
+				contentType:"application/json",
+				dataType:"json",
+				success:
+				function(data){
+					console.log(data);
+					$("table").html('');
+					getItemFromWishListAndStartRender();
+				},
+				error:
+				function(data){
+					alert("failure");
+				}
+			});
+		});
+		
 	}
-	function renderwishlistelement(desc, image, name, price){
-		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="index.html"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+'</p><a href="#">Remove</a></td><td align="right" valign="top" class="price">'+price+'</td></tr>';
+	function renderwishlistelement(desc, image, name, price, id, category){
+		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="index.html"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+' <div > <button class = "remove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td></tr>';
 		$("table").append(item);
+		
 	}
 	$(".continue").click(function(){
 		
 	});
+	
+	
+	
+	
 });
 
 </script>
@@ -81,7 +116,7 @@ $(document).ready(function(){
     
 </table>
 <form method="link" action="/fittingroom">
-<button type ="submit" class="continue" value = "Try In Fitting Room!"></button>
+<button type ="submit" class="continue" >Try In Fitting Room!</button>
 </form>
 </article>
 
