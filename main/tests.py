@@ -10,11 +10,6 @@ from django.utils import timezone
 # ##    Create your tests here.
 
 class testDBModel(TestCase):
-    SUCCESS = 1
-    ERR_BAD_PRODUCT = -1
-    ERR_BAD_USER = -2
-    ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
-    ERR_BAD_CATEGORY = -4
 
     testUsers = []
     testUsersID = []
@@ -67,12 +62,12 @@ class testDBModel(TestCase):
     def testGetProducts(self):
         baseModel = dataBaseModel()
         products = baseModel.getProducts(testDBModel.testCategory[0].name)
-        self.assertTrue(set(testDBModel.testProducts) == set(products[0]) and products[1] == testDBModel.SUCCESS, "getProduct failed")
+        self.assertTrue(set(testDBModel.testProducts) == set(products[0]) and products[1] == dataBaseModel.SUCCESS, "getProduct failed")
 
     def testGetProductsWithBadCategory(self):
         baseModel = dataBaseModel()
         products = baseModel.getProducts('non exist category')
-        self.assertTrue(products[0] == [] and products[1] == testDBModel.ERR_BAD_CATEGORY, 'getProducts returning products for non exist category')
+        self.assertTrue(products[0] == [] and products[1] == dataBaseModel.ERR_BAD_CATEGORY, 'getProducts returning products for non exist category')
 
     def testGetDetailWithValidProductID(self):
         baseModel = dataBaseModel()
@@ -104,19 +99,19 @@ class testDBModel(TestCase):
         for i in range(4):
             response = baseModel.addToWishList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1)
             queryset = WishList.objects.filter(Q(owner=testDBModel.testUsers[i]), Q(product=testDBModel.testProducts[i]))
-            self.assertTrue(response == testDBModel.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
 
     def testAddToWishListWithBadProductID(self):
         baseModel = dataBaseModel()
         WishList.objects.all().delete()
         response = baseModel.addToWishList(testDBModel.testUsersID[0], testDBModel.testProducts[0], 20)
-        self.assertTrue(response == testDBModel.ERR_BAD_PRODUCT, 'addToWishList adding non existing product')
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, 'addToWishList adding non existing product')
         
     def testAddToWishListWithBadProductName(self):
         baseModel = dataBaseModel()
         WishList.objects.all().delete()
         response = baseModel.addToWishList(testDBModel.testUsersID[0], 'bad product', 1)
-        self.assertTrue(response == testDBModel.ERR_BAD_PRODUCT, 'addToWishList adding non existing product')
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, 'addToWishList adding non existing product')
         
     """
     def testAddToWishListWithBadUser(self):
@@ -133,29 +128,29 @@ class testDBModel(TestCase):
         for i in range(4):
             response = baseModel.removeFromWishList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1)
             queryset = WishList.objects.filter(Q(owner=testDBModel.testUsers[i]), Q(product=testDBModel.testProducts[i]))
-            self.assertTrue(response == testDBModel.SUCCESS and queryset.count() == 0, "can not do removeFromWishList")
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 0, "can not do removeFromWishList")
 
     def testRemoveFromWishListWithBadProduct(self):
         baseModel = dataBaseModel()
         response = baseModel.removeFromWishList(testDBModel.testUsersID[0], testDBModel.testProducts[0], 20)
-        self.assertTrue(response == testDBModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
+        self.assertTrue(response == dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
 
     def testRemoveFromWishListWithBadProductID(self):
         baseModel = dataBaseModel()
         response = baseModel.removeFromWishList(100, 'bad product', 1)
-        self.assertTrue(response == testDBModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
+        self.assertTrue(response == dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_WISHLIST, "remove non-exist wishlist")
 
 
     def testGetWishList(self):
         baseModel = dataBaseModel()
         for i in range(4):
             response = baseModel.getWishList(testDBModel.testUsersID[i])
-            self.assertTrue(response[1] == testDBModel.SUCCESS and len(response[0]) > 0, "can not get WishList")
+            self.assertTrue(response[1] == dataBaseModel.SUCCESS and len(response[0]) > 0, "can not get WishList")
 
     def testGetWishListFromNonExistUser(self):
         baseModel = dataBaseModel()
         response = baseModel.getWishList(6)  # # "e" user does not exist
-        self.assertTrue(response[1] == testDBModel.ERR_BAD_USER and len(response[0]) == 0, "get wishList from non exist user")
+        self.assertTrue(response[1] == dataBaseModel.ERR_BAD_USER and len(response[0]) == 0, "get wishList from non exist user")
 
 
 
@@ -163,17 +158,17 @@ class testDBModel(TestCase):
         baseModel = dataBaseModel()
         for i in range(4):
             response = baseModel.addComment(testDBModel.testUsersID[i],testDBModel.testProducts[i], i+1, "this is comment from user " + str(i), time = timezone.now())
-            self.assertTrue(response == testDBModel.SUCCESS, "add comment not success")
+            self.assertTrue(response == dataBaseModel.SUCCESS, "add comment not success")
 
     def testAddCommentWithBadProductID(self):
         baseModel = dataBaseModel()
         response = baseModel.addComment(testDBModel.testUsersID[0],testDBModel.testProducts[0], 20, "this is comment is on a non existing product", time=timezone.now())
-        self.assertTrue(response == testDBModel.ERR_BAD_PRODUCT, " added comment to non exist product")
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, " added comment to non exist product")
 
     def testAddCommentWithBadProductName(self):
         baseModel = dataBaseModel()
         response = baseModel.addComment(testDBModel.testUsersID[0],'bad product', 1, "this is comment is on a non existing product", time=timezone.now())
-        self.assertTrue(response == testDBModel.ERR_BAD_PRODUCT, " added comment to non exist product")
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, " added comment to non exist product")
     """
     def testAddCommentWithBadUser(self):
         baseModel = dataBaseModel()
@@ -187,17 +182,17 @@ class testDBModel(TestCase):
         for i in range(4):
             temp = testDBModel.testComments[i]
             response = baseModel.getComments(testDBModel.testProducts[i],i+1)
-            self.assertTrue(temp in response[0] and response[1] == testDBModel.SUCCESS, " can not find the comment")
+            self.assertTrue(temp in response[0] and response[1] == dataBaseModel.SUCCESS, " can not find the comment")
 
     def testGetCommentsWithBadProductID(self):
         baseModel = dataBaseModel()
         response = baseModel.getComments(testDBModel.testProducts[0],20)  # product not exist
-        self.assertTrue(response[0] == [] and response[1] == testDBModel.ERR_BAD_PRODUCT, "got comment from a non exist product")
+        self.assertTrue(response[0] == [] and response[1] == dataBaseModel.ERR_BAD_PRODUCT, "got comment from a non exist product")
 
     def testGetCommentsWithBadProductName(self):
             baseModel = dataBaseModel()
             response = baseModel.getComments('bad product',1)  # product not exist
-            self.assertTrue(response[0] == [] and response[1] == testDBModel.ERR_BAD_PRODUCT, "got comment from a non exist product")
+            self.assertTrue(response[0] == [] and response[1] == dataBaseModel.ERR_BAD_PRODUCT, "got comment from a non exist product")
 
 class testImageRW(TestCase):
     def testReadImage(self):
