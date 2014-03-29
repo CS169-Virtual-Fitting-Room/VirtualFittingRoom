@@ -17,7 +17,7 @@ def getFitlist(request):
     
     for wish in result[0]:
         map = {'item_name': wish.product.name, 
-               'image' : static('products/' + wish.product.photo), 
+               'overlay' : static('products/' + wish.product.overlay), 
                'price' : wish.product.price, 
                'description' : wish.product.description,
                'category' : wish.product.category.name,

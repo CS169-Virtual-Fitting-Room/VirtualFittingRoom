@@ -21,6 +21,7 @@ class Product(models.Model):
     brand = models.CharField(max_length = 128)
     url = models.CharField(max_length = 256)
     photo = models.CharField(max_length = 256)
+    overlay = models.CharField(max_length = 256)
     price = models.FloatField()
     description = models.CharField(max_length = 256)
     def __unicode__(self):
