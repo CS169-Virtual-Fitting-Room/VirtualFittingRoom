@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from main.views.mainViews import index
 from django.views.decorators.csrf import csrf_exempt
 
+
 def getFitlist(request):
     if request.user.is_authenticated() == False:
         return HttpResponse(json.dumps([]), content_type='application/json')

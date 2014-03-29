@@ -54,6 +54,12 @@ XS_SHARING_ALLOWED_ORIGINS = "http://localhost:8000"
 
 XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
+XS_SHARING_ALLOWED_HEADERS = ['Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Datetime',
+                              'Authorization', 'Cache-Control', 'Connection', 'Cookie', 'Content-Length', 'Content-MD5',
+                              'Content-Type', 'Date', 'Expect', 'From', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match',
+                              'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization',
+                              'Range', 'Referer', 'TE', 'User-Agent', 'Via', 'Warning']
+
 ROOT_URLCONF = 'VirtualFittingRoom.urls'
 
 WSGI_APPLICATION = 'VirtualFittingRoom.wsgi.application'
