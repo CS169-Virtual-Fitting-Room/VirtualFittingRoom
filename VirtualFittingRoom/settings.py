@@ -47,7 +47,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    '.middleware.crossdomainxhr.XsSharing',
 )
+
+XS_SHARING_ALLOWED_ORIGINS = "http://localhost:8000"
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 ROOT_URLCONF = 'VirtualFittingRoom.urls'
 
