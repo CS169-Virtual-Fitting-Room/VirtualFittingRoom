@@ -1,7 +1,7 @@
 from django import http
  
 
-XS_SHARING_ALLOWED_ORIGINS = "https://dl.dropboxusercontent.com"
+XS_SHARING_ALLOWED_ORIGINS = "https://hl5gn7dit0u6tib348h9tnkg4pp92v1g-a-hangout-opensocial.googleusercontent.com"
 
 XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
