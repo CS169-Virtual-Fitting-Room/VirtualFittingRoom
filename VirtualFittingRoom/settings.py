@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = (
     'middleware.crossdomainxhr.XsSharing',
 )
 
-XS_SHARING_ALLOWED_ORIGINS = "http://localhost:8000"
+XS_SHARING_ALLOWED_ORIGINS = ["https://dl.dropboxusercontent.com", "http://localhost:8000"]
 
 XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
