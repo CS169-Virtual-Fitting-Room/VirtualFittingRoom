@@ -1,16 +1,16 @@
 from django import http
  
-try:
-    from django.conf import settings
-    XS_SHARING_ALLOWED_ORIGINS = settings.XS_SHARING_ALLOWED_ORIGINS
-    XS_SHARING_ALLOWED_METHODS = settings.XS_SHARING_ALLOWED_METHODS
-    XS_SHARING_ALLOWED_HEADERS = settings.XS_SHARING_ALLOWED_HEADERS
-    XS_SHARING_ALLOWED_CREDENTIALS = settings.XS_SHARING_ALLOWED_CREDENTIALS
-except AttributeError:
-    XS_SHARING_ALLOWED_ORIGINS = '*'
-    XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
-    XS_SHARING_ALLOWED_HEADERS = ['Content-Type', '*']
-    XS_SHARING_ALLOWED_CREDENTIALS = 'true'
+
+XS_SHARING_ALLOWED_ORIGINS = "https://dl.dropboxusercontent.com"
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
+
+XS_SHARING_ALLOWED_HEADERS = ['Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Datetime',
+                              'Authorization', 'Cache-Control', 'Connection', 'Cookie', 'Content-Length', 'Content-MD5',
+                              'Content-Type', 'Date', 'Expect', 'From', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match',
+                              'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization',
+                              'Range', 'Referer', 'TE', 'User-Agent', 'Via', 'Warning']
+XS_SHARING_ALLOWED_CREDENTIALS = 'true'
  
  
 class XsSharing(object):
