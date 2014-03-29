@@ -47,7 +47,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    '.middleware.crossdomainxhr.XsSharing',
+    'middleware.crossdomainxhr.XsSharing',
 )
 
 XS_SHARING_ALLOWED_ORIGINS = "http://localhost:8000"
