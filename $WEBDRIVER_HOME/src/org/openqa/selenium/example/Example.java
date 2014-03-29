@@ -19,6 +19,7 @@ public class Example {
 	private static final String[] category = {"glasses/","hats/", "headphones/"}; 
 	private static final String[][] productsLists = {{"rayban%20glasses_1/","nike%20glasses_2/"},{"adidas%20cap_3/","levis%20hat_4/"},{"beats%20headphones_5/","sony%20headphones_6/"}};
 	private static final String testComment = "this is test comment";
+	private static String location = "";
 
 	
 	public static void main(String[] args) {
@@ -28,7 +29,7 @@ public class Example {
 	    	WebDriver driver1 = new ChromeDriver();	    	
 	    	
 	    	try{
-	    	basicBrowserTester(driver1);
+	    	basicBrowserTester(driver1); //// just test some basic adding and browsing
 	    	
 	    	
 	    	addWishListTest(driver1); /// try add to wishlist without user login
@@ -45,8 +46,11 @@ public class Example {
 	    	//WebDriver driver2 = new FirefoxDriver();
 	    	//basicBrowserTester(driver2, localServer);
    	
-	    	driver1.close();    	
-
+	    	driver1.close();   
+	    	if (success){
+	    		System.out.println("\ntest successfully");
+	    	}
+	    	System.exit(0);
 	    	}catch (Exception e){
 	    		System.out.println("\nException appearred, element not found.\n ");
 	    		driver1.close();
@@ -64,8 +68,8 @@ public class Example {
 	    
 	    
 	    public static void assertTrue(String a, String b){
-	    	if ( a==b){
-	    		System.out.println("\nErro Found, actual link is " + a + " what we expected is " +  b + "\n");
+	    	if ( a.toLowerCase().hashCode() != b.toLowerCase().hashCode()){
+	    		System.out.println("\nError Found, actual link is " + a + " what we expected is " +  b );
 	    		success = false;
 	    		System.out.println("success changed to false");
 	    	}
@@ -74,14 +78,18 @@ public class Example {
 	    
 	    public static void openWebsite(WebDriver driver){
 	    	if (localServer){
-	    	driver.get("localhost:8000");
+	    	location = "http://localhost:8000/";
+	    	driver.get(location);
 	    	}else{
-	    	driver.get("http://virtualfittingroom.heroku.com");
+	    	location = "http://virtualfittingroom.heroku.com";
+	    	driver.get(location);
 	    	}	    	
 	    }
 	    
 	    
 	    public static void logInUser(WebDriver driver){
+	    	
+	    	System.out.println("\nStart log in user");
 	    	openWebsite(driver);
 	    	sleep();
 	    	
@@ -111,6 +119,7 @@ public class Example {
 	    }
 	    
 	    public static void logOutUser(WebDriver driver){
+	    	System.out.println("\nStart log out user");
 	    	openWebsite(driver);
 	    	sleep();
 	    	WebElement element0 = driver.findElement(By.className("global-nav")).findElement(By.id("logout"));
@@ -121,6 +130,7 @@ public class Example {
 	    	sleep();
 	    }
 	    public static void basicBrowserTester(WebDriver driver){
+	    	System.out.println("\nStart basic browser test");
 	    	openWebsite(driver);
 	    	sleep();	    	
 	    	//// test glass
@@ -129,13 +139,13 @@ public class Example {
 	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1))));
 	        element.click();
 	        sleep();		        
-	        assertTrue(driver.getCurrentUrl(), "http://virtualfittingroom.herokuapp.com/" + category[i]);
+	        assertTrue(driver.getCurrentUrl(), location + category[i] );
 
 	        for (int j = 0; j < productsLists[i].length;j++){
 				WebElement element2 = driver.findElement(By.id((String)("item-img" + j)));		
 				element2.click();
 				sleep();
-				assertTrue(driver.getCurrentUrl(), "http://virtualfittingroom.herokuapp.com/" + category[i] + productsLists[i][j]);					
+				assertTrue(driver.getCurrentUrl(), location + category[i] + productsLists[i][j]);					
 				driver.navigate().back();
 				sleep();
 	        }
@@ -154,7 +164,8 @@ public class Example {
 	    }
 	    
 	    
-	    public static void addWishListTest(WebDriver driver){  		
+	    public static void addWishListTest(WebDriver driver){  
+	    	System.out.println("\nStart adding wish list tests");
 	    	openWebsite(driver);
 	    	sleep();	    	
 
@@ -163,13 +174,13 @@ public class Example {
 	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1))));
 	        element.click();
 	        sleep();		        
-	        assertTrue(driver.getCurrentUrl(), "http://virtualfittingroom.herokuapp.com/" + category[i]);
+	        assertTrue(driver.getCurrentUrl(), location + category[i]);
 
 
 			WebElement element2 = driver.findElement(By.id((String)("item-img0")));		
 			element2.click();
 			sleep();
-			assertTrue(driver.getCurrentUrl(), "http://virtualfittingroom.herokuapp.com/" + category[i] + productsLists[i][0]);
+			assertTrue(driver.getCurrentUrl(), location + category[i] + productsLists[i][0]);
 			
 			WebElement element3 = driver.findElement(By.id("mainview")).findElement(By.id("description")).findElement(By.id("add_to_wishlist"));
 			element3.click();
@@ -191,12 +202,14 @@ public class Example {
 	    }
 	    
 	    public static void removeProductFromWishList(WebDriver driver){
+	    	
 	    	WebElement element = driver.findElement(By.id("basket")).findElement(By.className("remove"));
 	    	element.click();
 	    	sleep();
 	    }
 	    
 	    public static void removeProductsFromWishList(WebDriver driver, int i){
+	    	System.out.println("\nStart removing product from wishlist tests");
 	    	openWebsite(driver);
 	    	sleep();
 	    	
@@ -205,11 +218,23 @@ public class Example {
 	    	sleep();	    	
 	    	
 	    	for (int j = 0; j < i; j++){
+	    	goToDetailPage(driver, j);
 	    	removeProductFromWishList(driver);
 	    	}
 	    }
 	    
+	    public static void goToDetailPage(WebDriver driver, int j){
+	    	WebElement element = driver.findElement(By.id("basket")).findElement(By.className("left"));
+	    	element.click();
+	    	sleep();
+	    	assertTrue(driver.getCurrentUrl(), location + category[j] + productsLists[j][0]);
+	    	driver.navigate().back();
+	    	sleep();
+	    	
+	    }
+	    
 	    public static void addComment(WebDriver driver, int categoryID,  int productID){
+	    	System.out.println("\nStart add comment test");
 	    	openWebsite(driver);
 	    	sleep();
 	    	
@@ -221,7 +246,7 @@ public class Example {
 			element = driver.findElement(By.id((String)("item-img" + productID)));		
 			element.click();
 			sleep();
-			
+		
 	    	element = driver.findElement(By.id("w")).findElement(By.className("cmmnt")).findElement(By.className("cmmnt-content")).findElement(By.xpath("//form[1]")).findElement(By.id("textarea"));
 	    	element.sendKeys(testComment);
 	    	sleep();
