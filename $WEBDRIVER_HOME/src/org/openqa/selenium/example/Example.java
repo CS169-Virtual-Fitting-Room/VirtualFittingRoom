@@ -26,36 +26,14 @@ public class Example {
 			
 	    	System.setProperty("webdriver.chrome.driver", "chromedriver");
 	    	//test all the categories
-	    	WebDriver driver1 = new ChromeDriver();	    	
+	    	System.out.println("\n/////////////////////\nstart testing chrome browser\n////////////////////");
+	    	WebDriver driver = new ChromeDriver();
+	    	testBrowser(driver);
 	    	
-	    	try{
-	    	basicBrowserTester(driver1); //// just test some basic adding and browsing
-	    	
-	    	
-	    	addWishListTest(driver1); /// try add to wishlist without user login
-	    	
-	    	logInUser(driver1);
-	    	
-	    	addWishListTest(driver1);//// try again with user lgoin
-	    	
-	    	removeProductsFromWishList(driver1, 3);  /// remove products from wish list
-	    	
-	    	//addComment(driver1, 0,0);
-	    	
-	    	logOutUser(driver1);
-	    	//WebDriver driver2 = new FirefoxDriver();
-	    	//basicBrowserTester(driver2, localServer);
-   	
-	    	driver1.close();   
-	    	if (success){
-	    		System.out.println("\ntest successfully");
-	    	}
+	    	System.out.println("\n/////////////////////\nstart testing firefox browser\n///////////////////");
+	    	WebDriver driver2 = new FirefoxDriver();
+	    	testBrowser(driver2);
 	    	System.exit(0);
-	    	}catch (Exception e){
-	    		System.out.println("\nException appearred, element not found.\n ");
-	    		driver1.close();
-	    		System.exit(0);
-	    	} 	
 	    }
 	    
 	    public static void sleep() {
@@ -85,7 +63,33 @@ public class Example {
 	    	driver.get(location);
 	    	}	    	
 	    }
-	    
+	    public static void testBrowser(WebDriver driver1){
+	    	try{
+	    	basicBrowserTester(driver1); //// just test some basic adding and browsing
+	    	
+	    	
+	    	addWishListTest(driver1); /// try add to wishlist without user login
+	    	
+	    	logInUser(driver1);
+	    	
+	    	addWishListTest(driver1);//// try again with user lgoin
+	    	
+	    	removeProductsFromWishList(driver1, 3);  /// remove products from wish list
+	    	
+	    	//addComment(driver1, 0,0);
+	    	
+	    	logOutUser(driver1);
+   	
+	    	driver1.close();   
+	    	if (success){
+	    		System.out.println("\ntest successfully");
+	    	}
+	    	}catch (Exception e){
+	    		System.out.println("\nException appearred, element not found.\n ");
+	    		driver1.close();
+	    		System.exit(0);
+	    	} 	
+	    }
 	    
 	    public static void logInUser(WebDriver driver){
 	    	
@@ -136,8 +140,9 @@ public class Example {
 	    	//// test glass
 	    	////
 	    	for (int i = 0; i < category.length; i++){
-	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1))));
-	        element.click();
+	    	WebElement element = driver.findElement(By.className("contain-page")).findElement(By.className((String)("service-count"+(i+1)))).findElement(By.id("img"));
+	
+	    	element.click();
 	        sleep();		        
 	        assertTrue(driver.getCurrentUrl(), location + category[i] );
 
@@ -171,7 +176,7 @@ public class Example {
 
 	    	
 	    	for (int i = 0; i < category.length; i++){
-	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1))));
+	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1)))).findElement(By.id("img"));
 	        element.click();
 	        sleep();		        
 	        assertTrue(driver.getCurrentUrl(), location + category[i]);
