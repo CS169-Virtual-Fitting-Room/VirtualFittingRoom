@@ -4,7 +4,6 @@ from main.models import Product
 from main.models import Category
 from main.models import Comment
 from main.models import WishList
-from main.ImageRW import ImageRW
 from django.contrib.auth.models import User as AUser
 from django.utils import timezone
 from main.models import FitList
@@ -13,12 +12,14 @@ from django.db.models import Q
 # ##    Create your tests here.
 
 class testDBModel(TestCase):
+    """
     SUCCESS = 1
     ERR_BAD_PRODUCT = -1
     ERR_BAD_USER = -2
     ERR_UNABLE_TO_REMOVE_FROM_WISHLIST = -3
     ERR_BAD_CATEGORY = -4
     ERR_UNABLE_TO_REMOVE_FROM_FITLIST = -5
+    """
 
     testUsers = []
     testUsersID = []
@@ -64,7 +65,7 @@ class testDBModel(TestCase):
 
 # add to FitList:
         for i in range(4):
-            newOne = FitList(product = testDBModel.testProduct[i], owner = testDBModel.testUders[i])
+            newOne = FitList(product = testDBModel.testProducts[i], owner = testDBModel.testUsers[i])
             newOne.save()
 
     def tearDown(self):
@@ -72,19 +73,19 @@ class testDBModel(TestCase):
         Comment.objects.all().delete()
         Product.objects.all().delete()
         Category.objects.all().delete()
-        FitList.object.all().delete()
+        FitList.objects.all().delete()
 
 ####  get Fit List
     def testGetFitList(self):
         baseModel = dataBaseModel()
         for i in range(4):
             response = baseModel.getFitList(testDBModel.testUsersID[i])
-            self.assertTrue(response[1] == testDBModel.SUCCESS and len(response[0]) > 0, "can's get the Fit List")
+            self.assertTrue(response[1] == dataBaseModel.SUCCESS and len(response[0]) > 0, "can's get the Fit List")
 
     def testGetFitListFromNonExistUser(self):
         baseModel = dataBaseModel()
         response = baseModel.getFitList(6)
-        self.assertTrue(response[1] == testDBModel.ERR_BAD_USER and len(response[0]) == 0), "get fit list from a non exist user")
+        self.assertTrue(response[1] == dataBaseModel.ERR_BAD_USER and len(response[0]) == 0, "get fit list from a non exist user")
 
 
 ###  add to fit list
@@ -94,20 +95,20 @@ class testDBModel(TestCase):
         for i in range(4):
             response = baseModel.addToFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1 )
             queryset = FitList.objects.filter(Q(owner = testDBModel.testUsers[i]), Q(product = testDBModel.testProducts[i]))
-            self.assertTrue(response = testDBModel.SUCCESS and queryset.count() == 1, "addTo FitList failed")
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addTo FitList failed")
 
     def testAddToFitListWithBadProductID(self):
         baseModel = dataBaseModel()
         FitList.objects.all().delete()
-        response = baseModel.addToFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], 10)
-        self.assertTrue(resonse =testDBModel.ERR_BAD_PRODUCT, "add non exist product to fit list")
+        response = baseModel.addToFitList(testDBModel.testUsersID[0], testDBModel.testProducts[0], 10)
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, "add non exist product to fit list")
 
 
     def testAddtoFitListWithBadProductName(self):
         baseModel = dataBaseModel()
-        FitList.object.all().delete()
+        FitList.objects.all().delete()
         response = baseModel.addToFitList(testDBModel.testUsersID[0], 'bad product', 1)
-        self.assertTrue(response == testDBModel.ERR_BAD_PRODUCT, " add non exist product to fit list")
+        self.assertTrue(response == dataBaseModel.ERR_BAD_PRODUCT, " add non exist product to fit list")
 
 
 
@@ -117,16 +118,16 @@ class testDBModel(TestCase):
         baseModel = dataBaseModel()
         for i in range(4):
             response = baseModel.removeFromFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1)
-            queryset = FitList.object.filter(Q(owner = testDBModel.testUsersID[i]), Q(product = testDBModel.testProducts[i]))
-            self.assertTrue(response == testDBModel.SUCCESS and queryset.count() == 0, " can not do removeFromFitList")
+            queryset = FitList.objects.filter(Q(owner = testDBModel.testUsersID[i]), Q(product = testDBModel.testProducts[i]))
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 0, " can not do removeFromFitList")
 
     def testRemoveFromFitListWithBadProductID(self):
         baseModel = dataBaseModel()
         response = baseModel.removeFromFitList(testDBModel.testUsersID[0], testDBModel.testProducts[0], 20)
-        self.assertTrue(response == testDBModel.ERR_UNABLE_TO_REMOVE_FROM_FITLIST, "remove non exist product from fit list")
+        self.assertTrue(response == dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_FITLIST, "remove non exist product from fit list")
 
     def testRemoveFromFitListwithBadProduct(self):
         baseModel = dataBaseModel()
         response = baseModel.removeFromFitList(testDBModel.testUsersID[0], 'bad product', 1 )
-        self.assertTrue(response == testDBModel.ERR_UNABLE_TO_REMOVE_FROM_FITLIST, "remove non exist product from fit list")
+        self.assertTrue(response == dataBaseModel.ERR_UNABLE_TO_REMOVE_FROM_FITLIST, "remove non exist product from fit list")
 
