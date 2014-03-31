@@ -25,72 +25,47 @@
             <meta http-equiv="Content-Type" content="text/html;
 charset = iso - 8859 - 1 " />
 </head>
+<body>
+<div id = "sliders">
+    Hat X Offset
+    <br> <input id="hatXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(1,true,this.value)"/> 
+    <br>
+    Hat Y Offset
+    <br> <input id="hatYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(1,false,this.value)"/>
+    <br>
+    Glasses X Offset
+    <br> <input id="glassesXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(2,true,this.value)"/>
+    <br>
+    Glasses Y Offset
+    <br> <input id="glassesYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(2,false,this.value)"/>
+    <br>
+    Headphones X Offset
+    <br> <input id="hpXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(3,true,this.value)"/>
+    <br>
+    Headphone Y Offset
+    <br> <input id="hpYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(3,false,this.value)"/>
+</div>
 
 <div id = "loadingMessage">Loading your accessories... </div>
+<center>
+<div id = "selectors">
+    <select id="hatList">
+      <option value = 0>-----Choose your hats-----</option>
+    </select>
+    <select id="glassesList">
+      <option value = 0>---Choose your glasses----</option>
+    </select>
+    <select id="hpList">
+      <option value = 0>--Choose your Headphones--</option>
+    </select>
+</div>
+</center>
+</body>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<script>
-
-function loadOverlay(uri) {
-    console.log("loading");
-    resource = gapi.hangout.av.effects.createImageResource(
-        uri);
-
-    resource.onLoad.add( function(event) {
-        if ( !event.isLoaded ) {
-            $("#loadingMessage").text("Error occured while loading, please restart this app");
-        } else {
-            $("#loadingMessage").text("Accessories loaded");
-        }
-    });
-    overlay = resource.createFaceTrackingOverlay(
-        {'trackingFeature': gapi.hangout.av.effects.FaceTrackingFeature.NOSE_ROOT,
-         'scaleWithFace': true,
-         'rotateWithFace': true,
-         'scale': 0.5,
-         'scaleWithFace' : true});
-    overlay.setOffset(-0.12,-1);
-    overlay.setVisible(true);
-    console.log('loaded');
-}
-
-$.fn.textWidth = function(){
-  var html_org = $(this).html();
-  var html_calc = '<span>' + html_org + '</span>';
-  $(this).html(html_calc);
-  var width = $(this).find('span:first').width();
-  $(this).html(html_org);
-  return width;
-};
-
-
-function init() {
-  gapi.hangout.onApiReady.add(function(eventObj) {
-    var vCanvas = gapi.hangout.layout.getVideoCanvas();
-    var wHeight = $(window).height();
-    var wWidth = $(window).width();
-    console.log(wWidth);
-    console.log("offset");
-    vCanvas.setVisible(true);
-    console.log(vCanvas.getHeight());
-    var newSize = vCanvas.setHeight(380);
-    var cHeight = newSize["height"];
-    var cWidth = newSize["width"];
-    console.log("new Size:");
-    console.log(cHeight);
-    console.log(cWidth);
-    console.log($("#loadingMessage").textWidth());
-    $("#loadingMessage").offset({top:cHeight+20,left: wWidth/2-($("#loadingMessage").textWidth()/2)});
-    console.log($("#loadingMessage").offset());
-    vCanvas.setPosition(wWidth/2-(cWidth/2),0);
-    loadOverlay("https://dl.dropboxusercontent.com/u/69037120/site/cap2.png");
-  });
-}
-
-gadgets.util.registerOnLoadHandler(init);
-</script>
+<script type = "text/javascript" src= "https://dl.dropboxusercontent.com/u/69037120/site/vrf.js"> </script>
 </html>
 ]]>
 
