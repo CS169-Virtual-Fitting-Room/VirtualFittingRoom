@@ -98,9 +98,13 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
-				console.log(content);
-				updatecomment();
-				$("#textarea").val("");
+				if(data.errCode<0){
+					alert("Error! Fail to verify user info. Please log in first!");
+				}else{
+					console.log(content);
+					updatecomment();
+					$("#textarea").val("");
+				}
 			},
 			error:
 			function(){
@@ -119,7 +123,29 @@ $(document).ready(function(){
 			function(data){
 				console.log("success");
 				if(data.errCode<0){
-					alert("Error! Fail to verify a valid user. Please log in first! OR Item is already added!");
+					alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
+				}else{
+					alert("Item is successfully added.");
+				}
+			},
+			error:
+			function(){
+				alert("failure");
+			}
+		});
+	});
+
+	$("#add_to_fitlist").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"fitlist/add",
+			contentType:"application/json",
+			dataType: "json",
+			success:
+			function(data){
+				console.log("success");
+				if(data.errCode<0){
+					alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
 				}else{
 					alert("Item is successfully added.");
 				}
@@ -159,6 +185,7 @@ $(document).ready(function(){
 				<strong id="price"> </strong>
 				<p id = "desp"></p>
 				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
+				<p><button id="add_to_fitlist" class="continue"><div>Add Item to Fitting Room</div></button></p>
 				<p><button type="button">Tell a friend</button></p>
 			</td>
 		</tr>
