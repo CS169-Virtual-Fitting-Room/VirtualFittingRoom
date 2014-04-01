@@ -10,3 +10,12 @@ The code for iteration 1 is in the iter1 branch
 
 3. The latest app has been deployed to Heroku, the link is: 
 	http://virtualfittingroom.herokuapp.com
+
+
+
+
+
+
+For Iteration2:
+
+   1. To use the selenium GUI automation tests, open the $DRIVER_HOME as a package in Eclipse since the tests are written in java. In the run configuration, create a new java application, add "$WEBDRIVER_HOME" to the project blank and add "org.openqa.selenium.example.Example"to the main class blank. Then click run.
