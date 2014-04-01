@@ -46,6 +46,9 @@ $(document).ready(function(){
 		});
 	}
 	function renderwishlist(data){
+		if(jQuery.type(data)!="array"){
+			return false;
+		}
 		var len = data.length;
 		for(var i=0; i<len; i++){
 			var desc = data[i].description;
@@ -105,11 +108,15 @@ $(document).ready(function(){
 				});
 			}
 		});
-		
+		return true;
 	}
 	function renderwishlistelement(desc, image, name, price, id, category){
+		if(jQuery.type(desc)!="string" || jQuery.type(image)!="string" || jQuery.type(name)!="string" || jQuery.type(price)!="number"||jQuery.type(id)!="number"||jQuery.type(category)!="string"){
+			return false;
+		}
 		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+' <div > <button class = "remove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="continue">Add Item to Fitting Room</button></td></tr>';
 		$("table").append(item);
+		return true;
 		
 	}
 	$(".continue").click(function(){
