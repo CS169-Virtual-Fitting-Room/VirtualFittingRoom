@@ -42,15 +42,7 @@ $(document).ready(function(){
 		}
 	});
 	getcomments();
-	function rendercomments(data){
-		var len = data.length;
-		for(var i=0; i<len; i++){
-			var content = data[i].content;
-			var name = data[i].name;
-			var time = data[i].time;
-			rendercomment(content, name, time);
-		}
-	}
+
 	function rendercomment(content, name, time){
 		if(jQuery.type(content)!="string" || jQuery.type(name)!="string" ||jQuery.type(time)!="string"){
 			return false;

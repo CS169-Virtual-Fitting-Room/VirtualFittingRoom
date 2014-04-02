@@ -21,6 +21,7 @@
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
+<script src='{% static "main/assets/js/detailpage.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
@@ -42,19 +43,7 @@ $(document).ready(function(){
 		}
 	});
 	getcomments();
-	function rendercomments(data){
-		if(jQuery.type(data)!="array"){
-			return false;
-		}
-		var len = data.length;
-		for(var i=0; i<len; i++){
-			var content = data[i].content;
-			var name = data[i].name;
-			var time = data[i].time;
-			rendercomment(content, name, time);
-		}
-		return true;
-	}
+
 	function rendercomment(content, name, time){
 		if(jQuery.type(content)!="string" || jQuery.type(name)!="string" ||jQuery.type(time)!="string"){
 			return false;
