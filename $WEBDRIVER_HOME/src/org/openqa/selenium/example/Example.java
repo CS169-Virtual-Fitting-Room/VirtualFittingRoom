@@ -10,6 +10,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.util.HashMap;
 //import org.openqa.selenium.RemoteWebDriver;
+
 public class Example {
 	private static boolean success = true;
 	private static int glassNum = 2;
