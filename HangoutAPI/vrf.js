@@ -1,3 +1,4 @@
+//load image resource specified url by the fitlist and create overlays from the resource
 function loadOverlay(uri,category) {
     uri = "http://virtualfittingroom.herokuapp.com"+uri;
     console.log("loading overlay image for uri: "+uri);
@@ -22,6 +23,7 @@ function loadOverlay(uri,category) {
     return overlay;
 }
 
+//function to compute width of a html text
 $.fn.textWidth = function(){
   var html_org = $(this).html();
   var html_calc = '<span>' + html_org + '</span>';
@@ -31,7 +33,12 @@ $.fn.textWidth = function(){
   return width;
 }
 
+//save down fitlist
 function saveData(response) {
+  if (response.length == 0) {
+      $("#loadingMessage").text("No accessories found");
+      return false;
+  }
   for (var i = 0; i < response.length; i++) {
     if (response[i]["category"] == "hats") {
       hats.push(response[i]);
@@ -43,8 +50,10 @@ function saveData(response) {
       console.log("Cannot load product with id "+response[i]["product_id"]+" unrecognized Category");
     }
   }
+  return true;
 }
 
+//create overlay items from the fitlist and save it in the arrays for future adjustment
 function createOverlays() {
   for (var i = 0; i < hats.length; i++) {
     hatsOverlay.push(loadOverlay(hats[i]["overlay"],1));
@@ -61,8 +70,10 @@ function createOverlays() {
   $("#loadingMessage").text("All Accessories Loaded");
   $("#selectors").show();
   $('#sliders').show();
+  vCanvas.setVisible(true);
 }
 
+//respond for the change of slider and change the offset of the corresponding item
 function adjustOffset(item, adjustX, value) {
   if (item == 1) {
     if (showingHat != 0) {
@@ -98,19 +109,7 @@ function adjustOffset(item, adjustX, value) {
   }
 }
 
-function updateOffset(item,offset) {
-  // if (item == 1) {
-  //   document.getElementById('hatXOffset').value = offset['x'];
-  //   document.getElementById('hatYOffset').value = offset['y'];
-  // } else if (item == 2) {
-  //   document.getElementById('glassesXOffset').value = offset['x'];
-  //   document.getElementById('glassesYOffset').value = offset['y'];
-  // } else {
-  //   document.getElementById('hpXOffset').value = offset['x'];
-  //   document.getElementById('hpYOffset').value = offset['y'];
-  // }
-}
-
+//request for the fitlist
 function fitlistRequest(url, suc ,err) {
 
   $.ajax({
@@ -125,28 +124,43 @@ function fitlistRequest(url, suc ,err) {
     });
 }
 
+//Get the fitlist from the backend
 function getFitlist() {
-  fitlistRequest("http://localhost:8000/fitlist/get/", function(data) { return proccessResponse(data); }, function(err) {alert('error '); });
-  //proccessResponse([]);
+  try {
+    fitlistRequest("http://virtualfittingroom.herokuapp.com/fitlist/get/", function(data) { return proccessResponse(data); }, function(err) {return displayError(); });
+  } catch (err) {
+     displayError(); 
+  }
 }
 
+//Display the error message to notify user when error occur
+function displayError() {
+  $("#loadingMessage").text("Cannot load accessories");
+}
+
+//Process the fitlist response
 function proccessResponse(response) {
+    //Inject a fake fitlist to test if image loading and overlaying works fine
     // var response = 
     // [{"category": "hats", "product_id": 3, "overlay": "/static/products/addidasol.jpg", "item_name": "adidas cap", "price": 56.9, "description": "adidas cap!"}, 
     // {"category": "glasses", "product_id": 2, "overlay": "/static/products/", "item_name": "nike glasses", "price": 99.9, "description": "sporty nike"}, 
     // {"category": "headphones", "product_id": 5, "overlay": "/static/products/beatsol.jpg", "item_name": "beats headphones", "price": 256.9, "description": "stylish headphones!"}]
     console.log("Fitlist:");
     console.log(response);
-    saveData(response);
-    createOverlays();
-    $("#loadingMessage").text("Accessories loaded");
+    if (saveData(response)) {
+      createOverlays();
+      $("#loadingMessage").text("Accessories loaded");
+  }
 }
 
+//responses for items selection
 $('#hatList').on('change', function() {
   console.log("hat "+this.value+" selected");
+  //if there is already showing hat, hide it
   if (showingHat != 0) {
     hatsOverlay[showingHat-1].setVisible(false);
   }
+  //if user choose to display a hat(not to hide all hats), set the corresponding overlay to visible
   if (this.value != 0) {
     hatsOverlay[this.value-1].setVisible(true);
     updateOffset(1,hatsOverlay[this.value-1].getOffset());
@@ -185,6 +199,7 @@ $('#hpList').on('change', function() {
 });
 
 
+//init function for the hangout app
 function init() {
   gapi.hangout.onApiReady.add(function(eventObj) {
 
@@ -192,11 +207,10 @@ function init() {
     var vCanvas = gapi.hangout.layout.getVideoCanvas();
     var wHeight = $(window).height();
     var wWidth = $(window).width();
-    vCanvas.setVisible(true);
     var newSize = vCanvas.setHeight(380);
     var cHeight = newSize["height"];
     var cWidth = newSize["width"];
-    //Set LoadingMessage offset
+    //center all the things
     vCanvas.setPosition(wWidth/2-(cWidth/2),0);
     $("#loadingMessage").offset({top:cHeight+20,left: wWidth/2-($("#loadingMessage").textWidth()/2)});
     $("#selectors").offset({top:cHeight+20+20,left: $('#selectors').offset().left});
@@ -225,6 +239,8 @@ var showingHP = 0;
 
 var sliderDefault = {'x': 0, 'y': 0};
 
+
+//overlay settings for different categories
 var hatOverlayPreset = {
   'trackingFeature': gapi.hangout.av.effects.FaceTrackingFeature.NOSE_ROOT,
          'scaleWithFace': true,
