@@ -39,7 +39,6 @@ function renderwishlist(data){
 		var price = data[i].price;
 		var id = data[i].product_id;
 		var category = data[i].category;
-		//console.log(data);
 		renderwishlistelement(desc, image, name, price, id, category);
 	}
 	clickbuttonEvent();

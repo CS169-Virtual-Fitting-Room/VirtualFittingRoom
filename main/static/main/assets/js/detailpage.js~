@@ -17,9 +17,9 @@
 		if(jQuery.type(content)!="string" || jQuery.type(name)!="string" ||jQuery.type(time)!="string"){
 			return false;
 		}
-		var url = '/main/assets/img/anonymous-user.png';
+		var url = '/static/main/assets/img/anonymous-user.png';
 		var comment = '<li class="cmmnt"><div class="avatar"><a href="javascript:void(0);"><img src='+url+' width="55" height="55" alt="'+name+'"></a></div><div class="cmmnt-content"><header><a href="javascript:void(0);" class="userlink">'+name+'</a> - <span class="pubdate">posted '+time+'</span></header><p>'+content+'</p></div></li>';
-		$("#comment-list").append(comment);
+		//$("#comment-list").append(comment);
 		return true;
 	}
 
