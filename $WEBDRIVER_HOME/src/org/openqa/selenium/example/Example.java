@@ -15,7 +15,8 @@ public class Example {
 	private static int glassNum = 2;
 	private static int hatNum = 2;
 	private static int headPhonesNum = 2;
-	private static final boolean localServer = true;
+	private static final boolean localServer = false;
+	private static final String[] topMenuBar = {"home","fitting_room","wishlist","login"};
 	private static final String[] category = {"glasses/","hats/", "headphones/"}; 
 	private static final String[][] productsLists = {{"rayban%20glasses_1/","nike%20glasses_2/"},{"adidas%20cap_3/","levis%20hat_4/"},{"beats%20headphones_5/","sony%20headphones_6/"}};
 	private static final String testComment = "this is test comment";
@@ -59,7 +60,7 @@ public class Example {
 	    	location = "http://localhost:8000/";
 	    	driver.get(location);
 	    	}else{
-	    	location = "http://virtualfittingroom.heroku.com";
+	    	location = "http://virtualfittingroom.herokuapp.com/";
 	    	driver.get(location);
 	    	}	    	
 	    }
@@ -70,9 +71,13 @@ public class Example {
 	    	
 	    	addWishListTest(driver1); /// try add to wishlist without user login
 	    	
+	    	addFittingRoomTest(driver1); /// try add to Fitting Room without user login
+	    	
 	    	logInUser(driver1);
 	    	
-	    	addWishListTest(driver1);//// try again with user lgoin
+	    	addWishListTest(driver1); //// try again with user lgoin
+	    	
+	    	addFittingRoomTest(driver1); //// try again with user lgoin
 	    	
 	    	removeProductsFromWishList(driver1, 3);  /// remove products from wish list
 	    	
@@ -159,15 +164,14 @@ public class Example {
 	        sleep();
 	    	}
 			
-	    	String[] topMenuBar = new String[]{"home"};
+//	    	String[] topMenuBar = new String[]{"home"};
 	    	for ( int i=0; i<topMenuBar.length; i++) {
 		        WebElement element = driver.findElement(By.id(topMenuBar[i]));
 		        element.click();
 		        sleep();
 	    	}
 	    	
-	    }
-	    
+	    } 
 	    
 	    public static void addWishListTest(WebDriver driver){  
 	    	System.out.println("\nStart adding wish list tests");
@@ -188,6 +192,43 @@ public class Example {
 			assertTrue(driver.getCurrentUrl(), location + category[i] + productsLists[i][0]);
 			
 			WebElement element3 = driver.findElement(By.id("mainview")).findElement(By.id("description")).findElement(By.id("add_to_wishlist"));
+			element3.click();
+			sleep();
+			sleep();
+
+	        Alert alert = driver.switchTo().alert();
+	        alert.accept();
+	        sleep();
+	        
+	        driver.navigate().back();
+	        openWebsite(driver);
+	        sleep();
+	    	}		    	
+	    	
+	    	WebElement element4 = driver.findElement(By.className("global-nav")).findElement(By.id("wishlist"));
+	    	element4.click();
+	    	sleep();	
+	    }
+	    
+	    public static void addFittingRoomTest(WebDriver driver){  
+	    	System.out.println("\nStart adding items to Fitting Room tests");
+	    	openWebsite(driver);
+	    	sleep();	    	
+
+	    	
+	    	for (int i = 0; i < category.length; i++){
+	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1)))).findElement(By.id("img"));
+	        element.click();
+	        sleep();		        
+	        assertTrue(driver.getCurrentUrl(), location + category[i]);
+
+
+			WebElement element2 = driver.findElement(By.id((String)("item-img0")));		
+			element2.click();
+			sleep();
+			assertTrue(driver.getCurrentUrl(), location + category[i] + productsLists[i][0]);
+			
+			WebElement element3 = driver.findElement(By.id("mainview")).findElement(By.id("description")).findElement(By.id("add_to_fitlist"));
 			element3.click();
 			sleep();
 			sleep();
