@@ -28,7 +28,7 @@ charset = iso - 8859 - 1 " />
 <body>
 <div id = "sliders">
     Hat X Offset
-    <br> <input id="hatXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(1,true,this.value)"/> 
+    <br>  <input id="hatXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(1,true,this.value)"/>
     <br>
     Hat Y Offset
     <br> <input id="hatYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(1,false,this.value)"/>
@@ -49,22 +49,21 @@ charset = iso - 8859 - 1 " />
 <div id = "loadingMessage">Loading your accessories... </div>
 <center>
 <div id = "selectors">
-    <select id="hatList">
+    <select id="hatList" onchange="hatChange()">
       <option value = 0>-----Choose your hats-----</option>
     </select>
-    <select id="glassesList">
+    <select id="glassesList" onchange="glassChange()">
       <option value = 0>---Choose your glasses----</option>
     </select>
-    <select id="hpList">
+    <select id="hpList" onchange="hpChange()">
       <option value = 0>--Choose your Headphones--</option>
     </select>
 </div>
+
 </center>
 </body>
-
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
 <script type = "text/javascript" src= "https://dl.dropboxusercontent.com/u/69037120/site/vrf.js"> </script>
 </html>
 ]]>
