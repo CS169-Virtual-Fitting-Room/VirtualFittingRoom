@@ -10,7 +10,7 @@ function homeclick(){
 	});
 }
 function rendergrids(num_of_items, images, item_names, prices, ids){
-		if(jQuery.type(num_of_items)!="number" || jQuery.type(images)!="array" || jQuery.type(item_names)!="array"|| jQuery.type(prices)!="array"){
+		if(jQuery.type(num_of_items)!="number" || jQuery.type(images)!="array" || jQuery.type(item_names)!="array"|| jQuery.type(prices)!="array", jQuery.type(ids)!="array"){
 			return false;
 		}
 		for ( var i = 0; i < num_of_items; i++ ) {

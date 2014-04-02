@@ -36,6 +36,6 @@ function renderpage(desp, image, item_name, price){
 	$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
 	$("#item_name").html(item_name );
 	$("#desp").html("Description: "+desp);
-	$("p#images").html("<img src='"+image+"' align='right'/>");
+	$("#images").html("<img src='"+image+"' align='right'/>");
 	return true;
 }
