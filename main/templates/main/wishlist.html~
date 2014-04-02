@@ -21,6 +21,7 @@
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
+<script src='{% static "main/assets/js/wishlist.js" %}'></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,95 +30,12 @@
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	getItemFromWishListAndStartRender();
-	function getItemFromWishListAndStartRender(){
-		$.ajax({
-			url:"get",
-			contentType:"application/json",
-			dataType:"json",
-			success:
-			function(data){
-				//console.log(data);
-				renderwishlist(data);
-			},
-			error:
-			function(data){
-				alert("failure");
-			}
-		});
-	}
-	function renderwishlist(data){
-		if(jQuery.type(data)!="array"){
-			return false;
-		}
-		var len = data.length;
-		for(var i=0; i<len; i++){
-			var desc = data[i].description;
-			var image = data[i].image;
-			var name = data[i].item_name;
-			var price = data[i].price;
-			var id = data[i].product_id;
-			var category = data[i].category;
-			//console.log(data);
-			renderwishlistelement(desc, image, name, price, id, category);
-		}
-		$("button").click(function(event){
-			var id = event.target.id.split('_');
-			var category = id[0];
-			var name = id[1];
-			var item_id = id[2];
-			var commonpath = '/'+category+'/'+name+'_'+item_id;
-			if(event.target.className=="remove"){
-				
-				//console.log(category+'/'+name+'_'+item_id+'/wishlist/remove');
-			
-				$.ajax({
-					type:"post",
-					url: commonpath+'/wishlist/remove',
-					contentType:"application/json",
-					dataType:"json",
-					success:
-					function(data){
-						console.log(data);
-						$("table").html('');
-						getItemFromWishListAndStartRender();
-					},
-					error:
-					function(data){
-						alert("failure");
-					}
-				});
-			}else if(event.target.className=="continue"){
-				$.ajax({
-					type:"POST",
-					url:commonpath+"/fitlist/add",
-					contentType:"application/json",
-					dataType: "json",
-					success:
-					function(data){
-						console.log("success");
-						if(data.errCode<0){
-							alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
-						}else{
-							alert("Item is successfully added.");
-						}
-					},
-					error:
-					function(){
-						alert("failure");
-					}
-				});
-			}
-		});
-		return true;
-	}
-	function renderwishlistelement(desc, image, name, price, id, category){
-		var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="main.html">'+name+'</a><br>'+desc+' <div > <button class = "remove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="continue">Add Item to Fitting Room</button></td></tr>';
-		$("table").append(item);
+
+
+	
+
 		
-	}
-	$(".continue").click(function(){
-		
-	});
+
 	
 	
 	
