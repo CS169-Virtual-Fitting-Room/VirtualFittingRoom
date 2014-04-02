@@ -149,54 +149,61 @@ function proccessResponse(response) {
     console.log(response);
     if (saveData(response)) {
       createOverlays();
-      $("#loadingMessage").text("Accessories loaded");
-  }
+    }
+}
+
+//update offset for a better adjusting experience(for future iteration)
+function updateOffset(category,offset) {
+
 }
 
 //responses for items selection
-$('#hatList').on('change', function() {
-  console.log("hat "+this.value+" selected");
+function hatChange(){
+  var list = $("#hatList");
+  console.log("hat "+list.val()+" selected");
   //if there is already showing hat, hide it
   if (showingHat != 0) {
     hatsOverlay[showingHat-1].setVisible(false);
   }
   //if user choose to display a hat(not to hide all hats), set the corresponding overlay to visible
-  if (this.value != 0) {
-    hatsOverlay[this.value-1].setVisible(true);
-    updateOffset(1,hatsOverlay[this.value-1].getOffset());
+  if (list.value != 0) {
+    hatsOverlay[list.val()-1].setVisible(true);
+    updateOffset(1,hatsOverlay[list.val()-1].getOffset());
   } else {
     updateOffset(1,sliderDefault);
   }
-  showingHat = this.value;
-});
+  showingHat = list.value;
+}
 
-$('#glassesList').on('change', function() {
-  console.log("glasses "+this.value+" selected");
+function glassChange() {
+  var list = $("#glassesList");
+  console.log("glasses "+list.val()+" selected");
   if (showingGlasses != 0) {
     glassesOverlay[showingGlasses-1].setVisible(false);
   }
-  if (this.value != 0) {
-    glassesOverlay[this.value-1].setVisible(true);
-    updateOffset(2,glassesOverlay[this.value-1].getOffset());
+  if (list.value != 0) {
+    glassesOverlay[list.val()-1].setVisible(true);
+    updateOffset(2,glassesOverlay[list.val()-1].getOffset());
   } else {
     updateOffset(2,sliderDefault);
   }
-  showingGlasses = this.value;
-});
+  showingGlasses = list.value;
+}
 
-$('#hpList').on('change', function() {
-  console.log("headphone "+this.value+" selected");
+function hpChange() {
+  var list = $("#hpList");
+  console.log("headphone "+list.val()+" selected");
   if (showingHP != 0) {
     hpOverlay[showingHP-1].setVisible(false);
   }
-  if (this.value != 0) {
-    hpOverlay[this.value-1].setVisible(true);
-    updateOffset(3,hpOverlay[this.value-1].getOffset());
+  if (list.value != 0) {
+    hpOverlay[list.val()-1].setVisible(true);
+    updateOffset(3,hpOverlay[list.val()-1].getOffset());
   } else {
     updateOffset(3,sliderDefault);
   }
-  showingHP = this.value;
-});
+  showingHP = list.value;
+}
 
 
 //init function for the hangout app
@@ -204,7 +211,7 @@ function init() {
   gapi.hangout.onApiReady.add(function(eventObj) {
 
     //Set video canvas properties and show
-    var vCanvas = gapi.hangout.layout.getVideoCanvas();
+    vCanvas = gapi.hangout.layout.getVideoCanvas();
     var wHeight = $(window).height();
     var wWidth = $(window).width();
     var newSize = vCanvas.setHeight(380);
@@ -224,6 +231,7 @@ function init() {
   });
 }
 
+var vCanvas;
 var vrfInfo;
 var hats = new Array();
 var headphones = new Array();
