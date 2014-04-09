@@ -120,10 +120,11 @@ public class Example {
 	    	element0.click();
 	    	sleep();
 	    	sleep();
-	    	
+	    	if (localServer){
 	    	element0 = driver.findElement(By.id("scope_and_buttons")).findElement(By.id("buttons_container")).findElement(By.id("connect-approve")).findElement(By.id("submit_approve_access"));
 	    	element0.click();
 	    	sleep();
+	    	}
 	    	
 	    	openWebsite(driver);
 	    }
