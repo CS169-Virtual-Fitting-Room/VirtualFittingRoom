@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta property="og:image" content="http://virtualfittingroom.herokuapp.com/static/products/beats.jpg"/>
 <title>Detail Page</title>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
@@ -24,6 +25,9 @@
 <script src='{% static "main/assets/js/detailpage.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	imgurl = null;
+	gitem_name =null;
+	gdesp = null;
 	$(".header-wrap").load("/top_menu");
 	$.ajax({
 		url: "info",
@@ -32,9 +36,12 @@ $(document).ready(function(){
 		success:
 		function(data){
 			var image = data.image;
+			imgurl = image;
 			var item_name=data.item_name;
+			gitem_name = item_name;
 			var price = data.price;
 			var desp = data.description;
+			gdesp = desp;
 			renderpage(desp, image, item_name, price);
 		},
 		error:
@@ -153,11 +160,61 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$('#share_button').click(function(e){
+		console.log(e);
+		//alert("hello");
+		FB.ui({
+			method: 'feed',
+			name: gitem_name,
+			link: 'http://localhost:8000/',
+			picture: 'http://virtualfittingroom.herokuapp.com/'+imgurl,
+			caption: gitem_name,
+			description:gdesp,
+			message:''
+		}, function(response){
+			if(response&& response.post_id){
+				//alert('Post was published');
+			} else {
+				//alert('Post was not published');
+			}
+		}
+		);
+	});
 
 });
 </script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+	
+	window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '612911562128428',
+		  status     : true,
+		  cookie	 : true,
+		  xfbml      : true
+		});
+		
+	};
+
+	(function() {
+		var e = document.createElement('script'); e.async = true;
+		e.src = document.location.protocol +
+		'//connect.facebook.net/en_US/all.js';
+		document.getElementById('fb-root').appendChild(e);
+	}());
+
+	!function(d,s,id){
+		var js,fjs=d.getElementsByTagName(s)[0];
+		if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src="https://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	
+</script>
+<script src="https://apis.google.com/js/plusone.js"></script>
+
 <div class="header-wrap" >
 </div>
 
@@ -183,7 +240,11 @@ $(document).ready(function(){
 				<p id = "desp"></p>
 				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
 				<p><button id="add_to_fitlist" class="continue"><div>Add Item to Fitting Room</div></button></p>
-				<p><button type="button">Tell a friend</button></p>
+				<!--p><button type="button">Tell a friend</button></p-->
+				<span style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer;"></img></span>
+				<span style="float=left"><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Hello World!" data-lang="en">Tweet</a></span>
+				<div> <g:plus action="share"></g:plus></div>
+				
 			</td>
 		</tr>
 		<tbody>

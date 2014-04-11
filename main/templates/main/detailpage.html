@@ -204,10 +204,16 @@ $(document).ready(function(){
 		'//connect.facebook.net/en_US/all.js';
 		document.getElementById('fb-root').appendChild(e);
 	}());
-	
 
+	!function(d,s,id){
+		var js,fjs=d.getElementsByTagName(s)[0];
+		if(!d.getElementById(id)){js=d.createElement(s);
+		js.id=id;
+		js.src="https://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 	
 </script>
+<script src="https://apis.google.com/js/plusone.js"></script>
 
 <div class="header-wrap" >
 </div>
@@ -235,7 +241,9 @@ $(document).ready(function(){
 				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
 				<p><button id="add_to_fitlist" class="continue"><div>Add Item to Fitting Room</div></button></p>
 				<!--p><button type="button">Tell a friend</button></p-->
-				<p><img src = "/static/main/assets/img/fbshare.jpg" id = "share_button" style="cursor:pointer"></img></p>
+				<span style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer;"></img></span>
+				<span style="float=left"><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Hello World!" data-lang="en">Tweet</a></span>
+				<span> <g:plus action="share"></g:plus></span>
 				
 			</td>
 		</tr>

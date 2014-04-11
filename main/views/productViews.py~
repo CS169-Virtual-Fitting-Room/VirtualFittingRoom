@@ -8,7 +8,7 @@ import json
 def detailpage(request, category, product, id):
     return render(request, 'main/detailpage.html')
 
-def addcustomimage(request):
+def addcustomimage(request, category, product, id):
     return render(request, 'main/addcustomimage.html')
 
 def detail(request, category, product, id):
