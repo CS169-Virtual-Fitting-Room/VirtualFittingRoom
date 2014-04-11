@@ -21,6 +21,7 @@
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
+<script src='{% static "main/assets/js/detailpage.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
