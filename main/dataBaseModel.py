@@ -142,4 +142,18 @@ class dataBaseModel (object):
         try:
             return (Product.objects.get(Q(pk=productID), Q(name=product)), dataBaseModel.SUCCESS)
         except:
-            return (None,dataBaseModel.ERR_BAD_PRODUCT) 
+            return (None,dataBaseModel.ERR_BAD_PRODUCT)
+        
+    def getTempProduct(self, userID, token):
+        pass
+    
+    """ if can't remove, do nothing
+        return image path """
+    def removeTempProduct(self, userID):
+        pass
+    
+    def addTempProduct(self, userID, token):
+        pass
+    
+    def addProduct(self):
+        pass

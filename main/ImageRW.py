@@ -1,4 +1,5 @@
 import os
+from PIL import Image
 
 class ImageRW:
     
@@ -15,4 +16,17 @@ class ImageRW:
         except:
             return ''
         return byte
+    
+    @staticmethod
+    def writeImage(file):
+        #return the image path
+        pass
+    
+    @staticmethod
+    def removeImage(file):
+        pass
+    
+    @staticmethod
+    def convertToTransparent(image):
+        pass
         
