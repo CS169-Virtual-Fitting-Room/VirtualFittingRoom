@@ -50,6 +50,19 @@ class FitList(models.Model):
         
     def __unicode__(self):
         return str(self.owner) + str(self.product)
+    
+class TempProduct(models.Model):
+    owner = models.ForeignKey(AUser)
+    #name = models.CharField(max_length = 128)
+    overlay = models.CharField(max_length = 256)
+    token = models.CharField(max_length = 256)
+    #create_time = models.DateField()
+    
+    class meta:
+        unique_together = ('owner', 'product')
+        
+    def __unicode__(self):
+        return str(self.owner) + str(self.product)
 
 class Comment(models.Model):
     product = models.ForeignKey(Product)
@@ -57,3 +70,10 @@ class Comment(models.Model):
     time = models.DateTimeField()
     content = models.CharField(max_length = 256)
     #time_added = models.DateTimeField()
+    
+class Added(models.Model):
+    owner = models.ForeignKey(AUser)
+    product = models.ForeignKey(Product)
+    
+    def __unicode__(self):
+        return str(self.owner) + str(self.product)
