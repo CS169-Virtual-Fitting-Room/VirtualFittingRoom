@@ -36,9 +36,10 @@ def addProduct(request):
     if temppath != "":
         ImageRW.removeImage(temppath, False)
         
-    filename = ImageRW.writeImage(request.FILES['image'], True) # write image
+    imagefilename = ImageRW.writeImage(request.FILES['image'], True) # write image
+    overlayfilename = ImageRW.writeImage(request.FILES['overlay'], True) # write image
     #check here
-    ImageRW.convertToTransparent(filename, True) # convert it to transparent
+    overlayfilename = ImageRW.convertToTransparent(overlayfilename, True) # convert it to transparent, return the new ol file name
     #check here
     db.addProduct()
 
