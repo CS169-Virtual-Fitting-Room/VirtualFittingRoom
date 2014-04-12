@@ -36,15 +36,20 @@ def addProduct(request):
     if temppath != "":
         ImageRW.removeImage(temppath, False)
         
-    path = ImageRW.writeImage(request.FILES['image'], True) # write image
-    ImageRW.convertToTransparent(path) # convert it to transparent
+    filename = ImageRW.writeImage(request.FILES['image'], True) # write image
+    #check here
+    ImageRW.convertToTransparent(filename, True) # convert it to transparent
+    #check here
     db.addProduct()
 
 def previewProduct(request):
     #authenticate
     #convert image to transparent background, save it to temp folder and let hangout api retrieve it
-    path = ImageRW.writeImage(request.FILES['overlay'], False) # change 'image' later
-    ImageRW.convertToTransparent(path)
+    filename = ImageRW.writeImage(request.FILES['overlay'], False) # change 'image' later
+    #check here
+    ImageRW.convertToTransparent(filename, False)
+    #check here
+    
     #now save it to temp table
     db = dataBaseModel()
     token = "" # generate a random token here
