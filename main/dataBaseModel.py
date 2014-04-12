@@ -6,6 +6,7 @@ from models import Product
 from models import Category
 from models import WishList
 from models import FitList
+from models import TempProduct
 
 from django.db.models import Q
 
@@ -20,6 +21,7 @@ class dataBaseModel (object):
     ERR_WISHLIST_ALREADY_EXIST = -6
     ERR_FITLIST_ALREADY_EXIST = -7
     ERR_BAD_REQUEST = -8
+    ERR_BAD_TOKEN = -9
 
     
     
@@ -144,13 +146,23 @@ class dataBaseModel (object):
         except:
             return (None,dataBaseModel.ERR_BAD_PRODUCT)
         
-    def getTempProduct(self, userID, token):
-        pass
-    
+    def getTempProduct(self, userID, ttoken):
+        try:
+            temp = TempProduct.objects.get(Q(owner = User.objects.get(pk = userID)), Q(token = ttoken))
+            return temp.overlay
+        except:
+            return ""
+        
     """ if can't remove, do nothing
         return image path """
     def removeTempProduct(self, userID):
-        pass
+        try:
+            temp = TempProduct.objects.get(owner = User.objects.get(pk = userID))
+            opath = temp.overlay
+            temp.delete()
+            return opath
+        except:
+            return ""
     
     def addTempProduct(self, userID, token):
         pass
