@@ -194,13 +194,6 @@ class testDBModel(TestCase):
             response = baseModel.getComments('bad product',1)  # product not exist
             self.assertTrue(response[0] == [] and response[1] == dataBaseModel.ERR_BAD_PRODUCT, "got comment from a non exist product")
 
-class testImageRW(TestCase):
-    def testReadImage(self):
-        data = ImageRW.readImage('rayban.jpg')
-        self.assertTrue(len(data) > 0, 'ImageRW not reading images')
 
-    def testReadImageNonExistImage(self):
-        data = ImageRW.readImage('notexist.jpg')
-        self.assertTrue(len(data) == 0, 'ImageRW returning bytes of non existing image')
         
         

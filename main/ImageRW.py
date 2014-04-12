@@ -1,14 +1,13 @@
 import os
 from PIL import Image
-from django.core.files.base import File
 
 class ImageRW:
     
     IMAGE_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/products/"
     TEMP_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/temp/"
     SUCCESS = 1
-    ERR_WRONG_FORMAT = -1
-    ERR_IMAGE_TOO_LARGE = -2
+    ERR_WRONG_FORMAT = -21
+    ERR_IMAGE_TOO_LARGE = -22
     
     
     def __init__(self):
@@ -37,11 +36,17 @@ class ImageRW:
             path = ImageRW.IMAGE_DIR
         else :
             path = ImageRW.TEMP_DIR
-        fd = open(path + filename, "wb")
         
-        for chunk in file.chunks():
-            fd.write(chunk)
-        fd.close()
+        try:
+            fd = open(path + filename, "wb")
+            
+            for chunk in file.chunks():
+                fd.write(chunk)
+            fd.close()
+            
+            return filename
+        except:
+            return ""
         
         
     
@@ -59,6 +64,31 @@ class ImageRW:
             pass
     
     @staticmethod
-    def convertToTransparent(image):
-        pass
+    def convertToTransparent(filename, in_permanent):
+        path = ""
+        if in_permanent:
+            path = ImageRW.IMAGE_DIR
+        else:
+            path = ImageRW.TEMP_DIR
+        # image_path is assumed to be jpg/jpeg
+        im = Image.open(path + filename)
+        # convert jpg/jpeg to png
+        newpath = path + filename.replace('.jpg', 'ol.png').replace('.jpeg', 'ol.png')
+        im.save(newpath, "PNG")
+        
+        img = Image.open(newpath)
+        imga = img.convert("RGBA")
+        
+        datas = list(imga.getdata()) # get the list of pixels
+        
+        newData = []
+        # loop the list, replace white color wih transparency
+        for item in datas:
+            if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                newData.append((255,255,255,0))
+            else:
+                newData.append(item)
+        
+        imga.putdata(newData)
+        imga.save(newpath, "PNG")
         
