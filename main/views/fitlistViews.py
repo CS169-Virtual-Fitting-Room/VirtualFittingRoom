@@ -43,9 +43,8 @@ def removeFromFitlist(request, category, product, id):
     return HttpResponse(json.dumps({'errCode' : result}), content_type='application/json')
 
 #csrf_exempt
-def getPreviewItem(request):
+def getPreviewItem(request, token):
     if not (request.user.is_authenticated()):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     db = dataBaseModel()
-    token = ""
     db.getTempProduct(request.user.id, token)
