@@ -24,7 +24,7 @@ class ImageRW:
     
     @staticmethod
     def writeImage(file, permanent): # file is of type UploadedFile
-        #return the image path
+        #this method return the image name
         if file.size > 3000000: # larger than 3 MB
             return ImageRW.ERR_IMAGE_TOO_LARGE
         if not (file.name[-4:] == '.jpg' or file.name[-5:] == '.jpeg'): # check format
@@ -64,7 +64,7 @@ class ImageRW:
             pass
     
     @staticmethod
-    def convertToTransparent(filename, in_permanent):
+    def convertToTransparent(filename, in_permanent): #this method return the overlay image name
         path = ""
         if in_permanent:
             path = ImageRW.IMAGE_DIR
@@ -91,4 +91,6 @@ class ImageRW:
         
         imga.putdata(newData)
         imga.save(newpath, "PNG")
+        
+        return filename.replace('.jpg', 'ol.png').replace('.jpeg', 'ol.png') # return the overlay filename
         

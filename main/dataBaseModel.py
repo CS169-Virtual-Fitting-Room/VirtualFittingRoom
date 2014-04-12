@@ -7,6 +7,7 @@ from models import Category
 from models import WishList
 from models import FitList
 from models import TempProduct
+from models import Added
 
 from django.db.models import Q
 
@@ -149,9 +150,9 @@ class dataBaseModel (object):
     def getTempProduct(self, userID, ttoken):
         try:
             temp = TempProduct.objects.get(Q(owner = User.objects.get(pk = userID)), Q(token = ttoken))
-            return temp.overlay
+            return (temp.overlay, dataBaseModel.SUCCESS)
         except:
-            return ""
+            return ("", dataBaseModel.ERR_BAD_TOKEN)
         
     """ if can't remove, do nothing
         return image path """
@@ -167,5 +168,6 @@ class dataBaseModel (object):
     def addTempProduct(self, userID, token):
         pass
     
-    def addProduct(self):
+    def addProduct(self, userID, image, overlay, category, brand, name, url, price, description):
         pass
+        #add = Added(owner = User.objects.get(pk = userID), )
