@@ -1,5 +1,5 @@
 # don't change!
-from main.models import User, Category, Product, WishList, FitList, Comment
+from main.models import User, Category, Product, WishList, FitList, Comment, TempProduct, Added
 from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib.auth.models import User as AUser
@@ -11,6 +11,8 @@ def setUpDb(request):
     WishList.objects.all().delete()
     FitList.objects.all().delete()
     Comment.objects.all().delete()
+    Added.objects.all().delete()
+    TempProduct.objects.all().delete()
     
     glasses = Category(name='glasses')
     hats = Category(name='hats')

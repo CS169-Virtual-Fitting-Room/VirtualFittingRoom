@@ -21,14 +21,13 @@ class ImageRW:
         return byte
     
     @staticmethod
-    def writeImage(file, permanent): # file is of type UploadedFile
+    def writeImage(file, permanent, filename): # file is of type UploadedFile
         #this method return the image name
         if file.size > 3000000: # larger than 3 MB
             return ""
         if not (file.name[-4:] == '.jpg' or file.name[-5:] == '.jpeg'): # check format
             return ""
         
-        filename = file.name
         path = ""
         if permanent :
             path = ImageRW.IMAGE_DIR
@@ -71,7 +70,7 @@ class ImageRW:
         # image_path is assumed to be jpg/jpeg
         im = Image.open(path + filename)
         # convert jpg/jpeg to png
-        newpath = path + filename.replace('.jpg', 'ol.png').replace('.jpeg', 'ol.png')
+        newpath = path + filename.replace('.jpg', '.png').replace('.jpeg', '.png')
         im.save(newpath, "PNG")
         
         img = Image.open(newpath)
