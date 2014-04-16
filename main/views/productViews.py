@@ -27,6 +27,8 @@ def detail(request, category, product, id):
 
 def addProduct(request):
     #authenticate
+    if (not request.user.is_authenticated()) or request.method == "POST":
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     #delete the item from temp list
     #add the product
     db = dataBaseModel()
@@ -35,23 +37,36 @@ def addProduct(request):
     # remove temp image
     if temppath != "":
         ImageRW.removeImage(temppath, False)
-        
-    imagefilename = ImageRW.writeImage(request.FILES['image'], True) # write image
-    overlayfilename = ImageRW.writeImage(request.FILES['overlay'], True) # write image
-    #check here
-    overlayfilename = ImageRW.convertToTransparent(overlayfilename, True) # convert it to transparent, return the new ol file name
-    #check here
-    db.addProduct()
+     
+    try:   
+        imagefilename = ImageRW.writeImage(request.FILES['image'], True) # write image
+        overlayfilename = ImageRW.writeImage(request.FILES['overlay'], True) # write image
+        #check here
+        overlayfilename = ImageRW.convertToTransparent(overlayfilename, True) # convert it to transparent, return the new ol file name
+        #check here
+        db.addProduct()
+        data = {'errCode' : dataBaseModel.SUCCESS}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    except:
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_ADD_IMAGE}, content_type='application/json'))
 
 def previewProduct(request):
     #authenticate
+    if (not request.user.is_authenticated()) or request.method == "POST":
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     #convert image to transparent background, save it to temp folder and let hangout api retrieve it
-    filename = ImageRW.writeImage(request.FILES['overlay'], False) # change 'image' later
-    #check here
-    ImageRW.convertToTransparent(filename, False)
-    #check here
-    
-    #now save it to temp table
-    db = dataBaseModel()
-    token = "" # generate a random token here
-    db.addTempProduct(request.user.id, token)	
+    try:
+        filename = ImageRW.writeImage(request.FILES['overlay'], False) # change 'image' later
+        #check here
+        if filename == "":
+            return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_IMAGE}, content_type='application/json'))
+        ImageRW.convertToTransparent(filename, False)
+        #check here
+        
+        #now save it to temp table
+        db = dataBaseModel()
+        token = "" # generate a random token here
+        db.addTempProduct(request.user.id, token)
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.SUCCESS, 'token' : token}, content_type='application/json'))	
+    except:
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_IMAGE}, content_type='application/json'))
