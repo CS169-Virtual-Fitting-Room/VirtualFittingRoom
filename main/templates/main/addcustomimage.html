@@ -84,9 +84,9 @@ $(document).ready(function(){
 			<div class="reg_section personal_info" >
 				  <h3>Item Information</h3>
 				  <div style="padding-left:30%">
-				  <p ><input type="text" name="username" value="" placeholder="Item Name"></p>
+				  <p ><input type="text" name="itemname" value="" placeholder="Item Name"></p>
 				  <p><input type="text" name="price" value="" placeholder="Price"></p>
-				  <p><textarea name="textarea" id="">Item Description</textarea></p>
+				  <p><textarea name="description" id="">Item Description</textarea></p>
 				  </div>
 			</div>
 			<div class = "reg_section upload">
@@ -102,10 +102,10 @@ $(document).ready(function(){
 			<div class="reg_section password">
 				<h3>Category</h3>
 				<div style="padding-left:30%">
-				<select>
-					<option value="">Glasses</option>
-					<option value="">Hats</option>
-					<option value="">HeadPhones</option>
+				<select name="category">
+					<option value="glasses">Glasses</option>
+					<option value="hats">Hats</option>
+					<option value="headphones">HeadPhones</option>
 				</select>
 				</div>
 			</div>
