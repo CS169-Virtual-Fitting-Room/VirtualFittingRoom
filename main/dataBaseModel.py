@@ -23,6 +23,8 @@ class dataBaseModel (object):
     ERR_FITLIST_ALREADY_EXIST = -7
     ERR_BAD_REQUEST = -8
     ERR_BAD_TOKEN = -9
+    ERR_UNABLE_TO_ADD_IMAGE = -10
+    ERR_UNABLE_TO_PREVIEW_IMAGE = -11
 
     
     

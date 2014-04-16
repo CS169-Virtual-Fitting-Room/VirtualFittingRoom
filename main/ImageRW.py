@@ -8,6 +8,7 @@ class ImageRW:
     SUCCESS = 1
     ERR_WRONG_FORMAT = -21
     ERR_IMAGE_TOO_LARGE = -22
+    ERR_UNABLE_TO_SAVE_IMAGE = -23
     
     
     def __init__(self):
@@ -26,9 +27,9 @@ class ImageRW:
     def writeImage(file, permanent): # file is of type UploadedFile
         #this method return the image name
         if file.size > 3000000: # larger than 3 MB
-            return ImageRW.ERR_IMAGE_TOO_LARGE
+            return ""
         if not (file.name[-4:] == '.jpg' or file.name[-5:] == '.jpeg'): # check format
-            return ImageRW.ERR_WRONG_FORMAT
+            return ""
         
         filename = file.name
         path = ""
