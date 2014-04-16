@@ -17,9 +17,10 @@
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!--script src="http://code.jquery.com/jquery-latest.min.js"></script-->
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,7 +28,48 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
-
+	
+	/*var files = [];
+	$("input[type=file]").change(function(event){
+		$.each(event.target.files,function(index,file){
+		var reader = new FileReader();
+		reader.onload = function(event){
+			object = {};
+			object.filename = file.name;
+			object.data = event.target.result;
+			console.log(object);
+			files.push(object);
+		};
+		reader.readAsDataURL(file);
+		});
+	});
+	$("#fileupload").click(function() {
+		console.log("fileupload");
+		//$.each(files, function(index, file) {
+			$.ajax({
+				url: '/previewcustomitem',
+				type: 'POST',
+				data: files[0].data,
+				contentType:"application/json",
+				dataType: "json",
+				success: function(data) {
+					console.log("success");
+				},
+				error: function(data){
+					alert("failure");
+				}
+			});      
+		//});
+		files = [];
+		//form.preventDefault();
+		return false;
+	});*/
+	$("#fileupload").click(function(){
+		$("form").ajaxForm({url: '/previewcustomitem', type:'post'});
+	});
+	$("#additem").click(function(){
+		$("form").ajaxForm({url: '/addcustomitem', type:'post'});
+	});
 });
 
 </script>
@@ -38,34 +80,42 @@ $(document).ready(function(){
 <div class="container">
 	<section class="register">
 		  <h1>Add Your Own Item!</h1>
-		  <form method="post" action="index.html">
-			  <div class="reg_section personal_info">
+		  <form>
+			<div class="reg_section personal_info" >
 				  <h3>Item Information</h3>
-				  <input type="text" name="username" value="" placeholder="Item Name">
-				  <input type="text" name="price" value="" placeholder="Price">
-				  <textarea name="textarea" id="">Item Description</textarea>
-			  </div>
-			  <div class = "reg_section upload">
-				<form id="myForm">
-					<input type ="file" size ="60" name = "myfile">
-					<input type ="submit" value="Ajax File Upload">
-				<form>
-			  </div>
-			  <div class="reg_section password">
-				  <h3>Category</h3>
-				  <select>
+				  <div style="padding-left:30%">
+				  <p ><input type="text" name="username" value="" placeholder="Item Name"></p>
+				  <p><input type="text" name="price" value="" placeholder="Price"></p>
+				  <p><textarea name="textarea" id="">Item Description</textarea></p>
+				  </div>
+			</div>
+			<div class = "reg_section upload">
+				
+				<div style="padding-left:20%">
+				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
+				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
+				<br></br>
+				
+				<span style="width:200px; display:inline-block;">Image for Display:	</span><input type ="file" size ="60" name = "display">
+				</div>
+			</div>
+			<div class="reg_section password">
+				<h3>Category</h3>
+				<div style="padding-left:30%">
+				<select>
 					<option value="">Glasses</option>
 					<option value="">Hats</option>
 					<option value="">HeadPhones</option>
-				  </select>
-			  </div>
-			  <p class="terms">
+				</select>
+				</div>
+			</div>
+			<!--p class="terms">
 				<label>
-				  <input type="checkbox" name="remember_me" id="remember_me">
-				   I accept  <a href="http://www.imomen.com/">Virtual Fitting Room</a>Terms & Condition
+					<input type="checkbox" name="remember_me" id="remember_me">
+					I accept  <a>Virtual Fitting Room</a>Terms & Condition
 				</label>
-			  </p>
-			  <p class="submit"><input type="submit" name="commit" value="Add"></p>
+			  </p-->
+			  <p class="submit"><button class= "buttonsubmit" id="additem">Add</button></p>
 		  </form>
 	</section>
 </div>
