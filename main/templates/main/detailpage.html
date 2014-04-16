@@ -42,7 +42,9 @@ $(document).ready(function(){
 			var price = data.price;
 			var desp = data.description;
 			gdesp = desp;
+			loadtwitter();
 			renderpage(desp, image, item_name, price);
+			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "'+window.location +'\n'+ item_name+'\n'+ desp+'" data-lang="en">Tweet</a>');
 		},
 		error:
 		function(data){
@@ -204,13 +206,15 @@ $(document).ready(function(){
 		'//connect.facebook.net/en_US/all.js';
 		document.getElementById('fb-root').appendChild(e);
 	}());
-
-	!function(d,s,id){
-		var js,fjs=d.getElementsByTagName(s)[0];
-		if(!d.getElementById(id)){js=d.createElement(s);
-		js.id=id;
-		js.src="https://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	
+	function loadtwitter(){
+		!function(d,s,id){
+			var js,fjs=d.getElementsByTagName(s)[0];
+			if(!d.getElementById(id)){js=d.createElement(s);
+			js.id=id;
+			js.src="https://platform.twitter.com/widgets.js";
+			fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	}
 	
 </script>
 <script src="https://apis.google.com/js/plusone.js"></script>
@@ -241,9 +245,9 @@ $(document).ready(function(){
 				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
 				<p><button id="add_to_fitlist" class="continue"><div>Add Item to Fitting Room</div></button></p>
 				<!--p><button type="button">Tell a friend</button></p-->
-				<span style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer; vertical-align: top"></img></span>
-				<span style="float=left"><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Hello World!" data-lang="en">Tweet</a></span>
-				<span style="float=left"> <g:plus action="share"></g:plus></span>
+				<span id= "fb_share" style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer; vertical-align: top"></img></span>
+				<span id= "twitter_share" style="float=left"></span>
+				<span id= "google_share" style="float=left"> <g:plus action="share"></g:plus></span>
 				
 			</td>
 		</tr>
