@@ -90,4 +90,3 @@ class ImageRW:
         imga.save(newpath, "PNG")
         
         return filename.replace('.jpg', 'ol.png').replace('.jpeg', 'ol.png') # return the overlay filename
-        
