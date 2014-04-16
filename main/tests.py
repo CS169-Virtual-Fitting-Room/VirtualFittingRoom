@@ -56,6 +56,13 @@ class testDBModel(TestCase):
         Comment.objects.all().delete()
         Product.objects.all().delete()
         Category.objects.all().delete()
+        testDBModel.testCategory = []
+        testDBModel.testComments = []
+        #testDBModel.testOverlay = []
+        testDBModel.testProducts = []
+        testDBModel.testUsers = []
+        testDBModel.testUsersID = []
+        testDBModel.testWishLists = []
 
 
 
