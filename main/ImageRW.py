@@ -6,9 +6,6 @@ class ImageRW:
     IMAGE_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/products/"
     TEMP_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/temp/"
     SUCCESS = 1
-    ERR_WRONG_FORMAT = -21
-    ERR_IMAGE_TOO_LARGE = -22
-    ERR_UNABLE_TO_SAVE_IMAGE = -23
     
     
     def __init__(self):
