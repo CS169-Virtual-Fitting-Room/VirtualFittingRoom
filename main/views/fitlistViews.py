@@ -47,4 +47,8 @@ def getPreviewItem(request, token):
     if not (request.user.is_authenticated()):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
     db = dataBaseModel()
-    db.getTempProduct(request.user.id, token)
+    product = db.getTempProduct(request.user.id, token)
+    if product[1] != dataBaseModel.SUCCESS:
+        return HttpResponse(json.dumps({'errCode' : product[1]}), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'errCode' : product[1], 'overlay' : static('temp/' + product[0])}), content_type='application/json')

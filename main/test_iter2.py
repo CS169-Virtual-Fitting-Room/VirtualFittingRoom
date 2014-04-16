@@ -74,6 +74,14 @@ class testDBModel(TestCase):
         Product.objects.all().delete()
         Category.objects.all().delete()
         FitList.objects.all().delete()
+        testDBModel.testCategory = []
+        testDBModel.testComments = []
+        testDBModel.testFitLists = []
+        #testDBModel.testOverlay = []
+        testDBModel.testProducts = []
+        testDBModel.testUsers = []
+        testDBModel.testUsersID = []
+        testDBModel.testWishLists = []
 
 ####  get Fit List
     def testGetFitList(self):

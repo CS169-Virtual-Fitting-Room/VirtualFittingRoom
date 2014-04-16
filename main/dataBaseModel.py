@@ -23,6 +23,8 @@ class dataBaseModel (object):
     ERR_FITLIST_ALREADY_EXIST = -7
     ERR_BAD_REQUEST = -8
     ERR_BAD_TOKEN = -9
+    ERR_UNABLE_TO_PREVIEW_PRODUCT = -10
+    ERR_UNABLE_TO_ADD_PRODUCT = -11
 
     
     
@@ -165,9 +167,24 @@ class dataBaseModel (object):
         except:
             return ""
     
-    def addTempProduct(self, userID, token):
-        pass
+    def addTempProduct(self, puserID, ptoken, poverlay):
+        user = User.objects.get(pk = puserID)
+        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken)
+        newTemp.save()
     
-    def addProduct(self, userID, image, overlay, category, brand, name, url, price, description):
-        pass
-        #add = Added(owner = User.objects.get(pk = userID), )
+    def addProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription):
+        try:
+            # add the product
+            cat = Category.objects.get(name=pcategory)
+            newProduct = Product(category = cat, name = pname, brand = pbrand, url = purl, price = pprice, description = pdescription, photo = pimage, overlay = poverlay)
+            newProduct.save()
+            # add the added relationship
+            user = User.objects.get(pk = puserID)
+            newAdd = Added(owner = user, product = newProduct)
+            newAdd.save()
+            
+            return dataBaseModel.SUCCESS
+        except Exception:
+            return dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT
+        
+        
