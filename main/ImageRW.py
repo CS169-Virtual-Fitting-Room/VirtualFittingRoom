@@ -1,5 +1,5 @@
 import os
-from PIL import Image
+from PIL import Image, ImageFilter
 
 class ImageRW:
     
@@ -81,12 +81,13 @@ class ImageRW:
         newData = []
         # loop the list, replace white color wih transparency
         for item in datas:
-            if item[0] == 255 and item[1] == 255 and item[2] == 255:
+            if item[0] >= 245 and item[1] >= 245 and item[2] >= 245:
                 newData.append((255,255,255,0))
             else:
                 newData.append(item)
         
         imga.putdata(newData)
+        imga = imga.filter(ImageFilter.FIND_EDGES)
         imga.save(newpath, "PNG")
         
-        return filename.replace('.jpg', 'ol.png').replace('.jpeg', 'ol.png') # return the overlay filename
+        return filename.replace('.jpg','.png').replace('.jpeg', '.png') # return the overlay filename
