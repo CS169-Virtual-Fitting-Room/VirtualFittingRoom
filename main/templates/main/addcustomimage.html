@@ -65,6 +65,10 @@ $(document).ready(function(){
 		return false;
 	});*/
 	$("#fileupload").click(function(){
+		/*var $inputs = $('form :input');
+		$inputs.each(function() {
+			console.log($(this).val());
+		});*/
 		$("form").ajaxForm({url: '/previewcustomitem', type:'post'});
 	});
 	$("#additem").click(function(){
