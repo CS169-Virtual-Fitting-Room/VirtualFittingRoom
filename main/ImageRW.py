@@ -1,5 +1,5 @@
 import os
-from PIL import Image
+from PIL import Image, ImageMath
 
 class ImageRW:
     
@@ -61,7 +61,7 @@ class ImageRW:
             pass
     
     @staticmethod
-    def Process(filename, in_permanent, isHat):  # this method return the overlay image name
+    def Process(filename, in_permanent, category):  # this method return the overlay image name
         path = ""
         if in_permanent:
             path = ImageRW.IMAGE_DIR
@@ -151,11 +151,13 @@ class ImageRW:
                     pixel[x, y] = (255, 255, 255, 0)
          
          
-        # try to trim the back ground if it is hat
-        if (isHat):
-            thTrim = 10
+        # try to trim the bottom and top if it is hat
+        if (category == "hats"):
+            thTrim = 5
             tip = height
             bottom = 0
+            left = width
+            right = 0
             # trim up first
             for x in range(width):
                 y = 0
@@ -176,13 +178,169 @@ class ImageRW:
                         if y > bottom:
                             bottom = y
                     y -= 1
+            for y in range(height):
+                x = 0
+                foundObj = False
+                while (not foundObj) and x < width:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if x < left:
+                            left = x
+                    x += 1
+        
+            for y in range(height):
+                x = width - 1
+                foundObj = False
+                while (not foundObj) and x >= 0:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if x > right:
+                            right = x
+                    x -= 1
             
+            if (tip - thTrim < height and bottom + thTrim >= 0 and left - thTrim >=0 and right + thTrim < width):
+                imga = imga.crop((left - thTrim, tip - thTrim, right + thTrim, bottom + thTrim))
+            
+            else:
+                imga = imga.crop((left, tip, right, bottom))
+                
+        # try to trim for headphones
+        elif (category == "headphones"):
+            # find ear to ear distance
+            bottomsLeft = []
+            bottomsRight = []
+            tip = height
+            middle = 0
+            # find tip first
+            
+            for x in range(width):
+                y = 0
+                foundObj = False
+                while (not foundObj) and y < height:
+                    if pixel[x, y][3] != 0:
+                        if y < tip:
+                            tip = y
+                            middle = x
+                            foundObj = True
+                    y += 1
+
+            for x in range(0, middle):
+                for y in reversed(range(height)):
+                    if pixel[x,y][3] != 0:
+                        bottomsLeft.append((x, y))
+                        break
+                    
+            for x in reversed(range(middle, width)):
+                for y in reversed(range(height)):
+                    if pixel[x,y][3] != 0:
+                        bottomsRight.append((x, y))
+                        break
+            th = 20
+            thTrim = 5
+            # sort it for now, ~1000 pixels isn't that much??
+            bottomsLeft = sorted(bottomsLeft, key=lambda x: x[1], reverse = True)
+            bottomsRight = sorted(bottomsRight, key=lambda x: x[1], reverse = True)
+            
+            found = False
+            i = j = 0
+            bottom = 0
+            leftEar = rightEar = 0
+            while not found:
+                if abs(bottomsLeft[i][1] - bottomsRight[j][1]) <= th:
+                    found = True
+                    bottom = max(bottomsLeft[i][1], bottomsRight[j][1])
+                    leftEar = bottomsLeft[i][0]
+                    rightEar = bottomsRight[j][0]
+                else:
+                    if bottomsLeft[i][1] > bottomsRight[j][1]:
+                        i += 1
+                    else:
+                        j += 1
+                        
+            # now crop the image
             if (tip - thTrim < height and bottom + thTrim >= 0):
                 imga = imga.crop((0, tip - thTrim, width, bottom + thTrim))
             
             else:
-                imga = imga.crop((0, tip, width, bottom)) 
+                imga = imga.crop((0, tip, width, bottom))    
+            
+            # find ear to ear distance           
+            new_width, new_height = imga.size
+            lefttip = new_width
+            righttip = 0
+            newpixel = imga.load()
+            
+            for y in reversed(range(new_height)):
+                for x in reversed(range(leftEar)):
+                    if newpixel[x, y][3] == 0:
+                        if x < lefttip:
+                            lefttip = x
+                        break
+            
+            for y in reversed(range(new_height)):
+                for x in range(rightEar, new_width):          
+                    if newpixel[x, y][3] == 0:
+                        if x > righttip:
+                            righttip = x
+                        break
+            #new_width = width + int(round(xshift))
+            imga = imga.transform((new_width, new_height), Image.QUAD,
+                    (0,0, lefttip, new_height, righttip ,new_height,new_width,0), Image.BILINEAR)
         
+        # process glasses
+        elif category == "glasses":
+            thTrim = 5
+            tip = height
+            bottom = 0
+            left = width
+            right = 0
+            # trim up first
+            for x in range(width):
+                y = 0
+                foundObj = False
+                while (not foundObj) and y < height:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if y < tip:
+                            tip = y
+                    y += 1
+        
+            for x in range(width):
+                y = height - 1
+                foundObj = False
+                while (not foundObj) and y >= 0:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if y > bottom:
+                            bottom = y
+                    y -= 1
+            for y in range(height):
+                x = 0
+                foundObj = False
+                while (not foundObj) and x < width:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if x < left:
+                            left = x
+                    x += 1
+        
+            for y in range(height):
+                x = width - 1
+                foundObj = False
+                while (not foundObj) and x >= 0:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if x > right:
+                            right = x
+                    x -= 1
+            
+            if (tip - thTrim < height and bottom + thTrim >= 0 and left - thTrim >=0 and right + thTrim < width):
+                imga = imga.crop((left - thTrim, tip - thTrim, right + thTrim, bottom + thTrim))
+            
+            else:
+                imga = imga.crop((left, tip, right, bottom))
+            
+        imga.thumbnail((600,600), Image.ANTIALIAS) # set the max size
         imga.save(newpath, "PNG")
         
         return filename.replace('.jpg', '.png').replace('.jpeg', '.png')  # return the overlay filename
