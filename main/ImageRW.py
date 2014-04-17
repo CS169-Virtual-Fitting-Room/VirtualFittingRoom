@@ -61,7 +61,7 @@ class ImageRW:
             pass
     
     @staticmethod
-    def convertToTransparent(filename, in_permanent):  # this method return the overlay image name
+    def Process(filename, in_permanent, isHat):  # this method return the overlay image name
         path = ""
         if in_permanent:
             path = ImageRW.IMAGE_DIR
@@ -149,7 +149,39 @@ class ImageRW:
                     pixel[x, y] = (255, 255, 255, 0)
                 elif checkThreshold(pixel[x, y], pixel16):
                     pixel[x, y] = (255, 255, 255, 0)
+         
+         
+        # try to trim the back ground if it is hat
+        if (isHat):
+            thTrim = 10
+            tip = height
+            bottom = 0
+            # trim up first
+            for x in range(width):
+                y = 0
+                foundObj = False
+                while (not foundObj) and y < height:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if y < tip:
+                            tip = y
+                    y += 1
+        
+            for x in range(width):
+                y = height - 1
+                foundObj = False
+                while (not foundObj) and y >= 0:
+                    if pixel[x, y][3] != 0:
+                        foundObj = True
+                        if y > bottom:
+                            bottom = y
+                    y -= 1
             
+            if (tip - thTrim < height and bottom + thTrim >= 0):
+                imga = imga.crop((0, tip - thTrim, width, bottom + thTrim))
+            
+            else:
+                imga = imga.crop((0, tip, width, bottom)) 
         
         imga.save(newpath, "PNG")
         
