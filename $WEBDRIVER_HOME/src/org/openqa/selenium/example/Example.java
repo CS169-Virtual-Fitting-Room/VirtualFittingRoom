@@ -16,7 +16,7 @@ public class Example {
 	private static int glassNum = 2;
 	private static int hatNum = 2;
 	private static int headPhonesNum = 2;
-	private static final boolean localServer = false;
+	private static final boolean localServer = true;
 	private static final String[] topMenuBar = {"home","fitting_room","wishlist","login"};
 	private static final String[] category = {"glasses/","hats/", "headphones/"}; 
 	private static final String[][] productsLists = {{"rayban%20glasses_1/","nike%20glasses_2/"},{"adidas%20cap_3/","levis%20hat_4/"},{"beats%20headphones_5/","sony%20headphones_6/"}};

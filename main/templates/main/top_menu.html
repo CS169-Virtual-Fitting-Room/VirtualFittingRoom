@@ -2,10 +2,11 @@
 	<div class=nav>
 		<nav>
 			<ul class=global-nav>
+                <form> <input type = "text" name = "searchLine"></form>
 				<li id="head"><a id=home href="/">Home</a></li>
 				<li id="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
 				<li id="head"><a id=wishlist href="/wishlist">Wishlist</a></li>
-				<li id="head">
+                <li id="head">
 					{% if user.is_authenticated == False %}
 					<a id = login href="/login/google-oauth2/">Login</a>
 					{% else %}

@@ -30,3 +30,6 @@ def fittingroom(request):
 def wishlist(request):
     return render(request, "main/wishlist.html")
 
+def searchProducts(request):
+    return render(request, "main/searchResult.html")
+
