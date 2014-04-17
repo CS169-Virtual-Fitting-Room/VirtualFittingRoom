@@ -12,12 +12,12 @@ class testImageRW(TestCase):
         self.assertTrue(len(data) == 0, 'ImageRW returning bytes of non existing image')
         
     def testProcessInPerm(self):
-        ImageRW.Process("sample.jpg", True, False)
+        ImageRW.Process("sample.jpg", True, "headphones")
         #ImageRW.convertToTransparent("apple.jpg", True)
         self.assertTrue(os.path.isfile(ImageRW.IMAGE_DIR + "sample.png"), 'Image not converted to PNG')
         
     def testProcessInTemp(self):
-        ImageRW.Process("sample.jpg", False, False)
+        ImageRW.Process("sample.jpg", False, "hat")
         """
         ImageRW.convertToTransparent("apple.jpg", False)
         ImageRW.convertToTransparent("test1.jpg", False)

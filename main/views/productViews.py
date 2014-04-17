@@ -56,7 +56,7 @@ def addProduct(request):
         imagefilename = ImageRW.writeImage(request.FILES['display'], True, filename) # write image
         ImageRW.writeImage(request.FILES['overlay'], True, overlayfilename) # write image
         #check here
-        overlayfilename = ImageRW.Process(overlayfilename, True, request.POST["category"] == "hats") # convert it to transparent, return the new ol file name
+        overlayfilename = ImageRW.Process(overlayfilename, True, request.POST["category"]) # convert it to transparent, return the new ol file name
         #check here
         ImageRW.removeImage(overlayfilename.replace('.png', '.jpg'), True)
         form = CustomProductForm(request.POST)
@@ -97,7 +97,7 @@ def previewProduct(request):
         if ImageRW.writeImage(request.FILES['overlay'], False, filename) == "":
             return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_PRODUCT}), content_type='application/json')
 
-        overlay = ImageRW.Process(filename, False, request.POST["category"] == "hats")
+        overlay = ImageRW.Process(filename, False, request.POST["category"])
 
         #now save it to temp table
         db = dataBaseModel()
