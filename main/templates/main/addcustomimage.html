@@ -13,6 +13,8 @@
 
 <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Wellfleet'>
 
+
+
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -22,6 +24,8 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -109,11 +113,11 @@ $(document).ready(function(){
 						$("#back").show();
 						
 					} else if (data.errCode == -8) { // not authenticated
-						alert("Please sign in!");
+						$("#dialogErrUser").dialog();
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					} else { // bad response
-						alert("Error. Please try again!");
+						$("#dialogErr").dialog();
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					}
@@ -191,6 +195,11 @@ $(document).ready(function(){
 	</section>
 </div>
 
-
+<div id="dialogErrUser" title="Authentication failed" hidden="true">
+  <p>Please log in to add custom products.</p>
+</div>
+<div id="dialogErr" title="Image process failed" hidden="true">
+	<p>Unable to process uploaded image</p>
+</div>
 </body>
 </html>
