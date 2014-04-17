@@ -130,12 +130,114 @@ $(document).ready(function(){
 		});
 		//});
 
-		$("#additem").click(function() {
+		$("#additem").click(function(event) {
+			event.preventDefault();
+			var inputs = $("form :input");
+			var map = new Object();
+			var mapsize = 7;
+			map["Item Name"] = "";
+			map["Price"] = "";
+			map["URL"] = "";
+			map["Brand"] = "";
+			map["Description"] = "";
+			map["Image for Fitting Room"] = "";
+			map["Category"] = "";
+			inputs.each(function(index){
+				switch(index){
+					case 2:
+						map["Item Name"] = $(this)[0].value;
+						break;
+					case 3:
+						map["Price"] = $(this)[0].value;
+						break;
+					case 4:
+						map["URL"] = $(this)[0].value;
+						break;
+					case 5:
+						map["Brand"] = $(this)[0].value;
+						break;
+					case 6:
+						map["Description"] = $(this).val();
+						break;
+					case 7:
+						map["Image for Fitting Room"] = $(this)[0].value;
+						break;
+					case 10:
+						map["Category"] = $(this).find(":selected").text();
+						break;
+					default:
+						break;
+				}
+				//console.log($(this));
+			});
+			var resultCheckEmptyInput = checkEmptyInput(map);
+			if(resultCheckEmptyInput!=""){
+				alert("please fill in missing field(s) in "+ resultCheckEmptyInput);
+				return;
+			}
+			if (!checkValidImageType(map["Image for Fitting Room"])){
+				alert("please upload either images with only either jpg or jpeg format");
+				return;
+			}
+			if (!checkValidPrice(map["Price"])){
+				alert("please enter a valid number in form of 10 or 10.00");
+				return;
+			}
 			$("form").ajaxForm({
 				url : '/addcustomitem',
 				type : 'post'
 			});
 		});
+		function checkValidImageType(image){
+			if(image==""){
+				return false;
+			}
+			var arr = image.split('.');
+			if(arr.length!=2){
+				return false;
+			}else if(!(arr[1]=="jpg" || arr[1]=="jpeg")){
+				return false;
+			}
+			return true;
+		}
+		function checkEmptyInput(map){
+			console.log(map);
+			var string = "";
+			$.map(map,function(value, key){
+				if(value==""){
+					if (string ==""){
+						string = string+" "+key;
+					}else{
+						string = string+", "+key;
+					}
+				}
+			});
+			return string;
+		}
+		function checkValidPrice(price){
+			if(price == ""){
+				return false;
+			}
+			var arr = price.split('.');
+			if(arr.length>2){
+				return false;
+			}else if(arr.length==1){
+				var s = arr[0];
+				return checkValidInteger(s);
+			}else if(arr.length==2){
+				var integer = arr[0];
+				var fractional = arr[1];
+				return checkValidInteger(integer) && checkValidInteger(fractional);
+			}
+		}
+		function checkValidInteger(s){
+			for(var i=0; i<s.length; i++){
+				if(!(s[i]>='0'&& s[i]<='9')){
+					return false;
+				}
+			}
+			return true;
+		}
 	});
 </script>
 </head>
@@ -159,6 +261,7 @@ $(document).ready(function(){
 			<div class = "reg_section upload">
 				
 				<div style="padding-left:20%">
+				<span style="color:red; font-size:6">Cautious: please upload item image with plain color backgroud</span>
 				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
 				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
 				<div id="placeholder-div2" style="display:none"></div>
@@ -167,7 +270,7 @@ $(document).ready(function(){
 				</table>
 				<br></br>
 				
-				<span style="width:200px; display:inline-block;">Image for Display:	</span><input type ="file" size ="60" name = "display">
+				<!--span style="width:200px; display:inline-block;">Image for Display:	</span><input type ="file" size ="60" name = "display"-->
 				</div>
 			</div>
 			<div class="reg_section password">
