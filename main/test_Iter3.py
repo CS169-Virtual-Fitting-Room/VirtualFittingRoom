@@ -65,9 +65,9 @@ class testDBModel(TestCase):
         newAdded.save()
         
 ######  add temp product ######
-        tempP = TempProduct(owner = testDBModel.testUsers[0], overlay = 'overlay1ol.jpg', token = '1')
+        tempP = TempProduct(owner = testDBModel.testUsers[0], overlay = 'overlay1ol.jpg', token = '1', category = testDBModel.testCategory[0])
         tempP.save()
-        tempP = TempProduct(owner = testDBModel.testUsers[1], overlay = 'overlay2ol.jpg', token = '2')
+        tempP = TempProduct(owner = testDBModel.testUsers[1], overlay = 'overlay2ol.jpg', token = '2', category = testDBModel.testCategory[0])
         tempP.save()
         testDBModel.testOverlay = ['overlay1ol.jpg', 'overlay2ol.jpg']
 
@@ -129,7 +129,7 @@ class testDBModel(TestCase):
         
     def testAddTempProduct(self):
         db = dataBaseModel()
-        db.addTempProduct(testDBModel.testUsersID[0],'testingtoken', 'testingoverlayol.jpg')
+        db.addTempProduct(testDBModel.testUsersID[0],'testingtoken', 'testingoverlayol.jpg', 'glasses')
         queryset = TempProduct.objects.filter(Q(owner = testDBModel.testUsers[0]), Q(token='testingtoken'))
         self.assertTrue(queryset.count() == 1, 'Unable to add temp product')
        
