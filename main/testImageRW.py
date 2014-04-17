@@ -13,16 +13,26 @@ class testImageRW(TestCase):
         
     def testConvertToTransparentInPermanent(self):
         ImageRW.convertToTransparent("sample.jpg", True)
-        self.assertTrue(os.path.isfile(ImageRW.IMAGE_DIR + "sampleol.png"), 'Image not converted to PNG')
+        #ImageRW.convertToTransparent("apple.jpg", True)
+        self.assertTrue(os.path.isfile(ImageRW.IMAGE_DIR + "sample.png"), 'Image not converted to PNG')
         
     def testConvertToTransparentInTemp(self):
         ImageRW.convertToTransparent("sample.jpg", False)
-        self.assertTrue(os.path.isfile(ImageRW.TEMP_DIR + "sampleol.png"), 'Image not converted to PNG')
+        """
+        ImageRW.convertToTransparent("apple.jpg", False)
+        ImageRW.convertToTransparent("test1.jpg", False)
+        ImageRW.convertToTransparent("test2.jpg", False)
+        ImageRW.convertToTransparent("test3.jpg", False)
+        ImageRW.convertToTransparent("test4.jpg", False)
+        """
+        self.assertTrue(os.path.isfile(ImageRW.TEMP_DIR + "sample.png"), 'Image not converted to PNG')
         
+    
     def testRemoveImageInPermanent(self):
-        ImageRW.removeImage("sampleol.png", True)
-        self.assertTrue(os.path.isfile(ImageRW.IMAGE_DIR + "sampleol.png") == False, 'Image not removed')
+        ImageRW.removeImage("sample.png", True)
+        self.assertTrue(os.path.isfile(ImageRW.IMAGE_DIR + "sample.png") == False, 'Image not removed')
         
     def testRemoveImageInTemp(self):
-        ImageRW.removeImage("sampleol.png", False)
-        self.assertTrue(os.path.isfile(ImageRW.TEMP_DIR + "sampleol.png") == False, 'Image not removed')
+        ImageRW.removeImage("sample.png", False)
+        self.assertTrue(os.path.isfile(ImageRW.TEMP_DIR + "sample.png") == False, 'Image not removed')
+    

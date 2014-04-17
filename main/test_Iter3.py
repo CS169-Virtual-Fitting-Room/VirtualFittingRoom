@@ -65,9 +65,9 @@ class testDBModel(TestCase):
         newAdded.save()
         
 ######  add temp product ######
-        tempP = TempProduct(owner = testDBModel.testUsers[0], overlay = 'overlay1ol.jpg', token = '1')
+        tempP = TempProduct(owner = testDBModel.testUsers[0], overlay = 'overlay1ol.jpg', token = '1', category = testDBModel.testCategory[0])
         tempP.save()
-        tempP = TempProduct(owner = testDBModel.testUsers[1], overlay = 'overlay2ol.jpg', token = '2')
+        tempP = TempProduct(owner = testDBModel.testUsers[1], overlay = 'overlay2ol.jpg', token = '2', category = testDBModel.testCategory[0])
         tempP.save()
         testDBModel.testOverlay = ['overlay1ol.jpg', 'overlay2ol.jpg']
 
@@ -107,29 +107,29 @@ class testDBModel(TestCase):
     def testGetTempProduct(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[1] == dataBaseModel.SUCCESS, "Failed to get temp product user 0")
-        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[0] == testDBModel.testOverlay[0], "Failed to get temp product user 0")
+        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[0].overlay == testDBModel.testOverlay[0], "Failed to get temp product user 0")
         
     def testGetTempProductWithBadUser(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(100, '1')[1] == dataBaseModel.ERR_BAD_TOKEN, "Expect negative err code")
-        self.assertTrue(db.getTempProduct(100, '1')[0] == "", "Expect negative err code")
+        self.assertTrue(db.getTempProduct(100, '1')[0] == None, "Expect negative err code")
         
     def testGetTempProductWithBadToken(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[1] == dataBaseModel.ERR_BAD_TOKEN, "Expect negative err code")
-        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[0] == "", "Expect negative err code")
+        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[0] == None, "Expect negative err code")
         
     def testRemoveTempProduct(self):
         db = dataBaseModel()
-        self.assertTrue(db.removeTempProduct(testDBModel.testUsersID[0]) == testDBModel.testOverlay[0], "Remove temp product not returning correct image path")
+        self.assertTrue(db.removeTempProduct(testDBModel.testUsersID[0])[0] == testDBModel.testOverlay[0], "Remove temp product not returning correct image path")
         
     def testRemoveTempProductBadUserID(self):
         db = dataBaseModel()
-        self.assertTrue(db.removeTempProduct(100) == "", "Remove temp product not returning empty image path")   
+        self.assertTrue(db.removeTempProduct(100) == [], "Remove temp product not returning empty image path")   
         
     def testAddTempProduct(self):
         db = dataBaseModel()
-        db.addTempProduct(testDBModel.testUsersID[0],'testingtoken', 'testingoverlayol.jpg')
+        db.addTempProduct(testDBModel.testUsersID[0],'testingtoken', 'testingoverlayol.jpg', 'glasses')
         queryset = TempProduct.objects.filter(Q(owner = testDBModel.testUsers[0]), Q(token='testingtoken'))
         self.assertTrue(queryset.count() == 1, 'Unable to add temp product')
        

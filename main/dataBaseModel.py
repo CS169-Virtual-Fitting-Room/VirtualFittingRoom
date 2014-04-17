@@ -152,24 +152,28 @@ class dataBaseModel (object):
     def getTempProduct(self, userID, ttoken):
         try:
             temp = TempProduct.objects.get(Q(owner = User.objects.get(pk = userID)), Q(token = ttoken))
-            return (temp.overlay, dataBaseModel.SUCCESS)
+            return (temp, dataBaseModel.SUCCESS)
         except:
-            return ("", dataBaseModel.ERR_BAD_TOKEN)
+            return (None,  dataBaseModel.ERR_BAD_TOKEN)
         
     """ if can't remove, do nothing
         return image path """
     def removeTempProduct(self, userID):
         try:
-            temp = TempProduct.objects.get(owner = User.objects.get(pk = userID))
-            opath = temp.overlay
-            temp.delete()
-            return opath
+            temps = TempProduct.objects.filter(owner = User.objects.get(pk = userID))
+            data = []
+            for temp in temps:
+                data.append(temp.overlay)
+                
+            temps.delete()
+            return data
         except:
-            return ""
+            return []
     
-    def addTempProduct(self, puserID, ptoken, poverlay):
+    def addTempProduct(self, puserID, ptoken, poverlay, pcategory):
         user = User.objects.get(pk = puserID)
-        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken)
+        cat = Category.objects.get(name=pcategory)
+        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken, category = cat)
         newTemp.save()
     
     def addProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription):

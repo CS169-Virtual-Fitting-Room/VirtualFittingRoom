@@ -20,7 +20,8 @@
 <!--script src="http://code.jquery.com/jquery-latest.min.js"></script-->
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,6 +30,15 @@
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	
+	$("#back").click(function() {
+		$("#placeholder-div2").empty();
+		$("#placeholder-div2").hide();
+		$("#fileupload").removeAttr("disabled");
+		$("#fileupload").text("Upload to Preview");
+		$("#fileupload").show();
+		$("#back").hide();
+		return false; // prevent form submission
+	});
 	/*var files = [];
 	$("input[type=file]").change(function(event){
 		$.each(event.target.files,function(index,file){
@@ -63,19 +73,70 @@ $(document).ready(function(){
 		files = [];
 		//form.preventDefault();
 		return false;
-	});*/
-	$("#fileupload").click(function(){
-		/*var $inputs = $('form :input');
-		$inputs.each(function() {
-			console.log($(this).val());
-		});*/
-		$("form").ajaxForm({url: '/previewcustomitem', type:'post'});
-	});
-	$("#additem").click(function(){
-		$("form").ajaxForm({url: '/addcustomitem', type:'post'});
-	});
-});
+	});*/	
+	
+	$("#fileupload").click(function(){	
+		var object = {url: '/previewcustomitem', type:'POST', 
+				beforeSubmit: 
+					function(arr, $form, options) {
+						$("#fileupload").text('Processing...');
+						$("#fileupload").attr('disabled', 'disabled');
+						return true;
+					},
+					success:
+					function(data) {
+						if (data.errCode == 1) {
+							$('#fileupload').hide();
+							// load the hangout button here
 
+							gapi.hangout.render('placeholder-div2', {
+								'render' : 'createhangout',
+								'initial_apps' : [ {
+									'app_id' : '60097234437',
+									'start_data' : data.token,
+									'app_type' : 'LOCAL_APP'
+								} ],
+								'widget_size' : 136
+							});
+							$("#placeholder-div2").show();
+
+						$(document).ready(function() {
+							//$(".contain-page").append("<p>Test</p>");
+							$(".header-wrap").load("top_menu");
+						});
+
+						// provide and "back" button
+						$("#back").show();
+						
+					} else if (data.errCode == -8) { // not authenticated
+						alert("Please sign in!");
+						$("#fileupload").text('Upload to Preview');
+						$("#fileupload").removeAttr('disabled');
+					} else { // bad response
+						alert("Error. Please try again!");
+						$("#fileupload").text('Upload to Preview');
+						$("#fileupload").removeAttr('disabled');
+					}
+				},
+				error : function() {
+					alert("Failed to process image. Please try again!");
+					$("#fileupload").text('Upload to Preview');
+					$("#fileupload").removeAttr('disabled');
+				}
+
+			};
+			$("form").ajaxForm(object);
+			$("form").ajaxSubmit()
+		});
+		//});
+
+		$("#additem").click(function() {
+			$("form").ajaxForm({
+				url : '/addcustomitem',
+				type : 'post'
+			});
+		});
+	});
 </script>
 </head>
 <body>
@@ -100,6 +161,10 @@ $(document).ready(function(){
 				<div style="padding-left:20%">
 				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
 				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
+				<div id="placeholder-div2" style="display:none"></div>
+				<br>
+				<button class= "buttonsubmit" id="back" style="display:none">Back</button>
+				</table>
 				<br></br>
 				
 				<span style="width:200px; display:inline-block;">Image for Display:	</span><input type ="file" size ="60" name = "display">
@@ -115,12 +180,6 @@ $(document).ready(function(){
 				</select>
 				</div>
 			</div>
-			<!--p class="terms">
-				<label>
-					<input type="checkbox" name="remember_me" id="remember_me">
-					I accept  <a>Virtual Fitting Room</a>Terms & Condition
-				</label>
-			  </p-->
 			  <p class="submit"><button class= "buttonsubmit" id="additem">Add</button></p>
 		  </form>
 	</section>
