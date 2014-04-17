@@ -107,17 +107,17 @@ class testDBModel(TestCase):
     def testGetTempProduct(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[1] == dataBaseModel.SUCCESS, "Failed to get temp product user 0")
-        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[0] == testDBModel.testOverlay[0], "Failed to get temp product user 0")
+        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], '1')[0].overlay == testDBModel.testOverlay[0], "Failed to get temp product user 0")
         
     def testGetTempProductWithBadUser(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(100, '1')[1] == dataBaseModel.ERR_BAD_TOKEN, "Expect negative err code")
-        self.assertTrue(db.getTempProduct(100, '1')[0] == "", "Expect negative err code")
+        self.assertTrue(db.getTempProduct(100, '1')[0] == None, "Expect negative err code")
         
     def testGetTempProductWithBadToken(self):
         db = dataBaseModel()
         self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[1] == dataBaseModel.ERR_BAD_TOKEN, "Expect negative err code")
-        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[0] == "", "Expect negative err code")
+        self.assertTrue(db.getTempProduct(testDBModel.testUsersID[0], 'a')[0] == None, "Expect negative err code")
         
     def testRemoveTempProduct(self):
         db = dataBaseModel()
