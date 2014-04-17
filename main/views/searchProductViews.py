@@ -5,7 +5,7 @@ from django.templatetags.static import static
 import json
 
 
-def searchProduts(request, searchName):
+def searchProducts(request, searchName = "addi"):
     db = dataBaseModel()
     categoryList = ["hats", "headPhones", "glasses"]
     id = []
