@@ -25,7 +25,7 @@ class ImageRW:
         # this method return the image name
         if file.size > 3000000:  # larger than 3 MB
             return ""
-        if not (file.name[-4:] == '.jpg' or file.name[-5:] == '.jpeg'):  # check format
+        if not (file.name[-4:].lower() == '.jpg' or file.name[-5:].lower() == '.jpeg'):  # check format
             return ""
         
         path = ""
