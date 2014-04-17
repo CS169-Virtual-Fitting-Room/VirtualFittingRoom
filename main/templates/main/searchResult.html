@@ -1,0 +1,46 @@
+<!--p id="test_search"> 	search results </p-->
+{% load staticfiles %}
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
+<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+<!--link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'-->
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "main/assets/js/general.js" %}'></script>
+<div class="header-wrap" >
+</div>
+<article id="grid">
+
+    <ul id="items">
+	<!--items are here from item.html-->
+    </ul>
+    <footer>
+        <div class="paging">
+            Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
+        </div>
+    </footer>
+</article>
+<script type='text/javascript'>
+$(document).ready(function() {
+
+	$.ajax({
+		url: "search",
+		content_type: "application/json",
+		dataType: "json",
+		success:
+		function(data){
+			var images = data.image;
+			var item_names=data.item_name;
+			var prices = data.price;
+			var ids = data.id;
+			rendergrids(images.length, images, item_names, prices, ids);
+		},
+		error:
+		function(data){
+			alert("failure");
+		}
+	});
+	rendertopmenu();
+});
+</script>
+

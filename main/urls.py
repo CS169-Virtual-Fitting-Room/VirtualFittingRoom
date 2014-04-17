@@ -6,6 +6,7 @@ from views.commentViews import addComment, getComments
 from views.internalViews import setUpDb
 from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
 from views.fitlistViews import getFitlist, removeFromFitlist, addToFitlist, getPreviewItem
+from views.searchProductViews import searchProducts, search_list
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^internal', setUpDb, name='internal'),
@@ -21,6 +22,8 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^previewcustomitem', previewProduct, name='previewProduct'),
                        url(r'^addcustomitem', addProduct, name='addProduct'),         
                        url(r'^$', index, name='index'),
+                       url(r'^(searchResult)', search_list, name='search_list'),
+                       url(r'^searchResult/search/$' ,searchProducts, name='searchProducts' ),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
                        url(r'^(?P<category>[\w ]+)/(?P<product>[\w ]+)_(?P<id>[\d]+)/$', detailpage, name='detailpage'),
