@@ -104,7 +104,7 @@ def previewProduct(request):
         #now save it to temp table
         db = dataBaseModel()
 
-        db.addTempProduct(request.user.id, token, overlay)
+        db.addTempProduct(request.user.id, token, overlay, request.POST["category"])
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.SUCCESS, 'token' : token}), content_type='application/json')
     except:
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_PRODUCT}), content_type='application/json')
