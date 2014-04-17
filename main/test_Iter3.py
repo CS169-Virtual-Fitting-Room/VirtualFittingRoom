@@ -121,11 +121,11 @@ class testDBModel(TestCase):
         
     def testRemoveTempProduct(self):
         db = dataBaseModel()
-        self.assertTrue(db.removeTempProduct(testDBModel.testUsersID[0]) == testDBModel.testOverlay[0], "Remove temp product not returning correct image path")
+        self.assertTrue(db.removeTempProduct(testDBModel.testUsersID[0])[0] == testDBModel.testOverlay[0], "Remove temp product not returning correct image path")
         
     def testRemoveTempProductBadUserID(self):
         db = dataBaseModel()
-        self.assertTrue(db.removeTempProduct(100) == "", "Remove temp product not returning empty image path")   
+        self.assertTrue(db.removeTempProduct(100) == [], "Remove temp product not returning empty image path")   
         
     def testAddTempProduct(self):
         db = dataBaseModel()

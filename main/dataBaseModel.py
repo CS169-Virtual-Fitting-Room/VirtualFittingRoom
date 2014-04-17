@@ -160,12 +160,15 @@ class dataBaseModel (object):
         return image path """
     def removeTempProduct(self, userID):
         try:
-            temp = TempProduct.objects.get(owner = User.objects.get(pk = userID))
-            opath = temp.overlay
-            temp.delete()
-            return opath
+            temps = TempProduct.objects.filter(owner = User.objects.get(pk = userID))
+            data = []
+            for temp in temps:
+                data.append(temp.overlay)
+                
+            temps.delete()
+            return data
         except:
-            return ""
+            return []
     
     def addTempProduct(self, puserID, ptoken, poverlay):
         user = User.objects.get(pk = puserID)
