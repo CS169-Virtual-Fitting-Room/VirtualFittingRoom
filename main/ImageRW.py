@@ -68,7 +68,7 @@ class ImageRW:
         else:
             path = ImageRW.TEMP_DIR
             
- 
+        
         # image_path is assumed to be jpg/jpeg
         im = Image.open(path + filename)
         # convert jpg/jpeg to png
@@ -76,7 +76,7 @@ class ImageRW:
         im.save(newpath, "PNG")
         
         imga = Image.open(newpath)
-
+        
         imga = imga.convert("RGBA")
         
         pixel = imga.load()
@@ -87,7 +87,7 @@ class ImageRW:
         cornerH = 20
         cornerW = 20
         middleW = width / 2
-        middleH = width / 2
+        middleH = height / 2
         # sample four points
         
         pixel1 = pixel[cornerW, cornerH]
