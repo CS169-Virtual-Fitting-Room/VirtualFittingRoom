@@ -38,8 +38,10 @@ def addProduct(request):
     temppath = db.removeTempProduct(request.user.id) # try remove temp product
         
     # remove temp image
-    if temppath != "":
-        ImageRW.removeImage(temppath, False)
+    if temppath != []:
+        for path in temppath:
+            ImageRW.removeImage(path, False)
+            ImageRW.removeImage(path.replace('.png', '.jpg'), False)
         
     try:
         # helper method to generate random token
@@ -56,6 +58,7 @@ def addProduct(request):
         #check here
         overlayfilename = ImageRW.convertToTransparent(overlayfilename, True) # convert it to transparent, return the new ol file name
         #check here
+        ImageRW.removeImage(overlayfilename.replace('.png', '.jpg'), True)
         form = CustomProductForm(request.POST)
         
         if form.is_valid():
@@ -93,14 +96,15 @@ def previewProduct(request):
 
         if ImageRW.writeImage(request.FILES['overlay'], False, filename) == "":
             return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_PRODUCT}), content_type='application/json')
+
         overlay = ImageRW.convertToTransparent(filename, False)
-        
+
         
         
         #now save it to temp table
         db = dataBaseModel()
-        
-        db.addTempProduct(request.user.id, token, overlay)
+
+        db.addTempProduct(request.user.id, token, overlay, request.POST["category"])
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.SUCCESS, 'token' : token}), content_type='application/json')
     except:
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_PREVIEW_PRODUCT}), content_type='application/json')

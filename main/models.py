@@ -56,6 +56,7 @@ class TempProduct(models.Model):
     #name = models.CharField(max_length = 128)
     overlay = models.CharField(max_length = 256)
     token = models.CharField(max_length = 256)
+    category = models.ForeignKey(Category)
     #create_time = models.DateField()
     
     class meta:
