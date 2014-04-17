@@ -1,5 +1,5 @@
 import os
-from PIL import Image, ImageFilter, ImageOps
+from PIL import Image
 
 class ImageRW:
     
@@ -68,7 +68,7 @@ class ImageRW:
         else:
             path = ImageRW.TEMP_DIR
             
-        import multiprocessing    
+ 
         # image_path is assumed to be jpg/jpeg
         im = Image.open(path + filename)
         # convert jpg/jpeg to png
@@ -77,8 +77,8 @@ class ImageRW:
         
         imga = Image.open(newpath)
 
-        
         imga = imga.convert("RGBA")
+        
         pixel = imga.load()
         
         width, height = imga.size
@@ -150,26 +150,6 @@ class ImageRW:
                 elif checkThreshold(pixel[x, y], pixel16):
                     pixel[x, y] = (255, 255, 255, 0)
             
-                    
-                        
-        """
-        for i in range(0,len(data)):
-            if dataEdge[i][0] <= 10 and dataEdge[i][1] <= 10 and dataEdge[i][2] <= 10:
-                newData.append((255,255,255,0))
-            else:
-                newData.append(data[i])
-        """
-        """
-        # loop the list, replace white color wih transparency
-        for item in datas:
-            if item[0] >= 240 and item[1] >= 240 and item[2] >= 240:
-                newData.append((255,255,255,0))
-            else:
-                newData.append(item)
-        """
-        # imga.putdata(newData)
-        
-        # imga = imga.filter(ImageFilter.FIND_EDGES)
         
         imga.save(newpath, "PNG")
         
