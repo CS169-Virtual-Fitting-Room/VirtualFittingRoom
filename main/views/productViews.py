@@ -53,7 +53,7 @@ def addProduct(request):
         filename += str(request.user.id)
         filename += '.jpg'
         overlayfilename = filename.replace('.jpg', 'ol.jpg')
-        imagefilename = ImageRW.writeImage(request.FILES['display'], True, filename) # write image
+        imagefilename = ImageRW.writeImage(request.FILES['overlay'], True, filename) # write image
         ImageRW.writeImage(request.FILES['overlay'], True, overlayfilename) # write image
         #check here
         overlayfilename = ImageRW.Process(overlayfilename, True, request.POST["category"]) # convert it to transparent, return the new ol file name
