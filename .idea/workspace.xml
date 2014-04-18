@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8efbde5-9f4d-4b10-879e-489720fc8af7" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/main/static/main/assets/img/mainbathroom.jpg" afterPath="$PROJECT_DIR$/main/static/main/assets/img/mainbathroombackup.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/searchProductViews.py" afterPath="$PROJECT_DIR$/main/views/searchProductViews.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/main/searchResult.html" afterPath="$PROJECT_DIR$/main/templates/main/searchResult.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/static/main/assets/img/mainbathroom.jpg" afterPath="$PROJECT_DIR$/main/static/main/assets/img/mainbathroom.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/main/addcustomimage.html" afterPath="$PROJECT_DIR$/main/templates/main/addcustomimage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/main/mainpage.html" afterPath="$PROJECT_DIR$/main/templates/main/mainpage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/static/main/assets/css/screen.css" afterPath="$PROJECT_DIR$/main/static/main/assets/css/screen.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/main/top_menu.html" afterPath="$PROJECT_DIR$/main/templates/main/top_menu.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/urls.py" afterPath="$PROJECT_DIR$/main/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VirtualFittingRoom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,8 +89,11 @@
       <file leaf-file-name="top_menu.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/templates/main/top_menu.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="21" selection-start="797" selection-end="797" vertical-scroll-proportion="0.57361376" vertical-offset="0" max-vertical-offset="523">
-              <folding />
+            <state line="13" column="0" selection-start="351" selection-end="351" vertical-scroll-proportion="0.2656676" vertical-offset="0" max-vertical-offset="734">
+              <folding>
+                <element signature="n#style#0;n#span#0;n#ul#0;n#nav#0;n#div#0;n#header#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#ul#0;n#nav#0;n#div#0;n#header#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,7 +101,7 @@
       <file leaf-file-name="searchProductViews.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/views/searchProductViews.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="28" selection-start="369" selection-end="369" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="1020">
+            <state line="13" column="28" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1080">
               <folding />
             </state>
           </provider>
@@ -115,7 +119,7 @@
       <file leaf-file-name="category_list.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/templates/main/category_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="14" selection-start="1218" selection-end="1218" vertical-scroll-proportion="-5.0" vertical-offset="300" max-vertical-offset="810">
+            <state line="28" column="14" selection-start="1218" selection-end="1218" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="810">
               <folding />
             </state>
           </provider>
@@ -124,7 +128,7 @@
       <file leaf-file-name="searchResult.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/templates/main/searchResult.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="46" selection-start="1214" selection-end="1214" vertical-scroll-proportion="-7.5416665" vertical-offset="209" max-vertical-offset="810">
+            <state line="26" column="46" selection-start="1214" selection-end="1214" vertical-scroll-proportion="0.0" vertical-offset="209" max-vertical-offset="810">
               <folding />
             </state>
           </provider>
@@ -363,7 +367,27 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="VirtualFittingRoom" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -389,27 +413,7 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="VirtualFittingRoom" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -504,7 +508,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26081583" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26081583" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -782,14 +786,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/main/category_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="14" selection-start="1218" selection-end="1218" vertical-scroll-proportion="-5.0" vertical-offset="300" max-vertical-offset="810">
+        <state line="28" column="14" selection-start="1218" selection-end="1218" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="810">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/main/searchResult.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="46" selection-start="1214" selection-end="1214" vertical-scroll-proportion="-7.5416665" vertical-offset="209" max-vertical-offset="810">
+        <state line="26" column="46" selection-start="1214" selection-end="1214" vertical-scroll-proportion="0.0" vertical-offset="209" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/searchProductViews.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="28" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1080">
           <folding />
         </state>
       </provider>
@@ -801,17 +812,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/searchProductViews.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="369" selection-end="369" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="1020">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/main/top_menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="21" selection-start="797" selection-end="797" vertical-scroll-proportion="0.57361376" vertical-offset="0" max-vertical-offset="523">
-          <folding />
+        <state line="13" column="0" selection-start="351" selection-end="351" vertical-scroll-proportion="0.2656676" vertical-offset="0" max-vertical-offset="734">
+          <folding>
+            <element signature="n#style#0;n#span#0;n#ul#0;n#nav#0;n#div#0;n#header#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#ul#0;n#nav#0;n#div#0;n#header#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -2,12 +2,16 @@
 	<div class=nav style="margin:none">
 		<nav>
 			<ul class=global-nav>
-            <li id = "head">
-            <form name="input" action="/searchResult" method="get">
-            <input type="text" name="searchName">
-            <input type="submit" value="search">
-            </form>
-            </li>
+
+
+			<span style="float:right">
+				<li><form name="input" action="/searchResult" method="get"></li>
+				<li><input type="text" name="searchName" style="height:213;width=27"></li>
+				<li><input type="submit" value="Search"></li>
+			</span>
+
+			<span style="float:right">
+
 				<li id="head"><a id=home href="/">Home</a></li>
 				<li id="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
 				<li id="head"><a id=wishlist href="/wishlist">Wishlist</a></li>
@@ -19,7 +23,8 @@
 					<a id = logout href="/logout/">Logout</a>
 					{% endif %}
 				</li>
-			</ul>
-		</nav>
-	</div>
+			</span>
+		</ul>
+	</nav>
+</div>
 </header>
