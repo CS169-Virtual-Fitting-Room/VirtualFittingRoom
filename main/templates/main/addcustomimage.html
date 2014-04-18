@@ -175,6 +175,7 @@ $(document).ready(function(){
 			var resultCheckEmptyInput = checkEmptyInput(map);
 			if(resultCheckEmptyInput!=""){
 				alert("please fill in missing field(s) in "+ resultCheckEmptyInput);
+				$("#alertinvalidnumber").dialog();
 				return;
 			}
 			if (!checkValidImageType(map["Image for Fitting Room"])){
