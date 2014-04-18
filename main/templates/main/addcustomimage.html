@@ -13,8 +13,6 @@
 
 <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Wellfleet'>
 
-
-
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -24,8 +22,6 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -97,7 +93,7 @@ $(document).ready(function(){
 								'render' : 'createhangout',
 								'initial_apps' : [ {
 									'app_id' : '60097234437',
-									'start_data' : data.token,
+									'start_data' : data.token + '&' + $("#choose_category").find(":selected").attr("value"),
 									'app_type' : 'LOCAL_APP'
 								} ],
 								'widget_size' : 136
@@ -113,11 +109,11 @@ $(document).ready(function(){
 						$("#back").show();
 						
 					} else if (data.errCode == -8) { // not authenticated
-						$("#dialogErrUser").dialog();
+						alert("Please sign in!");
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					} else { // bad response
-						$("#dialogErr").dialog();
+						alert("Error. Please try again!");
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					}
@@ -130,7 +126,7 @@ $(document).ready(function(){
 
 			};
 			$("#product_form").ajaxForm(object);
-			//$("form").ajaxSubmit()
+			//$("form").ajaxSubmit();
 		});
 		//});
 
@@ -265,7 +261,7 @@ $(document).ready(function(){
 			<div class = "reg_section upload">
 				
 				<div style="padding-left:20%">
-				<span style="color:red; font-size:6">Cautious: please upload item image with plain color backgroud</span>
+				<span style="color:red; font-size:15px"><br>Cautious: please upload item image with plain color backgroud </br></span>
 				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
 				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
 				<div id="placeholder-div2" style="display:none"></div>
@@ -280,7 +276,7 @@ $(document).ready(function(){
 			<div class="reg_section password">
 				<h3>Category</h3>
 				<div style="padding-left:30%">
-				<select name="category">
+				<select name="category" id = "choose_category">
 					<option value="glasses">Glasses</option>
 					<option value="hats">Hats</option>
 					<option value="headphones">HeadPhones</option>
@@ -292,11 +288,6 @@ $(document).ready(function(){
 	</section>
 </div>
 
-<div id="dialogErrUser" title="Authentication failed" hidden="true">
-  <p>Please log in to add custom products.</p>
-</div>
-<div id="dialogErr" title="Image process failed" hidden="true">
-	<p>Unable to process uploaded image</p>
-</div>
+
 </body>
 </html>

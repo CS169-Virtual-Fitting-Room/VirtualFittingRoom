@@ -74,7 +74,7 @@ a:hover {
   border-bottom: 1px dotted #eee;
 }
 .reg_section h3 {
-  font-size: 13px;
+  font-size: 20px;
   margin: 5px 0;
   color: #C4A2A2;
 }
@@ -232,7 +232,7 @@ input[type=submit]:active, #additem:active{
 .register textarea {
   height: 50px;
   padding: 10px;
-  color: #C9C9C9;
+  /%color: #C9C9C9;%/
 }
 
 /* About */
