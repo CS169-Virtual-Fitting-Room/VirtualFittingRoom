@@ -6,23 +6,23 @@ import json
 
 
 def search_list(request, searchProduct):
+    print request
     return render(request, 'main/searchResult.html')
 
 
-def searchProducts(request, searchProduct):
+def searchProducts(request, searchProduct = "ad"):
+    print request
     db = dataBaseModel()
     categoryList = ["hats", "headPhones", "glasses"]
     id = []
     image = []
     item_name = []
     price = []
-    print "I have been here"
     for elem in categoryList:
         response = db.getProducts(elem)
         if response[1] == dataBaseModel.SUCCESS :
             for item in response[0]:
-                if item.name.lower() in searchProduct.lower():
-                    print item.name
+                if searchProduct.lower() in item.name.lower():
                     id.append(item.pk)
                     item_name.append(item.name)
                     price.append(item.price)
