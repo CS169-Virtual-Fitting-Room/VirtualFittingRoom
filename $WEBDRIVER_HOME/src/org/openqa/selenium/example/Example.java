@@ -9,15 +9,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Keys;
 import java.util.*;
 import java.util.HashMap;
-//import org.openqa.selenium.RemoteWebDriver;
+import org.testng.Assert;
 
+//import org.openqa.selenium.RemoteWebDriver;
 public class Example {
 	private static boolean success = true;
 	private static int glassNum = 2;
 	private static int hatNum = 2;
 	private static int headPhonesNum = 2;
 	private static final boolean localServer = false;
-	private static final String[] topMenuBar = {"home","fitting_room","wishlist","login"};
+	private static final String[] topMenuBar = {"home", "fitting_room", "wishlist", "add_item", "login"};
 	private static final String[] category = {"glasses/","hats/", "headphones/"}; 
 	private static final String[][] productsLists = {{"rayban%20glasses_1/","nike%20glasses_2/"},{"adidas%20cap_3/","levis%20hat_4/"},{"beats%20headphones_5/","sony%20headphones_6/"}};
 	private static final String testComment = "this is test comment";
@@ -65,37 +66,6 @@ public class Example {
 	    	driver.get(location);
 	    	}	    	
 	    }
-	    public static void testBrowser(WebDriver driver1){
-	    	try{
-	    	basicBrowserTester(driver1); //// just test some basic adding and browsing
-	    	
-	    	
-	    	addWishListTest(driver1); /// try add to wishlist without user login
-	    	
-	    	addFittingRoomTest(driver1); /// try add to Fitting Room without user login
-	    	
-	    	logInUser(driver1);
-	    	
-	    	addWishListTest(driver1); //// try again with user lgoin
-	    	
-	    	addFittingRoomTest(driver1); //// try again with user lgoin
-	    	
-	    	removeProductsFromWishList(driver1, 3);  /// remove products from wish list
-	    	
-	    	//addComment(driver1, 0,0);
-	    	
-	    	logOutUser(driver1);
-   	
-	    	driver1.close();   
-	    	if (success){
-	    		System.out.println("\ntest successfully");
-	    	}
-	    	}catch (Exception e){
-	    		System.out.println("\nException appearred, element not found.\n ");
-	    		driver1.close();
-	    		System.exit(0);
-	    	} 	
-	    }
 	    
 	    public static void logInUser(WebDriver driver){
 	    	
@@ -120,11 +90,10 @@ public class Example {
 	    	element0.click();
 	    	sleep();
 	    	sleep();
-	    	if (localServer){
+	    	
 	    	element0 = driver.findElement(By.id("scope_and_buttons")).findElement(By.id("buttons_container")).findElement(By.id("connect-approve")).findElement(By.id("submit_approve_access"));
 	    	element0.click();
 	    	sleep();
-	    	}
 	    	
 	    	openWebsite(driver);
 	    }
@@ -170,6 +139,9 @@ public class Example {
 	    	for ( int i=0; i<topMenuBar.length; i++) {
 		        WebElement element = driver.findElement(By.id(topMenuBar[i]));
 		        element.click();
+		        if (i==3) {
+		        	assertTrue(driver.getCurrentUrl(), location + "addcustomimage");
+		        }
 		        sleep();
 	    	}
 	    	
@@ -281,6 +253,41 @@ public class Example {
 	    	
 	    }
 	    
+	    public static void shareButtonTest(WebDriver driver){ 
+	    	System.out.println("\nStart share buttons tests");
+	    	openWebsite(driver);
+	    	sleep();
+//	    	String baseWindowHdl = driver.getWindowHandle();
+	    	
+	    	for (int i = 0; i < category.length; i++){
+	    	WebElement element = driver.findElement(By.className((String)("service-count"+(i+1)))).findElement(By.id("img"));
+	        element.click();
+	        sleep();		        
+	        assertTrue(driver.getCurrentUrl(), location + category[i]);
+
+
+			WebElement element2 = driver.findElement(By.id((String)("item-img0")));		
+			element2.click();
+			sleep();
+			assertTrue(driver.getCurrentUrl(), location + category[i] + productsLists[i][0]);
+			
+			WebElement element3 = driver.findElement(By.id("mainview")).findElement(By.id("description")).findElement(By.id("share_button"));
+	    	element3.click();
+			sleep();
+			
+			WebElement element4 = driver.findElement(By.id("mainview")).findElement(By.id("description")).findElement(By.id("twitter_share"));
+	    	element4.click();
+	    	sleep();
+
+//			driver.close();
+//			driver.switchTo().window(baseWindowHdl);
+			
+	        driver.navigate().back();
+	        openWebsite(driver);
+	        sleep();
+	    	}
+	    }
+	    
 	    public static void addComment(WebDriver driver, int categoryID,  int productID){
 	    	System.out.println("\nStart add comment test");
 	    	openWebsite(driver);
@@ -305,6 +312,79 @@ public class Example {
 	    	
 	    	sleep();
 	    	sleep();
+	    }
+	    
+	    public static void addItemTest(WebDriver driver){
+	    	openWebsite(driver);
+	    	sleep();
+	    	WebElement element = driver.findElement(By.id("add_item"));
+	        element.click();
+	        assertTrue(driver.getCurrentUrl(), location + "addcustomimage");
+	        sleep();
+	        
+	        element = driver.findElement(By.id("additem"));
+	    	element.click();
+	    	sleep();
+	    	sleep();
+	    	element = driver.findElement(By.className("header-wrap"));
+	    	Assert.assertEquals(driver.getPageSource().contains("Please fill in missing field(s) in"), true);
+	    	driver.navigate().back();
+	    	sleep();
+	    } 
+	    
+	    public static void testBrowser(WebDriver driver1){
+	    	try{
+	    	basicBrowserTester(driver1); //// just test some basic adding and browsing	    	
+	    	System.out.println("\nDone for basicBrowserTester.");
+	    	
+	    	shareButtonTest(driver1);
+	    	System.out.println("\nDone for shareButtonTest without user login.");
+	    	
+	    	addWishListTest(driver1); /// try add to wishlist without user login	
+	    	System.out.println("\nDone for addWishListTest without user login.");
+	    	
+	    	addFittingRoomTest(driver1); /// try add to Fitting Room without user login
+	    	System.out.println("\nDone for addFittingRoomTest without user login.");
+	    	
+	    	addItemTest(driver1);
+	    	System.out.println("\nDone for addItemTest without user login.");
+	    	
+	    	logInUser(driver1);
+	    	System.out.println("\nDone log in.");
+	    	sleep();
+	    	
+	    	basicBrowserTester(driver1); //// just test some basic adding and browsing	    	
+	    	System.out.println("\nDone for basicBrowserTester with user login.");
+	    	
+	    	shareButtonTest(driver1);
+	    	System.out.println("\nDone for shareButtonTest with user login.");
+
+	    	addWishListTest(driver1); //// try again with user lgoin
+	    	System.out.println("\nDone for addWishListTest with user login.");
+	    	
+	    	addFittingRoomTest(driver1); //// try again with user lgoin
+	    	System.out.println("\nDone for addFittingRoomTest with user login.");
+	    	
+	    	removeProductsFromWishList(driver1, 3);  /// remove products from wish list
+	    	System.out.println("\nDone for removeProductsFromWishList.");
+	    	
+	    	addItemTest(driver1);
+	    	System.out.println("\nDone for addItemTest with user login.");
+	    	
+	    	
+	    	//addComment(driver1, 0,0);
+	    	
+	    	logOutUser(driver1);
+   	
+	    	driver1.close();   
+	    	if (success){
+	    		System.out.println("\ntest successfully");
+	    	}
+	    	}catch (Exception e){
+	    		System.out.println("\nException appearred, element not found.\n ");
+	    		driver1.close();
+	    		System.exit(0);
+	    	} 	
 	    }
 	}
 
