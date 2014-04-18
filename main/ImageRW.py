@@ -8,9 +8,6 @@ class ImageRW:
     SUCCESS = 1
     
     
-    def __init__(self):
-        pass
-    
     @staticmethod
     def readImage(path):  # reads the binary data of an image
         try:
@@ -48,7 +45,7 @@ class ImageRW:
         
     
     @staticmethod
-    def removeImage(file, in_permanent):
+    def removeImage(file, in_permanent, debug = False):
         path = ""
         if in_permanent:
             path = ImageRW.IMAGE_DIR
@@ -58,7 +55,10 @@ class ImageRW:
         try:
             os.remove(path + file)  # tries to delete the file
         except OSError:
-            pass
+            if debug:             
+                return True
+            else:
+                pass
     
     @staticmethod
     def Process(filename, in_permanent, category):  # this method return the overlay image name
