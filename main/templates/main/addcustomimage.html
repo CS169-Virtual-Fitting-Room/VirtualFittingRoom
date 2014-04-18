@@ -22,6 +22,8 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -109,11 +111,11 @@ $(document).ready(function(){
 						$("#back").show();
 						
 					} else if (data.errCode == -8) { // not authenticated
-						alert("Please sign in!");
+						$("#dialogErrUser").dialog();
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					} else { // bad response
-						alert("Error. Please try again!");
+						$("#dialogErr").dialog();
 						$("#fileupload").text('Upload to Preview');
 						$("#fileupload").removeAttr('disabled');
 					}
@@ -144,25 +146,25 @@ $(document).ready(function(){
 			map["Category"] = "";
 			inputs.each(function(index){
 				switch(index){
-					case 2:
+					case 0:
 						map["Item Name"] = $(this)[0].value;
 						break;
-					case 3:
+					case 1:
 						map["Price"] = $(this)[0].value;
 						break;
-					case 4:
+					case 2:
 						map["URL"] = $(this)[0].value;
 						break;
-					case 5:
+					case 3:
 						map["Brand"] = $(this)[0].value;
 						break;
-					case 6:
+					case 4:
 						map["Description"] = $(this).val();
 						break;
-					case 7:
+					case 5:
 						map["Image for Fitting Room"] = $(this)[0].value;
 						break;
-					case 10:
+					case 8:
 						map["Category"] = $(this).find(":selected").text();
 						break;
 					default:
@@ -180,7 +182,8 @@ $(document).ready(function(){
 				return;
 			}
 			if (!checkValidPrice(map["Price"])){
-				alert("please enter a valid number in form of 10 or 10.00");
+				//alert("please enter a valid number in form of 10 or 10.00");
+				$("#alertinvalidnumber").dialog();
 				return;
 			}
 			$("#product_form").ajaxForm({
@@ -287,7 +290,13 @@ $(document).ready(function(){
 		  </form>
 	</section>
 </div>
-
+<div id="alertinvalidnumber"><p>please enter a valid number in form of 10 or 10.00</p></div>
+<div id="dialogErrUser" title="Authentication failed" hidden="true">
+   <p>Please log in to add custom products.</p>
+ </div>
+ <div id="dialogErr" title="Image process failed" hidden="true">
+ 	<p>Unable to process uploaded image</p>
+ </div>
 
 </body>
 </html>
