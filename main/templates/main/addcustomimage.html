@@ -93,7 +93,7 @@ $(document).ready(function(){
 								'render' : 'createhangout',
 								'initial_apps' : [ {
 									'app_id' : '60097234437',
-									'start_data' : data.token,
+									'start_data' : data.token + '&' + $("#choose_category").find(":selected").attr("value"),
 									'app_type' : 'LOCAL_APP'
 								} ],
 								'widget_size' : 136
@@ -278,7 +278,7 @@ $(document).ready(function(){
 			<div class="reg_section password">
 				<h3>Category</h3>
 				<div style="padding-left:30%">
-				<select name="category">
+				<select name="category" id = "choose_category">
 					<option value="glasses">Glasses</option>
 					<option value="hats">Hats</option>
 					<option value="headphones">HeadPhones</option>
