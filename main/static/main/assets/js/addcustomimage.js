@@ -11,7 +11,6 @@ function checkValidImageType(image){
 	return true;
 }
 function checkEmptyInput(map){
-	console.log(map);
 	var string = "";
 	$.map(map,function(value, key){
 		if(value==""){
