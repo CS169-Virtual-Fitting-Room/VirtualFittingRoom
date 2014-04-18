@@ -143,28 +143,26 @@ $(document).ready(function(){
 			map["Image for Fitting Room"] = "";
 			map["Category"] = "";
 			inputs.each(function(index){
-				console.log(index);
-				console.log($(this));
 				switch(index){
-					case 0:
+					case 2:
 						map["Item Name"] = $(this)[0].value;
 						break;
-					case 1:
+					case 3:
 						map["Price"] = $(this)[0].value;
 						break;
-					case 2:
+					case 4:
 						map["URL"] = $(this)[0].value;
 						break;
-					case 3:
+					case 5:
 						map["Brand"] = $(this)[0].value;
 						break;
-					case 4:
+					case 6:
 						map["Description"] = $(this).val();
 						break;
-					case 5:
+					case 7:
 						map["Image for Fitting Room"] = $(this)[0].value;
 						break;
-					case 8:
+					case 10:
 						map["Category"] = $(this).find(":selected").text();
 						break;
 					default:
