@@ -24,6 +24,7 @@
         <title>Virutal Fitting Room</title>
             <meta http-equiv="Content-Type" content="text/html;
 charset = iso - 8859 - 1 " />
+<link rel="stylesheet" type="text/css" href="https://dl.dropboxusercontent.com/u/69037120/site/vrf.css">
 </head>
 <body>
 <div id = "sliders">
@@ -45,10 +46,21 @@ charset = iso - 8859 - 1 " />
     Headphone Y Offset
     <br> <input id="hpYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(3,false,this.value)"/>
 </div>
-
+<div id = "previewSliders">
+    Preview X Offset
+    <br>  <input id="previewXOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(4,true,this.value)"/>
+    <br>
+    Preview Y Offset
+    <br>  <input id="previewYOffset" type="range" min=-1.0 max=1.0 value=0 step=0.01 onChange = "adjustOffset(4,false,this.value)"/>
+    <br>
+    Preview Scale
+    <br>  <input id="previewYOffset" type="range" min=0.1 max=2.0 value=0 step=0.01 onChange = "adjustScale(4,this.value)"/>
+    <br>
+</div>
 <div id = "loadingMessage">Loading your accessories... </div>
+
 <center>
-<div id = "selectors">
+<!-- <div id = "selectors">
     <select id="hatList" onchange="hatChange()">
       <option value = 0>-----Choose your hats-----</option>
     </select>
@@ -58,8 +70,11 @@ charset = iso - 8859 - 1 " />
     <select id="hpList" onchange="hpChange()">
       <option value = 0>--Choose your Headphones--</option>
     </select>
+</div> -->
+<div class="container-outer">
+    <div class="container-inner">
+   </div>
 </div>
-
 </center>
 </body>
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
