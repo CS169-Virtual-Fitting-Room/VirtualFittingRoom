@@ -24,7 +24,7 @@
 $(document).ready(function() {
 
 	$.ajax({
-		url: "search",
+		url: "search?searchName={{ searchName }}",
 		content_type: "application/json",
 		dataType: "json",
         type: 'GET',
