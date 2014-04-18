@@ -1,0 +1,9 @@
+body {
+	background-color:#a59275;
+	font-family: "klinicslab-medium"
+}
+
+.container-outer { overflow: scroll; width: 325px; height: 100px; }
+.container-inner { width: 500px; height :100px;}
+
+.picButton{margin-right:15px; margin-top :3px;}
