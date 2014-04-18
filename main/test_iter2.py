@@ -104,6 +104,17 @@ class testDBModel(TestCase):
             response = baseModel.addToFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1 )
             queryset = FitList.objects.filter(Q(owner = testDBModel.testUsers[i]), Q(product = testDBModel.testProducts[i]))
             self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addTo FitList failed")
+            
+###  add to fit list
+    def testAddToFitListAlreadyExists(self):
+        baseModel = dataBaseModel()
+        FitList.objects.all().delete()
+        for i in range(4):
+            response = baseModel.addToFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1 )
+            queryset = FitList.objects.filter(Q(owner = testDBModel.testUsers[i]), Q(product = testDBModel.testProducts[i]))
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addTo FitList failed")
+            response = baseModel.addToFitList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1 )
+            self.assertTrue(response == dataBaseModel.ERR_FITLIST_ALREADY_EXIST, "able to add duplicate item")
 
     def testAddToFitListWithBadProductID(self):
         baseModel = dataBaseModel()

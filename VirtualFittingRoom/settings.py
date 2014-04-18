@@ -38,8 +38,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'main',
     'social_auth',
+    'django_nose'
 )
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=main',
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

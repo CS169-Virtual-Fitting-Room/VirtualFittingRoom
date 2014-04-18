@@ -108,6 +108,17 @@ class testDBModel(TestCase):
             queryset = WishList.objects.filter(Q(owner=testDBModel.testUsers[i]), Q(product=testDBModel.testProducts[i]))
             self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
 
+    def testAddToWishListExisting(self):
+        baseModel = dataBaseModel()
+        WishList.objects.all().delete()
+        from django.db.models import Q
+        for i in range(4):
+            response = baseModel.addToWishList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1)
+            queryset = WishList.objects.filter(Q(owner=testDBModel.testUsers[i]), Q(product=testDBModel.testProducts[i]))
+            self.assertTrue(response == dataBaseModel.SUCCESS and queryset.count() == 1, "addToWishList failed, can not add")
+            response = baseModel.addToWishList(testDBModel.testUsersID[i], testDBModel.testProducts[i], i+1)
+            self.assertTrue(response == dataBaseModel.ERR_WISHLIST_ALREADY_EXIST, "able to add duplicate item")
+            
     def testAddToWishListWithBadProductID(self):
         baseModel = dataBaseModel()
         WishList.objects.all().delete()

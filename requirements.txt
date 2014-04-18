@@ -7,6 +7,7 @@ altgraph==0.10.1
 bdist-mpkg==0.4.4
 dj-database-url==0.2.2
 django-social-auth==0.7.28
+django-nose==1.2
 gdata==2.0.18
 httplib2==0.8
 ipython==1.1.0
