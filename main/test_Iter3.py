@@ -160,4 +160,34 @@ class testDBModel(TestCase):
         queryset = Added.objects.filter(owner = testDBModel.testUsers[3])
         self.assertTrue(queryset.count() == 0, "Add product adding wrong Added entry")
         
-        
+
+    def testSearchProductNormal1(self):
+        productList = ["ProductA", "ProductB", "ProductC", "ProductD"]
+        db = dataBaseModel()
+        result = db.searchProducts("pro")
+        self.assertEquals(result[1], dataBaseModel.SUCCESS)
+        for elem in result[0]:
+            self.assertTrue(elem.name in productList)
+
+    def testSearchProductNormal2(self):
+        productList = ["ProductA", "ProductB", "ProductC", "ProductD"]
+        db = dataBaseModel()
+        result = db.searchProducts("ductA")
+        self.assertEquals(result[1], dataBaseModel.SUCCESS)
+        for elem in result[0]:
+            self.assertEqual(elem.name, "ProductA")
+
+    def testSearchProductNormal3(self):
+        productList = ["ProductA", "ProductB", "ProductC", "ProductD"]
+        db = dataBaseModel()
+        result = db.searchProducts("")
+        self.assertEquals(result[1], dataBaseModel.SUCCESS)
+        for elem in result[0]:
+            self.assertTrue(elem.name in productList)
+
+    def testSearchProductWithBadName(self):
+        db = dataBaseModel()
+        result = db.searchProducts("AB")
+        self.assertEquals(result[1], dataBaseModel.SUCCESS)
+        self.assertEquals(len(result[0]), 0)
+

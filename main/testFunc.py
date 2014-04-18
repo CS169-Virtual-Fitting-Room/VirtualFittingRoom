@@ -139,5 +139,39 @@ class testFunc (TestCase):
         self.assertTrue(jsondata['image'] == '', 'Respond json has no image')
         self.assertTrue(jsondata['price'] == -1, 'Respond json has no price')
         
-        
-        
+    def testSearchProducts(self):
+        self.assertValidSearchProductsRequest("/searchResult/search/?searchName=p")
+        self.assertValidSearchProductsRequest("/searchResult/search/?searchName=")
+        self.assertInvalidSearchProductsRequest("/searchResult/search/?searchName=ProductE")
+
+
+
+    def assertValidSearchProductsRequest(self, url):
+        self.conn.request('GET', url)
+        resp = self.conn.getresponse()
+        self.assertTrue(resp.status == 200, 'Can\'t make request to server')
+        self.assertTrue(resp.getheader('content-type') is not None, "content-type header must be present in the response")
+        self.assertTrue(resp.getheader('content-type').find('application/json') == 0, "content-type header must be application/json")
+        rawdata = resp.read()
+        jsondata = json.loads(rawdata)
+        self.assertTrue('item_name' in jsondata and 'image' in jsondata and 'price' in jsondata, 'json respond is not correct')
+        self.assertTrue(len(jsondata['item_name']) > 0, 'Respond json has no items.')
+
+        self.assertTrue(len(jsondata['image']) != 0, 'Respond json has no image')
+        self.assertTrue(len(jsondata['price']) != 0, 'Respond json has no price')
+
+
+
+
+    def assertInvalidSearchProductsRequest(self, url):
+        self.conn.request('GET', url)
+        resp = self.conn.getresponse()
+        self.assertTrue(resp.status == 200, 'Can\'t make request to server')
+        self.assertTrue(resp.getheader('content-type') is not None, "content-type header must be present in the response")
+        self.assertTrue(resp.getheader('content-type').find('application/json') == 0, "content-type header must be application/json")
+        rawdata = resp.read()
+        jsondata = json.loads(rawdata)
+        self.assertTrue('item_name' in jsondata and 'image' in jsondata and 'price' in jsondata, 'json respond is not correct')
+        self.assertTrue(len(jsondata['item_name']) == 0, 'Respond json has items.')
+        self.assertTrue(len(jsondata['image']) == 0, 'Respond json has image')
+        self.assertTrue(len(jsondata['price']) == 0, 'Respond json has price')

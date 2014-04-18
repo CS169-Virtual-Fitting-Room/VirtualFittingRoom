@@ -190,5 +190,15 @@ class dataBaseModel (object):
             return dataBaseModel.SUCCESS
         except Exception:
             return dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT
-        
-        
+
+
+    def searchProducts(self, searchName):
+        list = Product.objects.filter(Q(name__icontains = searchName))
+        # = Product.objects.get(Q(name.lower().find(searchName.lower())), dataBaseModel.SUCCESS)
+        items = []
+        for item in list:
+            items.append(item)
+
+        return (items, dataBaseModel.SUCCESS)
+
+
