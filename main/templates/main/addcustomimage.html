@@ -119,20 +119,20 @@ $(document).ready(function(){
 					}
 				},
 				error : function() {
-					alert("Failed to process image. Please try again!");
+					$("#dialogErr").dialog();
 					$("#fileupload").text('Upload to Preview');
 					$("#fileupload").removeAttr('disabled');
 				}
 
 			};
-			$("form").ajaxForm(object);
-			$("form").ajaxSubmit()
+			$("#product_form").ajaxForm(object);
+			//$("form").ajaxSubmit();
 		});
 		//});
 
 		$("#additem").click(function(event) {
 			event.preventDefault();
-			var inputs = $("form :input");
+			var inputs = $("#product_form :input");
 			var map = new Object();
 			var mapsize = 7;
 			map["Item Name"] = "";
@@ -183,7 +183,7 @@ $(document).ready(function(){
 				alert("please enter a valid number in form of 10 or 10.00");
 				return;
 			}
-			$("form").ajaxForm({
+			$("#product_form").ajaxForm({
 				url : '/addcustomitem',
 				type : 'post'
 			});
@@ -247,7 +247,7 @@ $(document).ready(function(){
 <div class="container">
 	<section class="register">
 		  <h1>Add Your Own Item!</h1>
-		  <form>
+		  <form id="product_form">
 			<div class="reg_section personal_info" >
 				  <h3>Item Information</h3>
 				  <div style="padding-left:30%">
