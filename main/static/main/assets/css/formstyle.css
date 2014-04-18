@@ -18,8 +18,8 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   /%margin: 0;%/
   border: 0;
-  font-size: 100%;
-  font: inherit;
+  /%font-size: 100%;%/
+  /%font: inherit;%/
   vertical-align: baseline;
 }
 
@@ -164,7 +164,7 @@ input {
   font-size: 14px;
 }
 
-input[type=text], input[type=password] ,.register select,.register textarea {
+input[type=text] :not(#search_name), input[type=password] ,.register select,.register textarea {
   margin: 5px;
   padding: 0 10px;
   height: 34px;
@@ -188,7 +188,7 @@ input[type=text]:focus, input[type=password]:focus{
   outline-offset: 0;
 }
 
-input[type=submit], #additem{
+#additem{
   padding:0 10px;
   height: 29px;
   font-size: 12px;
