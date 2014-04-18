@@ -59,7 +59,7 @@ strong {font-weight:bold;}
 #action-bar {line-height:24px;position:absolute;top:0px;right:0px;color:#fff;}
 	#action-bar a:link, #action-bar a:visited {color:#fff;margin:0px 5px;}
 
-article {display:block;text-align:left;width:960px;margin:0px auto;clear:both;min-height:400px;}
+article {display:block;text-align:left;width:960px;margin:0px auto;clear:both;min-height:580px;}
 	article footer {-webkit-box-shadow:none;-moz-box-shadow: none;box-shadow:none;}
 
 footer {height:116px;margin-top:0;width:100%;display:block;clear:both;padding-top:14px;background:#fff;-webkit-animation: delay 0.5s;-moz-animation: delay 0.5s;-webkit-box-shadow: 0px -10px 30px 0px rgba(180, 160, 145, 0.2);-moz-box-shadow: 0px -10px 30px 0px rgba(180, 160, 145, 0.2);box-shadow: 0px -10px 30px 0px rgba(180, 160, 145, 0.2);}
