@@ -1,8 +1,9 @@
 {% load staticfiles %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Detail Page</title>
+<title>Fitting Room Page</title>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
@@ -22,7 +23,7 @@
 <div style="position:relative;top:100px;vertical-align:middle;text-align:center">
     <div id="placeholder-div2"></div>
 </div>​
-<body>
+</body>
 <script type='text/javascript'>
     gapi.hangout.render('placeholder-div2', {
     	'render': 'createhangout',
@@ -32,7 +33,7 @@
 
 	$(document).ready(function(){
 	//$(".contain-page").append("<p>Test</p>");
-		$(".header-wrap").load("top_menu");
+		$(".header-wrap").load("/top_menu");
 	}); 
 </script>
 </html>
