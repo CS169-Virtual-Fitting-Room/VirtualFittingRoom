@@ -5,13 +5,15 @@ from django.templatetags.static import static
 import json
 
 
-def search_list(request, searchProduct):
-    print request
-    return render(request, 'main/searchResult.html')
+def search_list(request):
+    value = request.GET.get("searchName")
+    print value
+    return render(request, 'main/searchResult.html', {"searchName" : value})
 
 
-def searchProducts(request, searchProduct = "ad"):
+def searchProducts(request):
     print request
+    searchProduct = request.GET.get("searchName")
     db = dataBaseModel()
     categoryList = ["hats", "headPhones", "glasses"]
     id = []
