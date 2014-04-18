@@ -62,7 +62,66 @@ test("clickContinueEvent Failed Test With Wrong Input Type", function(){
 	ok(!clickContinueEvent(12), "Passed!");
 });
 
+//iteration 3 test
+test("checkValidImageType with unsupported image type", function(){
+	ok(!checkValidImageType("test"), "Passed!");
+	ok(!checkValidImageType("test.png"), "Passed!");
+	ok(!checkValidImageType("test.jpg.png"), "Passed!");
+	ok(!checkValidImageType(1.2), "Passed!");
+});
 
+test("checkValidImageType with supported image type", function(){
+	ok(checkValidImageType("test.jpg"), "Passed!");
+	ok(checkValidImageType("test.jpeg"), "Passed!");
+});
+
+test("checkEmptyInput Test", function(){
+	var map = new Object();
+	var mapsize = 7;
+	map["Item Name"] = "";
+	map["Price"] = "";
+	map["URL"] = "";
+	map["Brand"] = "";
+	map["Description"] = "";
+	map["Image for Fitting Room"] = "";
+	map["Category"] = "";
+	
+	ok(checkEmptyInput(map)==" Item Name, Price, URL, Brand, Description, Image for Fitting Room, Category", "Passed!");
+	map["Item Name"] = "name";
+	ok(checkEmptyInput(map)==" Price, URL, Brand, Description, Image for Fitting Room, Category", "Passed!");
+	map["Price"] = 1.0;
+	ok(checkEmptyInput(map)==" URL, Brand, Description, Image for Fitting Room, Category", "Passed!");
+	map["URL"] = "Testing";
+	ok(checkEmptyInput(map)==" Brand, Description, Image for Fitting Room, Category", "Passed!");
+	map["Brand"] = "Brand";
+	ok(checkEmptyInput(map)==" Description, Image for Fitting Room, Category", "Passed!");
+	map["Description"] = "Testing";
+	ok(checkEmptyInput(map)==" Image for Fitting Room, Category", "Passed!");
+	map["Image for Fitting Room"] = "Testing";
+	ok(checkEmptyInput(map)==" Category", "Passed!");
+	map["Category"] = "Testing";
+	ok(checkEmptyInput(map)=="", "Passed!");
+});
+
+test("checkValidPrice failed test", function(){
+	ok(!checkValidPrice("test.jpg"), "Passed!");
+	ok(!checkValidPrice("test"), "Passed!");
+	ok(!checkValidPrice("11.11.11"), "Passed!");
+});
+
+test("checkValidPrice success test", function(){
+	ok(checkValidPrice("100"), "Passed!");
+	ok(checkValidPrice("100.00"), "Passed!");
+	ok(checkValidPrice("999.11"), "Passed!");
+});
+
+test("checkValidInteger failed test", function(){
+	ok(!checkValidPrice("a"), "Passed!");
+});
+
+test("checkValidInteger success test", function(){
+	ok(checkValidPrice("1"), "Passed!");
+});
 
 
 
