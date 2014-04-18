@@ -180,12 +180,15 @@ $(document).ready(function(){
 				return;
 			}
 			if (!checkValidImageType(map["Image for Fitting Room"])){
-				alert("please upload either images with only either jpg or jpeg format");
+				//alert("please upload either images with only either jpg or jpeg format");
+				$("#alertinvalidimagetype").html("<p>please upload either images with only either jpg or jpeg format</p>");
+				$("#alertinvalidimagetype").dialog();
 				return;
 			}
+			
 			if (!checkValidPrice(map["Price"])){
 				//alert("please enter a valid number in form of 10 or 10.00");
-				$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
+				$("#alertinvalidnumber").html("<p>please enter a valid number in form of 10 or 10.00</p>");
 				$("#alertinvalidnumber").dialog();
 				return;
 			}
@@ -293,8 +296,9 @@ $(document).ready(function(){
 		  </form>
 	</section>
 </div>
-<div id="alertinvalidnumber"><p>please enter a valid number in form of 10 or 10.00</p></div>
-<div id="alertemptyinput">></div>
+<div id="alertinvalidnumber"></div>
+<div id="alertinvalidimagetype"></div>
+<div id="alertemptyinput"></div>
 <div id="dialogErrUser" title="Authentication failed" hidden="true">
    <p>Please log in to add custom products.</p>
  </div>
