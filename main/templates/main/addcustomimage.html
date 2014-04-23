@@ -136,72 +136,76 @@ $(document).ready(function(){
 		});
 		//});
 
-		$("#additem").click(function(event) {
-			event.preventDefault();
-			var inputs = $("#product_form :input");
-			var map = new Object();
-			var mapsize = 7;
-			map["Item Name"] = "";
-			map["Price"] = "";
-			map["URL"] = "";
-			map["Brand"] = "";
-			map["Description"] = "";
-			map["Image for Fitting Room"] = "";
-			map["Category"] = "";
-			inputs.each(function(index){
-				switch(index){
-					case 0:
-						map["Item Name"] = $(this)[0].value;
-						break;
-					case 1:
-						map["Price"] = $(this)[0].value;
-						break;
-					case 2:
-						map["URL"] = $(this)[0].value;
-						break;
-					case 3:
-						map["Brand"] = $(this)[0].value;
-						break;
-					case 4:
-						map["Description"] = $(this).val();
-						break;
-					case 5:
-						map["Image for Fitting Room"] = $(this)[0].value;
-						break;
-					case 8:
-						map["Category"] = $(this).find(":selected").text();
-						break;
-					default:
-						break;
-				}
-				//console.log($(this));
-			});
-			var resultCheckEmptyInput = checkEmptyInput(map);
-			if(resultCheckEmptyInput!=""){
-				//alert("please fill in missing field(s) in "+ resultCheckEmptyInput);
-				$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
-				$("#alertemptyinput").dialog();
-				return;
-			}
-			if (!checkValidImageType(map["Image for Fitting Room"])){
-				//alert("please upload either images with only either jpg or jpeg format");
-				$("#alertinvalidimagetype").html("<p>please upload either images with only either jpg or jpeg format</p>");
-				$("#alertinvalidimagetype").dialog();
-				return;
-			}
-			
-			if (!checkValidPrice(map["Price"])){
-				//alert("please enter a valid number in form of 10 or 10.00");
-				$("#alertinvalidnumber").html("<p>please enter a valid number in form of 10 or 10.00</p>");
-				$("#alertinvalidnumber").dialog();
-				return;
-			}
+		$("#additem").click(function() {
+			console.log("Run");
 			$("#product_form").ajaxForm({
 				url : '/addcustomitem',
-				type : 'post'
-			});
+				type : 'POST',
+				beforeSubmit: function() {
+			
+					event.preventDefault();
+					var inputs = $("#product_form :input");
+					var map = new Object();
+					var mapsize = 7;
+					map["Item Name"] = "";
+					map["Price"] = "";
+					map["URL"] = "";
+					map["Brand"] = "";
+					map["Description"] = "";
+					map["Image for Fitting Room"] = "";
+					map["Category"] = "";
+					inputs.each(function(index){
+						switch(index){
+							case 0:
+								map["Item Name"] = $(this)[0].value;
+								break;
+							case 1:
+								map["Price"] = $(this)[0].value;
+								break;
+							case 2:
+								map["URL"] = $(this)[0].value;
+								break;
+							case 3:
+								map["Brand"] = $(this)[0].value;
+								break;
+							case 4:
+								map["Description"] = $(this).val();
+								break;
+							case 5:
+								map["Image for Fitting Room"] = $(this)[0].value;
+								break;
+							case 8:
+								map["Category"] = $(this).find(":selected").text();
+								break;
+							default:
+								break;
+						}
+						//console.log($(this));
+					});
+					var resultCheckEmptyInput = checkEmptyInput(map);
+					if(resultCheckEmptyInput!=""){
+						//alert("please fill in missing field(s) in "+ resultCheckEmptyInput);
+						$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
+						$("#alertemptyinput").dialog();
+						return false;
+					}
+					if (!checkValidImageType(map["Image for Fitting Room"])){
+						//alert("please upload either images with only either jpg or jpeg format");
+						$("#alertinvalidimagetype").html("<p>please upload either images with only either jpg or jpeg format</p>");
+						$("#alertinvalidimagetype").dialog();
+						return false;
+					}
+					
+					if (!checkValidPrice(map["Price"])){
+						//alert("please enter a valid number in form of 10 or 10.00");
+						$("#alertinvalidnumber").html("<p>please enter a valid number in form of 10 or 10.00</p>");
+						$("#alertinvalidnumber").dialog();
+						return false;
+					}
+					return true;
+					}
 		});
-
+		});
 	});
 </script>
 </head>
