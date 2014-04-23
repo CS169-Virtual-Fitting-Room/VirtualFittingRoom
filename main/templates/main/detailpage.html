@@ -21,6 +21,9 @@
 <!--script src="http://code.jquery.com/jquery-latest.min.js"></script-->
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src='{% static "main/assets/js/detailpage.js" %}'></script>
 <script type="text/javascript">
@@ -129,9 +132,13 @@ $(document).ready(function(){
 			function(data){
 				console.log("success");
 				if(data.errCode<0){
-					alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
+					$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in wish list!</p>");
+					$("#failure_dialog").dialog();
+					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
 				}else{
-					alert("Item is successfully added.");
+					$("#success_dialog").html("<p>Item is successfully added.</p>");
+					$("#success_dialog").dialog();
+					//alert("Item is successfully added.");
 				}
 			},
 			error:
@@ -151,9 +158,13 @@ $(document).ready(function(){
 			function(data){
 				console.log("success");
 				if(data.errCode<0){
-					alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
+					$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!</p>");
+					$("#failure_dialog").dialog();
+					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
 				}else{
-					alert("Item is successfully added.");
+					$("#success_dialog").html("<p>Item is successfully added.</p>")
+					$("#success_dialog").dialog();
+					//alert("Item is successfully added.");
 				}
 			},
 			error:
@@ -278,7 +289,9 @@ $(document).ready(function(){
       </ul>
     </div>
   </div>
-
+  
+ <div id="success_dialog" hidden="true"></div>
+<div id="failure_dialog" hidden="true"></div>
 </body>
 </html>
 
