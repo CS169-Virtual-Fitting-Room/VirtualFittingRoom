@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-
+<meta property="og:image" content="http://virtualfittingroom.herokuapp.com/static/main/assets/img/fitting_room_icon.png"/>
 <title>Detail Page</title>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
@@ -55,7 +55,6 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-	$('meta[property="og:image"]').attr("content", "http://virtualfittingroom.herokuapp.com/"+imgurl);
 	getcomments();
 
 	function rendercomment(content, name, time){
