@@ -9,7 +9,7 @@ from django.templatetags.static import static
 import json
 
 def category_list(request, category):
-    return render(request, 'main/category_list.html')
+    return render(request, 'main/category_list.html', {'category': category.title()})
 
 def listProduct(request, category):
     db = dataBaseModel()
@@ -27,7 +27,7 @@ def listProduct(request, category):
     
     for item in items:
         id.append(item.pk)
-        item_name.append(item.name)
+        item_name.append(item.name.title())
         price.append(item.price)
         image.append(static("products/" + item.photo))
         

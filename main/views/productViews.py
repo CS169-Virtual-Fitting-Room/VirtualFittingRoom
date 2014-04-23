@@ -9,20 +9,20 @@ from main.CustomProductForm import CustomProductForm
 from django.views.decorators.csrf import csrf_exempt
 
 def detailpage(request, category, product, id):
-    return render(request, 'main/detailpage.html')
+    return render(request, 'main/detailpage.html', {'product' : product.title()})
 
 def addcustomimage(request):
     return render(request, 'main/addcustomimage.html')
 
 def detail(request, category, product, id):
     db = dataBaseModel()
-    item = db.getDetail(product, id)
+    item = db.getDetail(product.lower(), id)
     if item[1] != dataBaseModel.SUCCESS:
         failData = {'image' : '', 'item_name': '', 'price' : -1, 'description' : ''}
         return HttpResponse(json.dumps(failData), content_type='application/json')
     item = item[0]
     image = static("products/" + item.photo)
-    data = {'image' : image, 'item_name': item.name, 'price' : item.price, 'description' : item.description}
+    data = {'image' : image, 'item_name': item.name.title(), 'price' : item.price, 'description' : item.description}
     
     return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
 
@@ -63,7 +63,7 @@ def addProduct(request):
         
         if form.is_valid():
             pcategory = form.cleaned_data['category'].lower()
-            pname = form.cleaned_data['itemname']
+            pname = form.cleaned_data['itemname'].lower()
             pbrand = form.cleaned_data['brand']
             purl = form.cleaned_data['url']
             pprice = float(form.cleaned_data['price'])
