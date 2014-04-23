@@ -27,6 +27,10 @@ function capitaliseFirstLetter(string)
 	}
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
 function renderpage(desp, image, item_name, price){
 	if(jQuery.type(desp)!="string" || jQuery.type(image)!="string" || jQuery.type(item_name)!="string"|| jQuery.type(price)!="number"){
 		return false;
