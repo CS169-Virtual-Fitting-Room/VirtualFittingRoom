@@ -21,8 +21,8 @@ def setUpDb(request):
     hats.save()
     headphones.save()
     
-    rayban = Product(category = glasses, name='rayban glasses', brand = 'rayban', url='www.rayban.com', photo='rayban.jpg', overlay='raybanol.png', price = 129.9, description='stylish rayban')
-    nike = Product(category = glasses, name='nike glasses', brand = 'nike', url='www.nike.com', photo='nike.jpg', price = 99.9, description = 'sporty nike')
+    rayban = Product(category = glasses, name='rayban glasses', brand = 'rayban',url='www.rayban.com', price = 129.9, description='stylish rayban', photo='rayban.jpg')
+    nike = Product(category = glasses, name='nike glasses', brand = 'nike', url='www.nike.com', photo='nike.jpg',overlay='nikeol.png', price = 99.9, description = 'sporty nike')
     adidas = Product(category = hats, name='adidas cap', brand = 'adidas', url='www.adidas.com', photo='addidas.jpg', overlay='addidasol.png', price = 56.9, description ='adidas cap!')
     levis = Product(category = hats, name='levis hat', brand = 'levis', url='www.levis.com', photo='levis.jpg', price = 67.9, description ='levis hat!')
     beats = Product(category = headphones, name='beats headphones', brand = 'beats', url='www.beats.com', photo='beats.jpg', overlay='beatsol.png', price = 256.9, description='stylish headphones!')
