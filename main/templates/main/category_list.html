@@ -32,7 +32,6 @@ $(document).ready(function() {
 		function(data){
 			var images = data.image;
 			var item_names=data.item_name;
-			alert(item_names);
 			var prices = data.price;
 			var ids = data.id;
 			rendergrids(images.length, images, item_names, prices, ids);
