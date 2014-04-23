@@ -20,6 +20,11 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+
+
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src='{% static "main/assets/js/wishlist.js" %}'></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
@@ -56,6 +61,7 @@ $(document).ready(function(){
 <button type ="submit" class="continue" >Try In Fitting Room!</button>
 </form-->
 </article>
-
+<div id="success_dialog" hidden="true"></div>
+<div id="failure_dialog" hidden="true"></div>
 </body>
 </html>

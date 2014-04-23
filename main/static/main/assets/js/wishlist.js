@@ -76,9 +76,14 @@ function clickContinueEvent(commonpath){ //add to fit list
 		function(data){
 			console.log("success");
 			if(data.errCode<0){
-				alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
+				//alert("");
+				$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!</p>");
+				$("#failure_dialog").dialog();
+				
 			}else{
-				alert("Item is successfully added.");
+				//alert("");
+				$("#success_dialog").html("<p>Item is successfully added.</p>");
+				$("#success_dialog").dialog();
 			}
 			return true;
 		},
