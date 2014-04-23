@@ -40,7 +40,7 @@ $(document).ready(function(){
 		function(data){
 			var image = data.image;
 			imgurl = image;
-			var item_name=data.item_name;
+			var item_name=toTitleCase(data.item_name);
 			gitem_name = item_name;
 			var price = data.price;
 			var desp = data.description;
@@ -60,7 +60,7 @@ $(document).ready(function(){
 		if(jQuery.type(content)!="string" || jQuery.type(name)!="string" ||jQuery.type(time)!="string"){
 			return false;
 		}
-		var comment = '<li class="cmmnt"><div class="avatar"><a href="javascript:void(0);"><img src=\'{% static "main/assets/img/anonymous-user.png" %}\' width="55" height="55" alt="'+name+'"></a></div><div class="cmmnt-content"><header><a href="javascript:void(0);" class="userlink">'+name+'</a> - <span class="pubdate">posted '+time+'</span></header><p>'+content+'</p></div></li>';
+		var comment = '<li class="cmmnt"><div class="avatar"><a href="javascript:void(0);"><img src=\'{% static "main/assets/img/anonymous-user.png" %}\' width="55" height="55" alt="'+name+'"></a></div><div class="cmmnt-content"><header><a href="javascript:void(0);" class="userlink">'+name+'</a> - <span class="pubdate">posted on '+time.substring(5,10)+'-'+time.substring(0,4)+'</span></header><p>'+content+'</p></div></li>';
 		$("#comment-list").append(comment);
 		return true;
 	}
@@ -71,7 +71,8 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
-				rendercomments(data);
+				var last=data.length-1;
+				rendercomment(data[last].content, data[last].name, data[last].time);
 			},
 			error:
 			function(data){
@@ -86,7 +87,6 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
-				var last=data.length-1;
 				rendercomment(data[last].content, data[last].name, data[last].time);
 			},
 			error:
@@ -175,11 +175,10 @@ $(document).ready(function(){
 	});
 	$('#share_button').click(function(e){
 		console.log(e);
-		//alert("hello");
 		FB.ui({
 			method: 'feed',
 			name: gitem_name,
-			link: 'http://localhost:8000/',
+			link: window.location.href,
 			picture: 'http://virtualfittingroom.herokuapp.com/'+imgurl,
 			caption: gitem_name,
 			description:gdesp,
@@ -269,7 +268,7 @@ $(document).ready(function(){
 </article>
 
   <div id="w">
-    <h1>Customers' Comments</h1>
+    <h3>Customer Comments</h3>
     
     <div id="container">
       <ul id="comments">
