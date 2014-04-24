@@ -47,7 +47,7 @@ legend{border:0;padding:0;}
 button,
 input,
 select,
-textarea{font-family:inherit;font-size:100%;margin:0;}
+textarea{font-family:inherit;font-size:100%;margin:0;vertical-align:middle}
 button,
 input{line-height:normal;}
 button,
