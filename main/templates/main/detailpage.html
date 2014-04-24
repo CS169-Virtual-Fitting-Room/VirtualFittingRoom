@@ -7,7 +7,7 @@
 <link rel="image_src" href='{% static "main/assets/img/fitting_room_icon.png" %}'/>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
-
+<link rel="canonical" id="google_share_url"/>
 <link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' />
 <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
 
@@ -29,6 +29,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	document.title = "{{product}}";
+	$("#google_share_url").attr("href", window.location.href);
 	imgurl = null;
 	gitem_name =null;
 	gdesp = null;
