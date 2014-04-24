@@ -46,9 +46,10 @@ $(document).ready(function(){
 			var price = data.price;
 			var desp = data.description;
 			gdesp = desp;
-			loadtwitter();
+			//loadtwitter();
 			renderpage(desp, image, item_name, price);
-			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "'+window.location.href +'\n'+ item_name+'\n'+ desp+'" data-lang="en"></a>');
+			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
+			loadtwitter();
 		},
 		error:
 		function(data){
