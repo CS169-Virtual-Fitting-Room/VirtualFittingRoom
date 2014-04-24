@@ -51,8 +51,8 @@ $(document).ready(function(){
 			renderpage(desp, image, item_name, price);
 
 			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
-			$('head').append('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
-			$('head').append('<meta itemprop="description"' + 'content="Check out these ' + item_name +  ' I just tried on virtually."/>');
+			$('head').prepend('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
+			$('head').prepend('<meta itemprop="description"' + 'content="Check out these ' + item_name +  ' I just tried on virtually."/>');
 			//$("#meta_google_thumbnail").attr("content", "http://" + window.location.host + image);
 			//$("#meta_google_title").attr("content", "Check out these " + item_name +  " I just tried on virtually.");
 			$.getScript("https://apis.google.com/js/plusone.js") // ensure meta is changed before script is loaded
