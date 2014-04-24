@@ -16,9 +16,9 @@
 				<li id="head"><a id=add_item href="/addcustomimage">Add Item</a></li>
 				<li id="head">
 					{% if user.is_authenticated == False %}
-					<a id = login href="/login/google-oauth2/">Login</a>
+					<a id = login href="/login/google-oauth2/?next={{path}}">Login</a>
 					{% else %}
-					<a id = logout href="/logout/">Logout</a>
+					<a id = logout href="/logout/?next={{path}}">Logout</a>
 					{% endif %}
 				</li>
 			</span>
