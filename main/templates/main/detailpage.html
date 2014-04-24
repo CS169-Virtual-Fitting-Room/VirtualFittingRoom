@@ -1,9 +1,8 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/Product">
 <head>
 <meta charset="utf-8">
-<meta property="og:image" content="http://virtualfittingroom.herokuapp.com/static/main/assets/img/fitting_room_icon.png"/>
 <link rel="image_src" href='{% static "main/assets/img/fitting_room_icon.png" %}'/>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
@@ -50,6 +49,11 @@ $(document).ready(function(){
 			loadtwitter();
 			renderpage(desp, image, item_name, price);
 			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
+			$('head').append('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
+			$('head').append('<meta itemprop="name"' + 'content="Check out these ' + item_name +  ' I just tried on virtually."/>');
+			//$("#meta_google_thumbnail").attr("content", "http://" + window.location.host + image);
+			//$("#meta_google_title").attr("content", "Check out these " + item_name +  " I just tried on virtually.");
+			$.getScript("https://apis.google.com/js/plusone.js") // ensure meta is changed before script is loaded
 		},
 		error:
 		function(data){
