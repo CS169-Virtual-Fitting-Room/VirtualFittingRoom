@@ -126,7 +126,7 @@ SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_ENABLED_BACKENDS = ('google',)
 
-GOOGLE_OAUTH2_CLIENT_ID = '576633802176-gmrc7o7vehipthah97f48uhotv49glpn.apps.googleusercontent.com' #576633802176-g2kqnkmv7nqlphv39v5c9le69hi127j2.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET = 'v0flWlhG_HRlQ9vGIkkGmzRI' #CJ1RGWGII0D2tAQJ6KLAerxt'
+GOOGLE_OAUTH2_CLIENT_ID = '576633802176-g2kqnkmv7nqlphv39v5c9le69hi127j2.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'CJ1RGWGII0D2tAQJ6KLAerxt'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
