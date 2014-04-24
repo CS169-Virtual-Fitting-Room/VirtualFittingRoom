@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta property="og:image" content="http://virtualfittingroom.herokuapp.com/static/products/beats.jpg"/>
-<title>Detail Page</title>
+<meta property="og:image" content="http://virtualfittingroom.herokuapp.com/static/main/assets/img/fitting_room_icon.png"/>
+<link rel="image_src" href='{% static "main/assets/img/fitting_room_icon.png" %}'/>
 <link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 <link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
 
@@ -41,14 +41,14 @@ $(document).ready(function(){
 		function(data){
 			var image = data.image;
 			imgurl = image;
-			var item_name=toTitleCase(data.item_name);
+			var item_name=data.item_name;
 			gitem_name = item_name;
 			var price = data.price;
 			var desp = data.description;
 			gdesp = desp;
 			loadtwitter();
 			renderpage(desp, image, item_name, price);
-			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "'+window.location +'\n'+ item_name+'\n'+ desp+'" data-lang="en">Tweet</a>');
+			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "'+window.location.href +'\n'+ item_name+'\n'+ desp+'" data-lang="en"></a>');
 		},
 		error:
 		function(data){
