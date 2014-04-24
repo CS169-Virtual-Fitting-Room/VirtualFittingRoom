@@ -72,8 +72,9 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
-				var last=data.length-1;
-				rendercomment(data[last].content, data[last].name, data[last].time);
+				for (var i = 0; i < data.length; i++){
+					rendercomment(data[i].content, data[i].name, data[i].time);
+				}
 			},
 			error:
 			function(data){
@@ -88,6 +89,7 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
+				var last = data.length - 1;
 				rendercomment(data[last].content, data[last].name, data[last].time);
 			},
 			error:
@@ -99,6 +101,11 @@ $(document).ready(function(){
 	$("#submitcomment").click(function(){
 		
 		var content = $("#textarea").val();
+		if (content == "") {
+			$("#failure_dialog").html("<p>Please fill in comments!</p>");
+			$("#failure_dialog").dialog();
+			return false; // don't submit form
+		}
 		
 		$.ajax({
 			type:"POST",
@@ -109,7 +116,8 @@ $(document).ready(function(){
 			success:
 			function(data){
 				if(data.errCode<0){
-					alert("Error! Fail to verify user info. Please log in first!");
+					$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+					$("#failure_dialog").dialog();
 				}else{
 					console.log(content);
 					updatecomment();
@@ -296,8 +304,7 @@ $(document).ready(function(){
           <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="default avatar"></a></div>
           <div class="cmmnt-content">
             <form id = "commentForm">
-			<textarea id = "textarea" rows="4" cols = "50">
-			</textarea>
+			<textarea id = "textarea" rows="4" cols = "50"></textarea>
             </form>
 			<button id="submitcomment" type="button"> Submit </button>
           </div>  
