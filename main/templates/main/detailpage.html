@@ -133,7 +133,15 @@ $(document).ready(function(){
 			function(data){
 				console.log("success");
 				if(data.errCode<0){
-					$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in wish list!</p>");
+					if(data.errCode == -8) {
+						$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+					}
+					else if(data.errCode == -6) {
+						$("#failure_dialog").html("<p>Item is already in wishlist!</p>");
+					}
+					else {
+						$("#failure_dialog").html("<p>Failed to add to wishlist!</p>");
+					}
 					$("#failure_dialog").dialog();
 					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
 				}else{
@@ -159,7 +167,15 @@ $(document).ready(function(){
 			function(data){
 				console.log("success");
 				if(data.errCode<0){
-					$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!</p>");
+					if(data.errCode == -8) {
+						$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+					}
+					else if(data.errCode == -7) {
+						$("#failure_dialog").html("<p>Item is already in Fitting Room!</p>");
+					}
+					else {
+						$("#failure_dialog").html("<p>Failed to add to Fitting Room!</p>");
+					}
 					$("#failure_dialog").dialog();
 					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
 				}else{
