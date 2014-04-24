@@ -48,7 +48,7 @@ $(document).ready(function(){
 			gdesp = desp;
 			loadtwitter();
 			renderpage(desp, image, item_name, price);
-			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "'+window.location.href +'\n'+ item_name+'\n'+ desp+'" data-lang="en"></a>');
+			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check it out! I just tried ' + item_name + ' on virtually!" data-url="' + window.location.href +'" data-lang="en"></a>');
 		},
 		error:
 		function(data){
