@@ -9,6 +9,16 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <div class="header-wrap" >
 </div>
+
+<div id="viewSettings">
+<b>View:</b>
+<select id="viewOptions" style="height:30;width:288 onchange="changeViewProductNum(this.options[this.selectedIndex].value)" name="changeViewProductNum">
+<option selected="" value="2">2 per page</option>
+<option value="4">4 per page</option>
+<option value="6">6 per page</option>
+</select>
+</div>
+
 <article id="grid">
 
     <ul id="items">
