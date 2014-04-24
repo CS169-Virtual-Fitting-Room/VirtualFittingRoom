@@ -3,18 +3,18 @@
 		<nav>
 			<ul class=global-nav>
 			<span style="float:right" style="height:30;width:288">
-				<li><form name="input" action="/searchResult" method="get">
+				<li class="head"><form name="input" action="/searchResult" method="get">
 				<input type="text" id="search_name" name="searchName" style="height:31;width:213; vertical-align: bottom" >
-				<input type="submit" value="Search"></form></li>
+				<input type="submit" id="search_button" value="Search"></form></li>
 			</span>
 
 			<span style="float:right">
 
-				<li id="head"><a id=home href="/">Home</a></li>
-				<li id="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
-				<li id="head"><a id=wishlist href="/wishlist">Wishlist</a></li>
-				<li id="head"><a id=add_item href="/addcustomimage">Add Item</a></li>
-				<li id="head">
+				<li class="head"><a id=home href="/">Home</a></li>
+				<li class="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
+				<li class="head"><a id=wishlist href="/wishlist">Wishlist</a></li>
+				<li class="head"><a id=add_item href="/addcustomimage">Add Item</a></li>
+				<li class="head">
 					{% if user.is_authenticated == False %}
 					<a id = login href="/login/google-oauth2/?next={{path}}">Login</a>
 					{% else %}

@@ -3,7 +3,7 @@
     E-mail : Coder@iMomen.com
 */
 
-html, body, div, span, applet, object, iframe,
+.container (html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video) {
   /%margin: 0;%/
   border: 0;
   /%font-size: 100%;%/
@@ -23,8 +23,8 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+.container (article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section) {
   display: block;
 }
 
@@ -32,7 +32,7 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+.container (ol, ul) {
   list-style: none;
 }
 
@@ -52,15 +52,15 @@ table {
 }
 
 /* Page */
-body {
+body : not (.container)) {
   font-family:"Trebuchet MS",tahoma;
 }
 
-a {
+.container a {
   color:#FF3679;
   text-decoration: none;
 }
-a:hover {
+.container a:hover {
   text-decoration: underline;
 }
 
@@ -159,12 +159,12 @@ a:hover {
   font-size: 13px;
 }
 
-input {
+.container input {
   font-family:"Trebuchet MS",tahoma;
   font-size: 14px;
 }
 
-input[type=text] :not(#search_name), input[type=password] ,.register select,.register textarea {
+.container input[type=text] :not(#search_name), input[type=password] ,.register select,.register textarea {
   margin: 5px;
   padding: 0 10px;
   height: 34px;
@@ -182,7 +182,7 @@ input[type=text] :not(#search_name), input[type=password] ,.register select,.reg
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   margin:10px 0;
 }
-input[type=text]:focus, input[type=password]:focus{
+.container input[type=text]:focus, input[type=password]:focus{
   border-color:#FFF7F9;
   outline-color:rgba(254, 225, 235, 0.7);
   outline-offset: 0;
@@ -214,7 +214,7 @@ input[type=text]:focus, input[type=password]:focus{
   -moz-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
   box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
 }
-input[type=submit]:active, #additem:active{
+.container input[type=submit]:active, #additem:active{
   background: #7D0F33;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
