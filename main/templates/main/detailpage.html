@@ -25,9 +25,9 @@
 
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src='{% static "main/assets/js/detailpage.js" %}'></script>
+<title>{{product}}</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	document.title = "{{product}}";
 	$("#google_share_url").attr("href", window.location.href);
 	imgurl = null;
 	gitem_name =null;
