@@ -158,7 +158,7 @@ $(document).ready(function(){
 					}
 					if (!checkValidImageType(map["Image for Fitting Room"])){
 						//alert("please upload either images with only either jpg or jpeg format");
-						$("#alertinvalidimagetype").html("<p>please upload either images with only either jpg or jpeg format</p>");
+						$("#alertinvalidimagetype").html("<p>please upload images with only either jpg or jpeg format</p>");
 						$("#alertinvalidimagetype").dialog();
 						return false;
 					}
@@ -172,8 +172,12 @@ $(document).ready(function(){
 					return true;
 				},
 				success: function(data){
-					if(data.errCode==-8){
+					if(data.errCode==1){
+						$("#dialogSuccess").dialog();
+					}if(data.errCode==-8){
 						$("#dialogErrUser").dialog();
+					}else { // bad response
+						$("#dialogErr").dialog();
 					}
 				}
 			});
@@ -229,6 +233,9 @@ $(document).ready(function(){
 <div id="alertinvalidnumber"></div>
 <div id="alertinvalidimagetype"></div>
 <div id="alertemptyinput"></div>
+<div id="dialogSuccess" title="Authentication failed" hidden="true">
+   <p>Item Successfully Added!</p>
+ </div>
 <div id="dialogErrUser" title="Authentication failed" hidden="true">
    <p>Please log in to add custom products!</p>
  </div>
