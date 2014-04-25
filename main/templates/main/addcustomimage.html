@@ -45,41 +45,7 @@ $(document).ready(function(){
 		$("#back").hide();
 		return false; // prevent form submission
 	});
-	/*var files = [];
-	$("input[type=file]").change(function(event){
-		$.each(event.target.files,function(index,file){
-		var reader = new FileReader();
-		reader.onload = function(event){
-			object = {};
-			object.filename = file.name;
-			object.data = event.target.result;
-			console.log(object);
-			files.push(object);
-		};
-		reader.readAsDataURL(file);
-		});
-	});
-	$("#fileupload").click(function() {
-		console.log("fileupload");
-		//$.each(files, function(index, file) {
-			$.ajax({
-				url: '/previewcustomitem',
-				type: 'POST',
-				data: files[0].data,
-				contentType:"application/json",
-				dataType: "json",
-				success: function(data) {
-					console.log("success");
-				},
-				error: function(data){
-					alert("failure");
-				}
-			});      
-		//});
-		files = [];
-		//form.preventDefault();
-		return false;
-	});*/	
+
 	
 	$("#fileupload").click(function(){	
 		var object = {url: '/previewcustomitem', type:'POST', 
@@ -141,9 +107,10 @@ $(document).ready(function(){
 			$("#product_form").ajaxForm({
 				url : '/addcustomitem',
 				type : 'POST',
-				beforeSubmit: function() {
+				beforeSubmit: function(data) {
 			
-					event.preventDefault();
+					//event.preventDefault();
+					console.log(data);
 					var inputs = $("#product_form :input");
 					var map = new Object();
 					var mapsize = 7;
@@ -157,25 +124,25 @@ $(document).ready(function(){
 					inputs.each(function(index){
 						switch(index){
 							case 0:
-								map["Item Name"] = $(this)[0].value;
+								map["Item Name"] = data[index].value;
 								break;
 							case 1:
-								map["Price"] = $(this)[0].value;
+								map["Price"] = data[index].value;
 								break;
 							case 2:
-								map["URL"] = $(this)[0].value;
+								map["URL"] = data[index].value;
 								break;
 							case 3:
-								map["Brand"] = $(this)[0].value;
+								map["Brand"] = data[index].value;
 								break;
 							case 4:
-								map["Description"] = $(this).val();
+								map["Description"] = data[index].value;
 								break;
 							case 5:
-								map["Image for Fitting Room"] = $(this)[0].value;
+								map["Image for Fitting Room"] = data[index].value.name;
 								break;
-							case 8:
-								map["Category"] = $(this).find(":selected").text();
+							case 6:
+								map["Category"] = data[index].value;
 								break;
 							default:
 								break;
@@ -203,8 +170,14 @@ $(document).ready(function(){
 						return false;
 					}
 					return true;
+				},
+				success: function(data){
+					if(data.errCode==-8){
+						$("#invalidauthentication").html("<p>Please log in to add custom products!</p>");
+						$("#invalidauthentication").dialog();
 					}
-		});
+				}
+			});
 		});
 	});
 </script>
@@ -221,7 +194,7 @@ $(document).ready(function(){
 				  <div style="padding-left:30%">
 				  <p ><input type="text" name="itemname" value="" placeholder="Item Name"></p>
 				  <p><input type="text" name="price" value="" placeholder="Price"></p>
-				  <p><input type="text" name="url" value="" placeholder="URL"></p>
+				  <p style="display:none;"><input type="text" name="url" value="randome_url" placeholder="URL"></p>
 				  <p><input type="text" name="brand" value="" placeholder="Brand"></p>
 				  <p><textarea name="description" id="" placeholder="Item Description"></textarea></p>
 				  </div>
@@ -257,8 +230,9 @@ $(document).ready(function(){
 <div id="alertinvalidnumber"></div>
 <div id="alertinvalidimagetype"></div>
 <div id="alertemptyinput"></div>
+<div id="invalidauthentication"></div>
 <div id="dialogErrUser" title="Authentication failed" hidden="true">
-   <p>Please log in to add custom products.</p>
+   <p>Please log in to add custom products!</p>
  </div>
  <div id="dialogErr" title="Image process failed" hidden="true">
  	<p>Unable to process uploaded image</p>
