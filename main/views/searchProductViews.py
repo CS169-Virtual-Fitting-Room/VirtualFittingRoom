@@ -8,7 +8,7 @@ import json
 def search_list(request):
     value = request.GET.get("searchName")
     print value
-    return render(request, 'main/searchResult.html', {"searchName" : value})
+    return render(request, 'main/searchResult.html', {"searchName" : value} )
 
 
 # def searchProducts(request):
@@ -41,6 +41,9 @@ def search_list(request):
 
 def searchProducts(request):
     searchProduct = request.GET.get("searchName")
+    searchNum = request.GET.get("sth")
+    print "searchNum is ", searchNum
+    print "searchProduct is ",searchProduct
     id = []
     image = []
     item_name = []
@@ -52,11 +55,14 @@ def searchProducts(request):
         return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
     else:
         items = query[0]
+        i = 0
         for item in items:
-            id.append(item.pk)
-            item_name.append(item.name)
-            price.append(item.price)
-            image.append(static("products/" + item.photo))
+            if i != searchNum:
+                id.append(item.pk)
+                item_name.append(item.name)
+                price.append(item.price)
+                image.append(static("products/" + item.photo))
+                i = i + 1
         data = {'id': id, 'image' : image, 'item_name' : item_name, 'price' : price}
         return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
 
