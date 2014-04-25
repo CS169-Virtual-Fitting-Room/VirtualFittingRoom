@@ -174,7 +174,7 @@ $(document).ready(function(){
 				success: function(data){
 					if(data.errCode==1){
 						$("#dialogSuccess").dialog();
-					}if(data.errCode==-8){
+					}else if(data.errCode==-8){
 						$("#dialogErrUser").dialog();
 					}else { // bad response
 						$("#dialogErr").dialog();
