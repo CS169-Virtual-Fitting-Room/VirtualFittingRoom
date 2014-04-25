@@ -173,8 +173,7 @@ $(document).ready(function(){
 				},
 				success: function(data){
 					if(data.errCode==-8){
-						$("#invalidauthentication").html("<p>Please log in to add custom products!</p>");
-						$("#invalidauthentication").dialog();
+						$("#dialogErrUser").dialog();
 					}
 				}
 			});
@@ -230,7 +229,6 @@ $(document).ready(function(){
 <div id="alertinvalidnumber"></div>
 <div id="alertinvalidimagetype"></div>
 <div id="alertemptyinput"></div>
-<div id="invalidauthentication"></div>
 <div id="dialogErrUser" title="Authentication failed" hidden="true">
    <p>Please log in to add custom products!</p>
  </div>

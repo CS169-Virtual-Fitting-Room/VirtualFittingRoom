@@ -77,7 +77,16 @@ function clickContinueEvent(commonpath){ //add to fit list
 			console.log("success");
 			if(data.errCode<0){
 				//alert("");
-				$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!</p>");
+				//$("#failure_dialog").html("<p>Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!</p>");
+				if(data.errCode == -8) {
+					$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+				}
+				else if(data.errCode == -7) {
+					$("#failure_dialog").html("<p>Item is already in Fitting Room!</p>");
+				}
+				else {
+					$("#failure_dialog").html("<p>Failed to add to Fitting Room!</p>");
+				}
 				$("#failure_dialog").dialog();
 				
 			}else{
