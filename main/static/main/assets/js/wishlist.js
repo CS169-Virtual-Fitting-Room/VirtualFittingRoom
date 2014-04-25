@@ -32,6 +32,9 @@ function renderwishlist(data){
 		return false;
 	}
 	var len = data.length;
+	if(len ==0){
+		$("#empty_wishlist").html("Note: Please add items here. You can add items from product details.");
+	}
 	for(var i=0; i<len; i++){
 		var desc = data[i].description;
 		var image = data[i].image;
