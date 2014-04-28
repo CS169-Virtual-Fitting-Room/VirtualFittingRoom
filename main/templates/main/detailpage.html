@@ -40,6 +40,7 @@ $(document).ready(function(){
 		dataType: "json",
 		success:
 		function(data){
+			console.log(data);
 			var image = data.image;
 			imgurl = image;
 			var item_name=data.item_name;
@@ -64,15 +65,6 @@ $(document).ready(function(){
 		}
 	});
 	getcomments();
-
-	function rendercomment(content, name, time){
-		if(jQuery.type(content)!="string" || jQuery.type(name)!="string" ||jQuery.type(time)!="string"){
-			return false;
-		}
-		var comment = '<li class="cmmnt"><div class="avatar"><a href="javascript:void(0);"><img src=\'{% static "main/assets/img/anonymous-user.png" %}\' width="55" height="55" alt="'+name+'"></a></div><div class="cmmnt-content"><header><a href="javascript:void(0);" class="userlink">'+name+'</a> - <span class="pubdate">posted on '+time.substring(5,10)+'-'+time.substring(0,4)+'</span></header><p>'+content+'</p></div></li>';
-		$("#comment-list").append(comment);
-		return true;
-	}
 	function getcomments(){
 		$.ajax({
 			url: "comments/get",
@@ -309,7 +301,7 @@ $(document).ready(function(){
 		</div>
 		
 		<li class="cmmnt">
-          <div class="avatar"><a href="javascript:void(0);"><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="default avatar"></a></div>
+          <div class="avatar"><!--a href="javascript:void(0);"--><img src='{% static "main/assets/img/anonymous-user.png" %}' width="55" height="55" alt="default avatar"></a></div>
           <div class="cmmnt-content">
             <form id = "commentForm">
 			<textarea id = "textarea" rows="4" cols = "50"></textarea>
