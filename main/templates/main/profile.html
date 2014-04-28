@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Virtual Awesome Fantastic Fitting Room!!!!!!!!!!</title>
+<link rel="stylesheet" href='{% static "main/assets/css/style.css" %}' >
+<!--link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'-->
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src='{% static "main/assets/js/general.js" %}'></script>
+<script src='{% static "main/assets/js/wishlist.js" %}'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".header-wrap").load("/top_menu");
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
+	$("#wishlist_content").load("/wishlistcontent");
+	getItemFromWishListAndStartRender();
+});
+</script>
+
+</head>
+<body>
+	<div class="header-wrap" >
+	</div>
+	<div>User name:</div>
+	<div>kaleongkong</div>
+	<div>email:</div>
+	<div>kaleongkong@yahoo.com</div>
+
+
+	<div id="tabs" >
+		<ul style="background: none repeat scroll 0% 0% rgb(34, 34, 34);">
+			<li><a href="#wishlist_content">Wish List</a></li>
+			<li><a href="#fitlist_content">Items in Fitting Room</a></li>
+			<li><a href="#customlist_content">Own Items</a></li>
+		</ul>
+		<div id="wishlist_content">
+			<p>hello 1</p>
+		</div>
+		<div id="fitlist_content">
+			<p>hello 2</p>
+		</div>
+		<div id="customlist_content">
+			<p>hello 3</p>
+		</div>
+	</div>
+</body>
+</html>

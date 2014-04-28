@@ -8,9 +8,11 @@
 <script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <div class="header-wrap" >
+
 </div>
+
 <article id="grid">
-	
+	<div style="box-shadow: 10px 10px 5px #888888;width: 960px;background:#FFDFC5">
     <ul id="items">
 	<!--items are here from item.html-->
     </ul>
@@ -19,7 +21,9 @@
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
     </footer>
+</div>
 </article>
+
 <script type='text/javascript'>
 $(document).ready(function() {
 	document.title = "{{category}}";
