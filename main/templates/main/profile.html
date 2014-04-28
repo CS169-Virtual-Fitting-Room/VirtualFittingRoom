@@ -19,6 +19,7 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src='{% static "main/assets/js/wishlist.js" %}'></script>
 <script src='{% static "main/assets/js/fitlist.js" %}'></script>
+<script src='{% static "main/assets/js/customlist.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
@@ -28,8 +29,12 @@ $(document).ready(function(){
 	});
 	$("#wishlist_content").load("/wishlistcontent");
 	$("#fitlist_content").load("/fitlistcontent");
+	$("#customlist_content").load("/customlistcontent");
 	getItemFromWishListAndStartRender();
 	getItemFromFitListAndStartRender();
+	setTimeout(getItemFromCustomListAndStartRender, 1000);//can't run before the the customlistcontent is loaded
+	//getItemFromCustomListAndStartRender();
+    
 });
 </script>
 <style type="text/css">
@@ -60,6 +65,7 @@ $(document).ready(function(){
 	a#addcustomimage{
 		font-size:20px;
 	}
+	.ui-tabs .ui-tabs-nav li a { width:300px; color:#A59275;} 
 	
 </style>
 </head>
@@ -87,9 +93,9 @@ $(document).ready(function(){
 
 	<div id="tabs">
 		<ul style="background: none repeat scroll 0% 0% rgb(34, 34, 34);">
-			<li><a href="#wishlist_content">Wish List</a></li>
-			<li><a href="#fitlist_content">Items in Fitting Room</a></li>
-			<li><a href="#customlist_content">Own Items</a></li>
+			<li class="wordwrap" ><a href="#wishlist_content">Wish List</a></li>
+			<li class="wordwrap" ><a href="#fitlist_content">Items in Fitting Room</a></li>
+			<li class="wordwrap" ><a href="#customlist_content">Own Items</a></li>
 		</ul>
 		<div id="wishlist_content">
 			<p>hello 1</p>
