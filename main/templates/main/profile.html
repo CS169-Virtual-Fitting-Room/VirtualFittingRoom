@@ -18,28 +18,74 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <script src='{% static "main/assets/js/wishlist.js" %}'></script>
+<script src='{% static "main/assets/js/fitlist.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	$(function() {
 		$( "#tabs" ).tabs();
+		$( "a#addcustomimage" ).button();
 	});
 	$("#wishlist_content").load("/wishlistcontent");
+	$("#fitlist_content").load("/fitlistcontent");
 	getItemFromWishListAndStartRender();
+	getItemFromFitListAndStartRender();
 });
 </script>
-
+<style type="text/css">
+	div#tabs{
+		position:relative; 
+		width:90%;
+		margin:0 auto;
+	}
+	div.userinfo{
+		padding-top:1cm;
+		border:2px solid;
+		border-radius:25px;
+		position:relative; 
+		width:90%;
+		margin:0 auto;
+		height:250px;
+	}
+	p.userinfo_label{
+		font-size:25px;
+		font-weight: bold;
+		padding: 0px 0px 0px 50px;
+	}
+	p.userinfo_answer{
+		font-size:25px;
+		font-weight: bold;
+		padding: 0px 0px 0px 250px;
+	}
+	a#addcustomimage{
+		font-size:20px;
+	}
+	
+</style>
 </head>
 <body>
 	<div class="header-wrap" >
 	</div>
-	<div>User name:</div>
-	<div>kaleongkong</div>
-	<div>email:</div>
-	<div>kaleongkong@yahoo.com</div>
+	
+	<div style="padding-top:1cm"></div>
+	
+	<div class="userinfo">
+	<div style="float:left;">
+		<p class="userinfo_label">User name:</p>
+		<p class="userinfo_label">Email:</p>
+		
+	</div>
+	<div style="float:left;">
+		<p class="userinfo_answer">kaleongkong</p>
+		<p class="userinfo_answer">kaleongkong@yahoo.com</p>
+		<p class="userinfo_answer"><a id="addcustomimage" href="/addcustomimage">ADD YOUR OWN ITEM!!</a></p>
+	</div>
+		
+	</div>
+	
+	<div style="padding-top:1cm"></div>
 
-
-	<div id="tabs" >
+	<div id="tabs">
 		<ul style="background: none repeat scroll 0% 0% rgb(34, 34, 34);">
 			<li><a href="#wishlist_content">Wish List</a></li>
 			<li><a href="#fitlist_content">Items in Fitting Room</a></li>

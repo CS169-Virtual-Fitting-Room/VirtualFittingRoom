@@ -5,7 +5,6 @@ function getItemFromWishListAndStartRender(){
 		dataType:"json",
 		success:
 		function(data){
-			//console.log(data);
 			renderwishlist(data);
 		},
 		error:
@@ -22,7 +21,7 @@ function renderwishlistelement(desc, image, name, price, id, category){
 		return false;
 	}
 	var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="/'+category+'/'+name+'_'+id+'">'+name+'</a><br>'+desc+' <div > <button class = "remove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="continue">Add Item to Fitting Room</button></td></tr>';
-	$("table").append(item);
+	$("#wishlisttable table").append(item);
 	return true;
 	
 }
@@ -33,7 +32,7 @@ function renderwishlist(data){
 	}
 	var len = data.length;
 	if(len ==0){
-		$("#empty_wishlist").html("Note: Please add items here. You can add items from product details.");
+		$("#empty_wishlist").html("Note: Please add items to Wish List. You can add items from product details.");
 	}
 	for(var i=0; i<len; i++){
 		var desc = data[i].description;

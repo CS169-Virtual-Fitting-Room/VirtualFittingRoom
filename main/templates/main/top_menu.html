@@ -10,15 +10,15 @@
 
 			<span style="float:right">
 
-				<li class="head"><a id=home href="/">Home</a></li>
-				<li class="head"><a id=fitting_room href="/fittingroom">Fitting Room</a></li>
-				<li class="head"><a id=wishlist href="/wishlist">Wishlist</a></li>
-				<li class="head"><a id=add_item href="/addcustomimage">Add Item</a></li>
+				<li class="head"><a id="home" href="/">Home</a></li>
+				<li class="head"><a id="fitting_room" href="/fittingroom">Fitting Room</a></li>
+				<li class="head"><a id="wishlist" href="/wishlist">Wishlist</a></li>
+				<li class="head"><a id="profile" href="/profile">Profile</a></li>
 				<li class="head">
 					{% if user.is_authenticated == False %}
-					<a id = login href="/login/google-oauth2/?next={{path}}">Login</a>
+					<a id = "login" href="/login/google-oauth2/?next={{path}}">Login</a>
 					{% else %}
-					<a id = logout href="/logout/?next={{path}}">Logout</a>
+					<a id = "logout" href="/logout/?next={{path}}">Logout</a>
 					{% endif %}
 				</li>
 			</span>

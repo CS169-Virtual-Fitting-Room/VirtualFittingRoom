@@ -10,8 +10,8 @@ article {background:#fff;font-size:75%;font-family:"HelveticaNeue-Light", "Helve
 input[type=text] : not(#search_name), input[type=password], input[type=email], input[type=tel], select, textarea {border:1px solid #ececec;font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:300;color:#333;font-size:1em;padding:2px 4px;}
 input[type=text] : not(#search_name), input[type=password], input[type=email], input[type=tel] {padding:4px;}
 select {padding-right:2px;}
-button {background:#ececec;border:1px solid #ececec;-webkit-box-shadow: inset 0px 1px 0px 0px #f5f5f5;-moz-box-shadow: inset 0px 1px 0px 0px #f5f5f5;
-box-shadow: inset 0px 1px 0px 0px #f5f5f5;color:#b29f90;line-height:1.7em;padding:0px 10px;font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:bold;font-size:1em;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:pointer;}
+/*button {background:#ececec;border:1px solid #ececec;-webkit-box-shadow: inset 0px 1px 0px 0px #f5f5f5;-moz-box-shadow: inset 0px 1px 0px 0px #f5f5f5;
+box-shadow: inset 0px 1px 0px 0px #f5f5f5;color:#b29f90;line-height:1.7em;padding:0px 10px;font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:bold;font-size:1em;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:pointer;}*/
 button:hover {color:#ff5454}
 button.continue {background:#ff5454;border-color:#ff5454;color:#fff;-webkit-box-shadow: inset 0px 1px 0px 0px #ffa9a9;-moz-box-shadow: inset 0px 1px 0px 0px #ffa9a9;
 box-shadow: inset 0px 1px 0px 0px #ffa9a9;font-size:1.167em;padding:5px 10px;-webkit-transition:background .4s ease;-moz-transition:background .4s ease;-o-transition:background .4s ease;transition:background .4s ease;}
