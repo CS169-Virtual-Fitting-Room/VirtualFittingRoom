@@ -28,6 +28,9 @@ def wishlistcontent(request):
 def fitlistcontent(request):
     return render(request, "main/fitlistcontent.html", {'path' : request.META['HTTP_REFERER']})
 
+def customlistcontent(request):
+    return render(request, "main/customlistcontent.html", {'path' : request.META['HTTP_REFERER']})
+
 def qunit(request):
     return render(request, "main/qunit_test.html")
 
