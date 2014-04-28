@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url, include
-from views.mainViews import index, members, logout, mainpage, top_menu, fittingroom,qunit, wishlist, profile, wishlistcontent
+from views.mainViews import index, members, logout, mainpage, top_menu, fittingroom,qunit, wishlist, profile, wishlistcontent, fitlistcontent
 from views.categoryViews import listProduct, category_list
 from views.productViews import detail, detailpage, previewProduct, addProduct, addcustomimage
 from views.commentViews import addComment, getComments
@@ -17,6 +17,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
 					   url(r'^addcustomimage', addcustomimage, name='addcustomimage'),
                        url(r'^top_menu', top_menu, name='top_menu'),
 					   url(r'^wishlistcontent', wishlistcontent, name='wishlistcontent'),
+					   url(r'^fitlistcontent', fitlistcontent, name='fitlistcontent'),
 					   url(r'^qunit', qunit, name='qunit'),
                        url(r'^fittingroom', fittingroom, name='fittingroom'),
 					   url(r'^wishlist/$', wishlist, name='wishlist'),

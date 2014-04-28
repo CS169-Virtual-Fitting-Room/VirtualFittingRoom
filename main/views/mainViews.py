@@ -24,6 +24,9 @@ def top_menu(request):
 	
 def wishlistcontent(request):
     return render(request, "main/wishlistcontent.html", {'path' : request.META['HTTP_REFERER']})
+	
+def fitlistcontent(request):
+    return render(request, "main/fitlistcontent.html", {'path' : request.META['HTTP_REFERER']})
 
 def qunit(request):
     return render(request, "main/qunit_test.html")
