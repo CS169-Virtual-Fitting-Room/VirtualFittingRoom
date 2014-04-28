@@ -1,6 +1,6 @@
 function getItemFromWishListAndStartRender(){
 	$.ajax({
-		url:"get",
+		url:"/wishlist/get",
 		contentType:"application/json",
 		dataType:"json",
 		success:

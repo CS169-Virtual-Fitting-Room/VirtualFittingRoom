@@ -21,6 +21,9 @@ def mainpage(request):
 
 def top_menu(request):
     return render(request, "main/top_menu.html", {'path' : request.META['HTTP_REFERER']})
+	
+def wishlistcontent(request):
+    return render(request, "main/wishlistcontent.html", {'path' : request.META['HTTP_REFERER']})
 
 def qunit(request):
     return render(request, "main/qunit_test.html")
@@ -30,4 +33,7 @@ def fittingroom(request):
 
 def wishlist(request):
     return render(request, "main/wishlist.html")
+
+def profile(request):
+    return render(request, 'main/profile.html')
 
