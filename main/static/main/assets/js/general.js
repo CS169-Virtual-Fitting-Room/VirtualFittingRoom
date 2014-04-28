@@ -14,7 +14,7 @@ function rendergrids(num_of_items, images, item_names, prices, ids){
 			return false;
 		}
 		for ( var i = 0; i < num_of_items; i++ ) {
-			var item = '<li> <a href="'+item_names[i] + "_" + ids[i] + '" id="item-img'+i+'"></a> <a href="'+item_names[i] + "_" + ids[i] +'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i]+'</strong></li>'
+			var item = '<li> <a href="'+item_names[i] + "_" + ids[i] + '" id="item-img'+i+'"></a> <a href="'+item_names[i] + "_" + ids[i] +'" class="title">'+item_names[i]+'</a><strong>&dollar;'+prices[i].toFixed(2)+'</strong></li>'
 			$("#items").append(item);
 			$("a#item-img"+i).html("<img src='"+images[i]+"'/>");
 		}
