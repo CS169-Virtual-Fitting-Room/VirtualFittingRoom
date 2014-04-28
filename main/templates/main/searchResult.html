@@ -9,12 +9,16 @@
 <script src='{% static "main/assets/js/general.js" %}'></script>
 <div class="header-wrap" >
 </div>
+
+
+
 <article id="grid">
 
     <ul id="items">
 	<!--items are here from item.html-->
     </ul>
     <footer>
+        <div id="empty_searchlist" style="color:red;font-size:20px;"></div>
         <div class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
@@ -30,12 +34,16 @@ $(document).ready(function() {
         type: 'GET',
 		success:
 		function(data){
-            console.log(data);
+            if (data.image.length == 0){
+                console.log(data.image.length)
+                $("#empty_searchlist").html("Sorry, no item found, please try to find the name of the products.");
+            }
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
 			var ids = data.id;
 			rendergrids(images.length, images, item_names, prices, ids);
+
 		},
 		error:
 		function(data){
