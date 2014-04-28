@@ -14,6 +14,7 @@
     <ul id="items">
 	<!--items are here from item.html-->
     </ul>
+	<div id="empty_search" style="color:red;font-size:20px;text-align:center;padding-top:100px;padding-bottom:100px;"></div>
     <footer>
         <div class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
@@ -31,6 +32,9 @@ $(document).ready(function() {
 		success:
 		function(data){
             console.log(data);
+			if(data.id.length==0){
+				$("#empty_search").html("Note: No item matches with your search input");
+			}
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
