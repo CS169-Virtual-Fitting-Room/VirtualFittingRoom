@@ -226,4 +226,12 @@ class dataBaseModel (object):
             return user
         except:
             return ""
+        
+    def getNumAdded(self, userID):
+        try:
+            user = User.objects.get(pk=userID)
+            added = Added.objects.filter(owner = user)
+            return added.count()
+        except:
+            return 0
             
