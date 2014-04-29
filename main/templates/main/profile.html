@@ -12,8 +12,9 @@
 <![endif]-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
-<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<!--script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script-->
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src='{% static "main/assets/js/general.js" %}'></script>
@@ -61,6 +62,7 @@ $(document).ready(function(){
 				if(data.image_url!==""){
 					imageurl = data.image_url;
 				}
+				console.log(imageurl);
 				$("#user_profile_image").html('<img src='+ imageurl+' width="250" height="250" ></a>');
 			},
 		error:
@@ -84,38 +86,30 @@ $(document).ready(function(){
 	getItemFromWishListAndStartRender();
 	getItemFromFitListAndStartRender();
 	setTimeout(getItemFromCustomListAndStartRender, 1000);//can't run before the the customlistcontent is loaded
-	$("#uploadprofileimg").click(function(){	
+	$("#uploadprofileimg").click(function(){
+		
 		var object = {
 				url: '/addprofilepic', 
 				type:'POST', 
+				beforeSubmit: 
+					function(data) {
+						console.log(data);
+						return true;
+					},
 				success:
 					function(data) {
-						/*
-						if (data.errCode == 1) {
-							
-						
-						} else if (data.errCode == -8) { // not authenticated
-							$("#dialogErrUser").dialog();
-							$("#fileupload").text('Upload to Preview');
-							$("#fileupload").removeAttr('disabled');
-						} else { // bad response
-							$("#dialogErr").dialog();
-							$("#fileupload").text('Upload to Preview');
-							$("#fileupload").removeAttr('disabled');
-						}
-						*/
-			},
-			error : function() {
-					/*
-					$("#dialogErr").dialog();
-					$("#fileupload").text('Upload to Preview');
-					$("#fileupload").removeAttr('disabled');
-					*/
-				}
+						console.log(data);
+					},
+				error : function() {
+						console.log("failure");
+					}
 
 			};
-			$("#profile_pic_form").ajaxForm(object);
-		});
+		console.log($("#profile_pic_form"));
+		$("#profile_pic_form").ajaxForm(object);
+		$("#profile_pic_form").ajaxSubmit();
+		return false;
+	});
     
 });
 </script>
