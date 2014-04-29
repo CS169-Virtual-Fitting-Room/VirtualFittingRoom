@@ -8,6 +8,7 @@ from models import WishList
 from models import FitList
 from models import TempProduct
 from models import Added
+from models import User as CustomUser
 
 from django.db.models import Q
 
@@ -25,6 +26,7 @@ class dataBaseModel (object):
     ERR_BAD_TOKEN = -9
     ERR_UNABLE_TO_PREVIEW_PRODUCT = -10
     ERR_UNABLE_TO_ADD_PRODUCT = -11
+    ERR_UNABLE_TO_ADD_PROFILE_PIC = -12
 
     
     
@@ -201,4 +203,19 @@ class dataBaseModel (object):
 
         return (items, dataBaseModel.SUCCESS)
 
-
+    def addProfilePic(self, userID, file):
+        try:
+            user = CustomUser.objects.get(pk=userID)
+            user.update(user_image = file)
+            user.save()            
+        except:
+            newUser = CustomUser(id=userID, user_id = userID, count = 0, user_image = file)
+            newUser.save()
+            
+    def getProfilePic(self, userID):
+        try:
+            user = CustomUser.objects.get(pk=userID)
+            return user.user_image
+        except:
+            return ""
+            
