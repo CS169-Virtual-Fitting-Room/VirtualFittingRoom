@@ -27,6 +27,7 @@ class dataBaseModel (object):
     ERR_UNABLE_TO_PREVIEW_PRODUCT = -10
     ERR_UNABLE_TO_ADD_PRODUCT = -11
     ERR_UNABLE_TO_ADD_PROFILE_PIC = -12
+    ERR_UNABLE_TO_GET_USER_INFO = -13
 
     
     
@@ -216,6 +217,13 @@ class dataBaseModel (object):
         try:
             user = CustomUser.objects.get(pk=userID)
             return user.user_image
+        except:
+            return ""
+        
+    def getUserInfo(self, userID):
+        try:
+            user = User.objects.get(pk=userID)
+            return user
         except:
             return ""
             
