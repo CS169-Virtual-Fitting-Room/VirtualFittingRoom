@@ -5,6 +5,7 @@ class ImageRW:
     
     IMAGE_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/products/"
     TEMP_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/temp/"
+    PROFILE_DIR = os.path.dirname(os.path.realpath(__file__)) + "/static/profile/"
     SUCCESS = 1
     
     
@@ -18,7 +19,7 @@ class ImageRW:
         return byte
     
     @staticmethod
-    def writeImage(file, permanent, filename):  # file is of type UploadedFile
+    def writeImage(file, permanent, filename, profile = False):  # file is of type UploadedFile
         # this method return the image name
         if file.size > 3000000:  # larger than 3 MB
             return ""
@@ -26,7 +27,9 @@ class ImageRW:
             return ""
         
         path = ""
-        if permanent :
+        if profile:
+            path = ImageRW.PROFILE_DIR
+        elif permanent :
             path = ImageRW.IMAGE_DIR
         else :
             path = ImageRW.TEMP_DIR
