@@ -35,12 +35,16 @@
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	$("#wishlistcontent").load("/wishlistcontent");
+	//setTimeout(getItemFromWishListAndStartRender, 3000);
 	getItemFromWishListAndStartRender();
-
 });
 
 </script>
-
+<style>
+	#wishlist_content_div{
+		position:relative; width:60%; margin:0 auto; background:white;
+	}
+</style>
 </head>
 <body>
 <div class="header-wrap" >

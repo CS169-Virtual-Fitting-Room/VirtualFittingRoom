@@ -5,6 +5,8 @@ function getItemFromWishListAndStartRender(){
 		dataType:"json",
 		success:
 		function(data){
+			//setTimeout(renderwishlist(data), 1000);
+			$("table#wishlisttable").html('');
 			renderwishlist(data);
 		},
 		error:
@@ -15,13 +17,12 @@ function getItemFromWishListAndStartRender(){
 }	
 
 
-
 function renderwishlistelement(desc, image, name, price, id, category){
 	if(jQuery.type(desc)!="string" || jQuery.type(image)!="string" || jQuery.type(name)!="string" || jQuery.type(price)!="number"||jQuery.type(id)!="number"||jQuery.type(category)!="string"){
 		return false;
 	}
-	var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th></tr><tr><td align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="/'+category+'/'+name+'_'+id+'">'+name+'</a><br>'+desc+' <div > <button class = "remove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="continue">Add Item to Fitting Room</button></td></tr>';
-	$("#wishlisttable table").append(item);
+	var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="price">Price</th><tr><td style="padding-bottom: 40px" align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="/'+category+'/'+name+'_'+id+'">'+name+'</a><br>'+desc+' <div > <button class = "wishlistremove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> </td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="wishlistcontinue">Add Item to Fitting Room</button></td></tr>';
+	$("table#wishlisttable").append(item);
 	return true;
 	
 }
@@ -32,6 +33,7 @@ function renderwishlist(data){
 	}
 	var len = data.length;
 	if(len ==0){
+		$("#empty_wishlist").show();
 		$("#empty_wishlist").html("Note: Please add items to Wish List. You can add items from product details.");
 	}
 	for(var i=0; i<len; i++){
@@ -43,27 +45,27 @@ function renderwishlist(data){
 		var category = data[i].category;
 		renderwishlistelement(desc, image, name, price, id, category);
 	}
-	clickbuttonEvent();
+	wishlistclickbuttonEvent();
 	return true;
 }
 
-function clickbuttonEvent(){
+function wishlistclickbuttonEvent(){
 	$("button").click(function(event){
 		var id = event.target.id.split('_');
 		var category = id[0];
 		var name = id[1];
 		var item_id = id[2];
 		var commonpath = '/'+category+'/'+name+'_'+item_id;
-		if(event.target.className=="remove"){
-			clickRemoveEvent(commonpath);
-		}else if(event.target.className=="continue"){
-			clickContinueEvent(commonpath);
+		if(event.target.className=="wishlistremove"){
+			clickRemoveWishListEvent(commonpath);
+		}else if(event.target.className=="wishlistcontinue"){
+			clickAddToFitListEvent(commonpath);
 		}
 	});
 }
 
 
-function clickContinueEvent(commonpath){ //add to fit list
+function clickAddToFitListEvent(commonpath){ //add to fit list
 	if(jQuery.type(commonpath)!="string"){
 		return false;
 	}else if(commonpath.split('/').length<2){
@@ -95,6 +97,9 @@ function clickContinueEvent(commonpath){ //add to fit list
 				//alert("");
 				$("#success_dialog").html("<p>Item is successfully added.</p>");
 				$("#success_dialog").dialog();
+				if(typeof getItemFromFitListAndStartRender !=='undefined' && $.isFunction(getItemFromFitListAndStartRender)){
+					getItemFromFitListAndStartRender();
+				}
 			}
 			return true;
 		},
@@ -107,7 +112,7 @@ function clickContinueEvent(commonpath){ //add to fit list
 	return false;
 }
 
-function clickRemoveEvent(commonpath){
+function clickRemoveWishListEvent(commonpath){
 	if(jQuery.type(commonpath)!="string"){
 		return false;
 	}else if(commonpath.split('/').length<2){
@@ -121,7 +126,6 @@ function clickRemoveEvent(commonpath){
 		success:
 		function(data){
 			console.log(data);
-			$("table").html('');
 			getItemFromWishListAndStartRender();
 			return true;
 		},
