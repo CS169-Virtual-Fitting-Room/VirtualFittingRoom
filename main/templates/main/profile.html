@@ -27,13 +27,95 @@ $(document).ready(function(){
 		$( "#tabs" ).tabs();
 		$( "a#addcustomimage" ).button();
 	});
+	$.ajax({
+		url:"/getuserinfo",
+		contentType:"application/json",
+		dataType:"json",
+		success:
+			function(data){
+				if(checkDataType(data)){
+					var username = data.first;
+					var email = data.email;
+					var joindate = data.date_joined;
+					var numitemupload = data.num_of_custom_products;
+					joindate = trimdate(joindate);
+					$("#username").html(username);
+					$("#email").html(email);
+					$("#joindate").html(joindate);
+					$("#numitemupload").html(numitemupload);
+				}
+			},
+		error:
+			function(data){
+				console.log("failure");
+			},
+	});
+	
+	$.ajax({
+		url:"/getprofilepic",
+		contentType:"application/json",
+		dataType:"json",
+		success:
+			function(data){
+				var imageurl = '{% static "main/assets/img/anonymous-user.png" %}';
+				if(data.image_url!==""){
+					imageurl = data.image_url;
+				}
+				$("#user_profile_image").html('<img src='+ imageurl+' width="250" height="250" ></a>');
+			},
+		error:
+			function(data){
+				console.log("failure");
+			},
+	});
+	
+	function trimdate(date){
+		var splitdate = date.split(" ");
+		date = splitdate[0];
+		return date;
+	}
+	
+	function checkDataType(data){
+		return true;
+	}
 	$("#wishlist_content").load("/wishlistcontent");
 	$("#fitlist_content").load("/fitlistcontent");
 	$("#customlist_content").load("/customlistcontent");
 	getItemFromWishListAndStartRender();
 	getItemFromFitListAndStartRender();
 	setTimeout(getItemFromCustomListAndStartRender, 1000);//can't run before the the customlistcontent is loaded
-	//getItemFromCustomListAndStartRender();
+	$("#uploadprofileimg").click(function(){	
+		var object = {
+				url: '/addprofilepic', 
+				type:'POST', 
+				success:
+					function(data) {
+						/*
+						if (data.errCode == 1) {
+							
+						
+						} else if (data.errCode == -8) { // not authenticated
+							$("#dialogErrUser").dialog();
+							$("#fileupload").text('Upload to Preview');
+							$("#fileupload").removeAttr('disabled');
+						} else { // bad response
+							$("#dialogErr").dialog();
+							$("#fileupload").text('Upload to Preview');
+							$("#fileupload").removeAttr('disabled');
+						}
+						*/
+			},
+			error : function() {
+					/*
+					$("#dialogErr").dialog();
+					$("#fileupload").text('Upload to Preview');
+					$("#fileupload").removeAttr('disabled');
+					*/
+				}
+
+			};
+			$("#profile_pic_form").ajaxForm(object);
+		});
     
 });
 </script>
@@ -50,7 +132,7 @@ $(document).ready(function(){
 		position:relative; 
 		width:90%;
 		margin:0 auto;
-		height:250px;
+		height:450px;
 	}
 	p.userinfo_label{
 		font-size:25px;
@@ -71,7 +153,14 @@ $(document).ready(function(){
 		margin:0 auto; 
 		background:white;
 	}
-	.ui-tabs .ui-tabs-nav li a { width:300px; color:#A59275;} 
+	.ui-tabs .ui-tabs-nav li a { 
+		width:300px; 
+		color:#A59275;
+	}
+		
+	button#uploadprofileimg{
+		width:250px;
+	}
 	
 </style>
 </head>
@@ -82,17 +171,28 @@ $(document).ready(function(){
 	<div style="padding-top:1cm"></div>
 	
 	<div class="userinfo">
-	<div style="float:left;">
-		<p class="userinfo_label">User name:</p>
-		<p class="userinfo_label">Email:</p>
-		
-	</div>
-	<div style="float:left;">
-		<p class="userinfo_answer">kaleongkong</p>
-		<p class="userinfo_answer">kaleongkong@yahoo.com</p>
-		<p class="userinfo_answer"><a id="addcustomimage" href="/addcustomimage">ADD YOUR OWN ITEM!!</a></p>
-	</div>
-		
+		<div style="float:left;">
+			<p class="userinfo_label">User name:</p>
+			<p class="userinfo_label">Email:</p>
+			<p class="userinfo_label">Date Joined:</p>
+			<p class="userinfo_label">Number of Own Item:</p>
+		</div>
+		<div style="float:left;">
+			<p class="userinfo_answer" id="username"></p>
+			<p class="userinfo_answer" id="email"></p>
+			<p class="userinfo_answer" id="joindate"></p>
+			<p class="userinfo_answer" id="numitemupload"></p>
+			<p class="userinfo_answer"><a id="addcustomimage" href="/addcustomimage">ADD YOUR OWN ITEM!!</a></p>
+		</div>
+		<div style="float:right;padding-right:2cm;">
+			<p id="user_profile_image"></p>
+			<p>
+			<form id="profile_pic_form">
+				<p><input type ="file" size="250" name="profile"></p>
+				<p><button id="uploadprofileimg">Upload Your Image!</button></p>
+			</form>
+			</p>
+		</div>
 	</div>
 	
 	<div style="padding-top:1cm"></div>

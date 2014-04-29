@@ -13,9 +13,9 @@ select {padding-right:2px;}
 /*button {background:#ececec;border:1px solid #ececec;-webkit-box-shadow: inset 0px 1px 0px 0px #f5f5f5;-moz-box-shadow: inset 0px 1px 0px 0px #f5f5f5;
 box-shadow: inset 0px 1px 0px 0px #f5f5f5;color:#b29f90;line-height:1.7em;padding:0px 10px;font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:bold;font-size:1em;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:pointer;}*/
 button:hover {color:#ff5454}
-button.wishlistcontinue, button.fitlistcontinue{background:#ff5454;border-color:#ff5454;color:#fff;-webkit-box-shadow: inset 0px 1px 0px 0px #ffa9a9;-moz-box-shadow: inset 0px 1px 0px 0px #ffa9a9;
-box-shadow: inset 0px 1px 0px 0px #ffa9a9;font-size:1.167em;padding:5px 10px;-webkit-transition:background .4s ease;-moz-transition:background .4s ease;-o-transition:background .4s ease;transition:background .4s ease;}
-button.wishlistcontinue:hover, button.fitlistcontinue:hover {background:#333;border-color:#333;color:#fff;-webkit-box-shadow: inset 0px 1px 0px 0px #999;-moz-box-shadow: inset 0px 1px 0px 0px #999;
+button.wishlistcontinue, button.fitlistcontinue, button#uploadprofileimg{background:#6B8630;border-color:#6B8630;color:#fff;-webkit-box-shadow: inset 0px 1px 0px 0px #ffa9a9;-moz-box-shadow: inset 0px 1px 0px 0px #ffa9a9;
+box-shadow: inset 0px 1px 0px 0px #8CAD44;font-size:1.167em;padding:5px 10px;-webkit-transition:background .4s ease;-moz-transition:background .4s ease;-o-transition:background .4s ease;transition:background .4s ease;}
+button.wishlistcontinue:hover, button.fitlistcontinue:hover, button#uploadprofileimg:hover {background:#333;border-color:#333;color:#fff;-webkit-box-shadow: inset 0px 1px 0px 0px #999;-moz-box-shadow: inset 0px 1px 0px 0px #999;
 box-shadow: inset 0px 1px 0px 0px #999;}
 
 a:link, a:visited {color:#b29f90;}
@@ -47,8 +47,8 @@ strong {font-weight:bold;}
 	#social a.twitter:link, #social a.twitter:visited {background-position:-30px 0px;}
 		#social a.twitter:hover {background-position:-30px -30px;}
 
-#action-bar {line-height:24px;position:absolute;top:0px;right:0px;color:#fff;}
-	#action-bar a:link, #action-bar a:visited {color:#fff;margin:0px 5px;}
+/*#action-bar {line-height:24px;position:absolute;top:0px;right:0px;color:#fff;}
+	#action-bar a:link, #action-bar a:visited {color:#fff;margin:0px 5px;}*/
 
 article {display:block;text-align:left;width:960px;margin:0px auto;clear:both;min-height:400px;}
 	article footer {-webkit-box-shadow:none;-moz-box-shadow: none;box-shadow:none;}
@@ -57,17 +57,6 @@ footer {height:116px;margin-top:0;width:100%;display:block;clear:both;padding-to
 	footer .logo {display:block;height:24px;border-bottom:1px solid #ececec;margin:0px 0px 10px;overflow:hidden;text-indent:-999em;background:#fff url(../images/sprite.png) no-repeat 830px -60px}
 	footer a, footer strong {margin-left:10px;}
 
-/** Home **/
-/*body#home {min-height:100%;min-width:100%;overflow:hidden;}
-#home header {z-index:10;border-top:1px solid #fff;border-bottom:1px solid #fff;top:35.6%;left:0;margin-top:0;position:absolute;-webkit-animation: delay 2s;-moz-animation: delay 2s;}
-	#home header .wrapper {border:none;}
-	#home #brand {-webkit-animation: delay 4.5s;-moz-animation: delay 4.5s;}
-	#home nav {-webkit-animation: delay 5s;-moz-animation: delay 5s;}
-		#home nav ul ul {top:95px;}
-			#home nav ul ul a:link, #home nav ul ul a:visited{border-bottom:1px solid #fff;}
-#home article {float:left;width:100%;text-align:center;}
-#home img {display: block;height: auto!important;width:100% !important;}
-#home footer {z-index:17;position:absolute;left:0;bottom:0;}*/
 
 /*** Product grid ***/
 #breadcrumb {border-bottom:1px solid #ececec;padding:10px 0px;}
@@ -84,25 +73,7 @@ footer {height:116px;margin-top:0;width:100%;display:block;clear:both;padding-to
 	#items strong {border-bottom: 1px solid #ececec;display:block;padding-bottom:5px;}
 		#items strong em {float:right;font-weight:normal;font-size:0.833em;}
 
-/*** Main product view ***/
-/*#mainview #breadcrumb {margin-bottom:10px;}
-#description {float:right;width:500px;}
-	#description h1 {font-family: 'Terminal Dosis', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:2em;font-weight:300;}
-	#description p {padding:0px 0px 14px 0px;}
-	#price {font-size:1.333em;display:block;color:#ff5454;padding:14px 0px;}
-		#price span {color:#333;font-size:0.722em;float:right;}
-	#description select {width:240px;margin-right:10px;}
-	#description .continue {width:240px;margin-right:10px;}
-	#images {float:left;width:460px;position:relative;}
-		#images div, #images a {float:left;}
-		#images a img {float:left;border:1px solid #fff;-webkit-box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.2);-moz-box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.2);box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.2);}
-			#images a:hover img {-webkit-box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.8);-moz-box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.8);box-shadow:0px 0px 5px 0px rgba(180, 160, 145, 0.8);}
-	#images p {background:#fff;padding:5px 0px;margin:0px 20px 10px 0px;width:440px;text-align:center;}
-	#productthumbs a {margin:0px 10px 10px 0px;}
-		#images #productthumbs a img {width:138px;}
-		#images #productthumbs a:hover img {border-color:#fff;}
-	#images .sale {position:absolute;top:20px;right:40px;padding:5px;line-height:normal;text-align:right;color:#fff;background:#ff5454;font-family: 'Terminal Dosis', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;text-transform:uppercase;-webkit-animation: delay 1.5s;-moz-animation: delay 1.5s;}
-	#items a {display:block;text-decoration:none;}*/
+
 
 /*
  * jQuery UI Tabs 1.8.13
@@ -113,17 +84,7 @@ footer {height:116px;margin-top:0;width:100%;display:block;clear:both;padding-to
  *
  * http://docs.jquery.com/UI/Tabs#theming
  */
-/*.ui-tabs {position:relative;padding:0;zoom:1;margin-top:40px;}*/ /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-/*.ui-tabs .ui-tabs-nav {margin:0;padding:0;}
-.ui-tabs .ui-tabs-nav li {list-style:none;float:left;position:relative;top:1px;margin:0px 0px -1px;padding:0;white-space:nowrap;}
-.ui-tabs .ui-tabs-nav li a {float:left;padding:8px 16px;text-decoration:none;border:1px solid #ececec;border-left:none;font-weight:bold;width:100px;text-align:center;background:#f5f5f5;width:133px;}
-.ui-tabs .ui-tabs-nav li a.first {border:1px solid #ececec;width:134px;}
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected {margin-bottom:0;}
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {cursor:text;border-bottom:1px solid #fff;background:#fff;color:#ff5454;}
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }*/ /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-/*.ui-tabs .ui-tabs-panel {display:block;border:1px solid #ececec;background:#fff;}
-.ui-tabs .ui-tabs-hide {display:none!important;}
-#tabs section {float:left;clear:left;width:458px;padding:10px 20px;}*/
+
 
 /*** View bag ***/
 #basket h1 {/*font-family: 'Terminal Dosis', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:2em;font-weight:300;*/padding:20px 0px;}
