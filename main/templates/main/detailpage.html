@@ -33,7 +33,11 @@ $(document).ready(function(){
 	imgurl = null;
 	gitem_name =null;
 	gdesp = null;
+	var wishlistitems = null;
 	$(".header-wrap").load("/top_menu");
+	
+	
+	console.log(wishlistitems);
 	$.ajax({
 		url: "info",
 		contentType: "application/json",
@@ -54,8 +58,6 @@ $(document).ready(function(){
 			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
 			$('head').prepend('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
 			$('head').prepend('<meta itemprop="description"' + 'content="Check out these ' + item_name +  ' I just tried on virtually."/>');
-			//$("#meta_google_thumbnail").attr("content", "http://" + window.location.host + image);
-			//$("#meta_google_title").attr("content", "Check out these " + item_name +  " I just tried on virtually.");
 			$.getScript("https://apis.google.com/js/plusone.js") // ensure meta is changed before script is loaded
 
 		},
@@ -64,6 +66,60 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
+
+	function checkInWishList(){
+		$.ajax({
+			url:"/wishlist/get",
+			contentType:"application/json",
+			dataType:"json",
+			success:
+			function(data){
+				var a = window.location.href.split("/");
+				var b = a[a.length-2].split("_");
+				var id = b[b.length-1];
+				$("img#wishlist_gray").hide();
+				$("img#wishlist_color").show();
+				$.each(data,function(key, value){
+					if (value.product_id==id){
+						$("img#wishlist_gray").show();
+						$("img#wishlist_color").hide();
+					}
+				});
+			},
+			error:
+			function(data){
+				alert("failure");
+			}
+		});
+	}
+	function checkInFitList(){
+		$.ajax({
+			url:"/fitlist/get",
+			contentType:"application/json",
+			dataType:"json",
+			success:
+			function(data){
+				console.log(data);
+				var a = window.location.href.split("/");
+				var b = a[a.length-2].split("_");
+				var id = b[b.length-1];
+				$("img#fitlist_gray").hide();
+				$("img#fitlist_color").show();
+				$.each(data,function(key, value){
+					if (value.product_id==id){
+						$("img#fitlist_gray").show();
+						$("img#fitlist_color").hide();
+					}
+				});
+			},
+			error:
+			function(data){
+				alert("failure");
+			}
+		});
+	}
+	checkInFitList();
+	checkInWishList();
 	getcomments();
 	function getcomments(){
 		$.ajax({
@@ -155,6 +211,7 @@ $(document).ready(function(){
 				}else{
 					$("#success_dialog").html("<p>Item is successfully added.</p>");
 					$("#success_dialog").dialog();
+					checkInWishList();
 					//alert("Item is successfully added.");
 				}
 			},
@@ -189,6 +246,7 @@ $(document).ready(function(){
 				}else{
 					$("#success_dialog").html("<p>Item is successfully added.</p>")
 					$("#success_dialog").dialog();
+					checkInFitList();
 					//alert("Item is successfully added.");
 				}
 			},
@@ -257,40 +315,43 @@ $(document).ready(function(){
 <div class="header-wrap" >
 </div>
 
-<article id="mainview">
-    <div id="breadcrumb"></div>
-    <div id="description">
+    <div id="description" style="width:60%;position:relative; margin:0 auto; background:white;">
         <h1 id = "item_name"></h1>
 		<table>
-		<col style="width:50%">
-		<col style="width:50%">
-		<thead>
-		<th></th>
-		<th></th>
-		</thead>
-		<tbody>
-		<tr>
-			<td>
-				<div id="images" style="width:300px">
-				</div>
-			</td>
-			<td>
-				<strong id="price"> </strong>
-				<p id = "desp"></p>
-				<p><button id="add_to_wishlist" class="continue">Add Item to Wish List</button></p>
-				<p><button id="add_to_fitlist" class="continue"><div>Add Item to Fitting Room</div></button></p>
-				<!--p><button type="button">Tell a friend</button></p-->
-				<span id= "fb_share" style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer; vertical-align: top"></img></span>
-				<span id= "twitter_share" style="float=left"></span>
-				<span id= "google_share" style="float=left"> <g:plus action="share"></g:plus></span>
-				
-			</td>
-		</tr>
-		<tbody>
+			<col style="width:50%">
+			<col style="width:50%">
+			
+			<tbody>
+			<tr>
+				<td>
+					<div id="images" style="width:300px; float:left; padding-left:40px; padding-right:40px;">
+					</div>
+					<div id ="icon" style="width:45px; float:right; padding-right:125px;">
+						<div id="wishlist_icon" style="width:45px; height:45px; float:left; padding-bottom:10px;">
+							<img id="wishlist_gray" src='{% static "main/assets/img/w-icon.png" %}' style='-webkit-filter: grayscale(1);filter: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"grayscale\"><feColorMatrix type=\"matrix\" values=\"0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\"/></filter></svg>#grayscale");'></img>
+							<img id="wishlist_color" src='{% static "main/assets/img/w-icon.png" %}'></img>
+						</div>
+						<div id="fitlist_icon" style="width:45px; height:45px; float:left;padding-top:10px;">
+							<img id="fitlist_gray" src='{% static "main/assets/img/f-icon.png" %}' style='-webkit-filter: grayscale(1);filter: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"grayscale\"><feColorMatrix type=\"matrix\" values=\"0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\"/></filter></svg>#grayscale");'></img>
+							<img id="fitlist_color" src='{% static "main/assets/img/f-icon.png" %}'></img>
+						</div>
+					</div>
+				</td>
+				<td style="padding-bottom: 50px">
+					<strong id="price"> </strong>
+					<p id = "desp"></p>
+					<p><button id="add_to_wishlist" class="wishlistcontinue">Add Item to Wish List</button></p>
+					<p><button id="add_to_fitlist" class="fitlistcontinue"><div>Add Item to Fitting Room</div></button></p>
+					<!--p><button type="button">Tell a friend</button></p-->
+					<span id= "fb_share" style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer; vertical-align: top"></img></span>
+					<span id= "twitter_share" style="float=left"></span>
+					<span id= "google_share" style="float=left"> <g:plus action="share"></g:plus></span>
+				</td>
+			</tr>
+			<tbody>
 		</table>
     </div>
-    
-</article>
+
 
   <div id="w">
     <h3>Customer Comments</h3>
