@@ -129,7 +129,7 @@ $(document).ready(function(){
 			success:
 			function(data){
 				for (var i = 0; i < data.length; i++){
-					rendercomment(data[i].content, data[i].name, data[i].time);
+					rendercomment(data[i].content, data[i].name, data[i].time.substr(5,5)+'-'+data[i].time.substr(2,2));
 				}
 			},
 			error:
@@ -146,7 +146,7 @@ $(document).ready(function(){
 			success:
 			function(data){
 				var last = data.length - 1;
-				rendercomment(data[last].content, data[last].name, data[last].time);
+				rendercomment(data[last].content, data[last].name, data[last].time.substr(5,5)+'-'+data[last].time.substr(2,2));
 			},
 			error:
 			function(data){
