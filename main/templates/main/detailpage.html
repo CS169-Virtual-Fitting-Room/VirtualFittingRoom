@@ -81,6 +81,8 @@ $(document).ready(function(){
 				$("img#wishlist_color").show();
 				$.each(data,function(key, value){
 					if (value.product_id==id){
+                        $("button#add_to_wishlist").html("");
+                        $("button#add_to_wishlist").html("Remove Item from Wish List");
 						$("img#wishlist_gray").show();
 						$("img#wishlist_color").hide();
 					}
@@ -107,6 +109,9 @@ $(document).ready(function(){
 				$("img#fitlist_color").show();
 				$.each(data,function(key, value){
 					if (value.product_id==id){
+
+                        $("#add_to_fitlist").html("");
+                        $("#add_to_fitlist").html("Remove Item from Fitting room");
 						$("img#fitlist_gray").show();
 						$("img#fitlist_color").hide();
 					}
@@ -188,74 +193,171 @@ $(document).ready(function(){
 	});
 	
 	$("#add_to_wishlist").click(function(){
-		$.ajax({
-			type:"POST",
-			url:"wishlist/add",
-			contentType:"application/json",
-			dataType: "json",
-			success:
-			function(data){
-				console.log("success");
-				if(data.errCode<0){
-					if(data.errCode == -8) {
-						$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
-					}
-					else if(data.errCode == -6) {
-						$("#failure_dialog").html("<p>Item is already in wishlist!</p>");
-					}
-					else {
-						$("#failure_dialog").html("<p>Failed to add to wishlist!</p>");
-					}
-					$("#failure_dialog").dialog();
-					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
-				}else{
-					$("#success_dialog").html("<p>Item is successfully added.</p>");
-					$("#success_dialog").dialog();
-					checkInWishList();
-					//alert("Item is successfully added.");
-				}
-			},
-			error:
-			function(){
-				alert("failure");
-			}
-		});
+        if ($("#add_to_wishlist").html() == "Add Item to Wish List") {
+            console.log("find add item to wish list")
+
+            $.ajax({
+                type:"POST",
+                url:"wishlist/add",
+                contentType:"application/json",
+                dataType: "json",
+                success:
+                function(data){
+                    console.log("success");
+                    if(data.errCode<0){
+                        if(data.errCode == -8) {
+                            $("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+                        }
+                        else if(data.errCode == -6) {
+                            $("#failure_dialog").html("<p>Item is already in wishlist!</p>");
+                        }
+                        else {
+                            $("#failure_dialog").html("<p>Failed to add to wishlist!</p>");
+                        }
+                        $("#failure_dialog").dialog();
+                        //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
+                    }else{
+                        $("#success_dialog").html("<p>Item is successfully added.</p>");
+                        $("#success_dialog").dialog();
+                        checkInWishList();
+                        //alert("Item is successfully added.");
+                        $("#add_to_wishlist").html("");
+                        $("#add_to_wishlist").html("Remove Item from Wish List");
+                    }
+                },
+                error:
+                function(){
+                    alert("failure");
+                }
+            });
+        }
+	});
+
+	$("#add_to_wishlist").click(function(){
+        if ($("#add_to_wishlist").html() == "Remove Item from Wish List") {
+            console.log("hihihihi")
+
+            $.ajax({
+                type:"POST",
+                url:"wishlist/remove",
+                contentType:"application/json",
+                dataType: "json",
+                success:
+                function(data){
+                    console.log("success");
+                    if(data.errCode<0){
+                        if(data.errCode == -8) {
+                            $("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+                        }
+                        else if(data.errCode == -6) {
+                            $("#failure_dialog").html("<p>Item is not in wishlist!</p>");
+                        }
+                        else {
+                            $("#failure_dialog").html("<p>Failed to remove from wishlist!</p>");
+                        }
+                        $("#failure_dialog").dialog();
+                        //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
+                    }else{
+                        $("#success_dialog").html("<p>Item is successfully removed.</p>");
+                        $("#success_dialog").dialog();
+                        checkInWishList();
+                        $("#add_to_wishlist").html("");
+                        console.log("hihihihihi")
+                        $("#add_to_wishlist").html("Add Item to Wish List");
+                        //alert("Item is successfully added.");
+                    }
+                },
+                error:
+                function(){
+                    alert("failure");
+                }
+            });
+        }
+	});
+
+
+	$("#add_to_fitlist").click(function(){
+        if ($("#add_to_fitlist").html() == "Add Item to Fitting Room") {
+            console.log("add item to Fitting room")
+            $.ajax({
+                type:"POST",
+                url:"fitlist/add",
+                contentType:"application/json",
+                dataType: "json",
+                success:
+                function(data){
+                    console.log("success");
+                    if(data.errCode<0){
+                        if(data.errCode == -8) {
+                            $("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+                        }
+                        else if(data.errCode == -7) {
+                            $("#failure_dialog").html("<p>Item is already in Fitting Room!</p>");
+                        }
+                        else {
+                            $("#failure_dialog").html("<p>Failed to add to Fitting Room!</p>");
+                        }
+                        $("#failure_dialog").dialog();
+                        //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
+                    }else{
+                        $("#success_dialog").html("<p>Item is successfully added.</p>")
+                        $("#success_dialog").dialog();
+                        checkInFitList();
+                        //alert("Item is successfully added.");
+                        $("#add_to_fitlist").html("");
+                        $("#add_to_fitlist").html("Remove Item from Fitting room");
+                    }
+                },
+                error:
+                function(){
+                    alert("failure");
+                }
+            });
+        }
 	});
 
 	$("#add_to_fitlist").click(function(){
-		$.ajax({
-			type:"POST",
-			url:"fitlist/add",
-			contentType:"application/json",
-			dataType: "json",
-			success:
-			function(data){
-				console.log("success");
-				if(data.errCode<0){
-					if(data.errCode == -8) {
-						$("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
-					}
-					else if(data.errCode == -7) {
-						$("#failure_dialog").html("<p>Item is already in Fitting Room!</p>");
-					}
-					else {
-						$("#failure_dialog").html("<p>Failed to add to Fitting Room!</p>");
-					}
-					$("#failure_dialog").dialog();
-					//alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
-				}else{
-					$("#success_dialog").html("<p>Item is successfully added.</p>")
-					$("#success_dialog").dialog();
-					checkInFitList();
-					//alert("Item is successfully added.");
-				}
-			},
-			error:
-			function(){
-				alert("failure");
-			}
-		});
+        if ($("#add_to_fitlist").html() == "Remove Item from Fitting room") {
+            console.log("22222222")
+            $.ajax({
+                type:"POST",
+                url:"fitlist/remove",
+                contentType:"application/json",
+                dataType: "json",
+                success:
+                function(data){
+                    console.log("success");
+                    if(data.errCode<0){
+                        if(data.errCode == -8) {
+                            $("#failure_dialog").html("<p>Fail to verify user info. Please log in first!</p>");
+                        }
+                        else if(data.errCode == -7) {
+                            $("#failure_dialog").html("<p>Item is not in Fitting Room!</p>");
+                        }
+                        else {
+                            $("#failure_dialog").html("<p>Failed to remove from Fitting Room!</p>");
+                        }
+                        $("#failure_dialog").dialog();
+                        //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
+                    }else{
+                        $("#success_dialog").html("<p>Item is successfully removed.</p>")
+                        $("#success_dialog").dialog();
+                        checkInFitList();
+                        //alert("Item is successfully added.");
+                        $("#add_to_fitlist").html("");
+                        $("#add_to_fitlist").html("Add Item to Fitting Room");
+                    }
+                },
+                error:
+                function(){
+                    alert("failure");
+                }
+            });
+        }
 	});
+
+
+
 	$('#share_button').click(function(e){
 		console.log(e);
 		FB.ui({
@@ -341,7 +443,7 @@ $(document).ready(function(){
 					<strong id="price"> </strong>
 					<p id = "desp"></p>
 					<p><button id="add_to_wishlist" class="wishlistcontinue">Add Item to Wish List</button></p>
-					<p><button id="add_to_fitlist" class="fitlistcontinue"><div>Add Item to Fitting Room</div></button></p>
+					<p><button id="add_to_fitlist" class="fitlistcontinue">Add Item to Fitting Room</button></p>
 					<!--p><button type="button">Tell a friend</button></p-->
 					<span id= "fb_share" style="float=left"><img src = "/static/main/assets/img/fbshare.png" id = "share_button" style="cursor:pointer; vertical-align: top"></img></span>
 					<span id= "twitter_share" style="float=left"></span>
