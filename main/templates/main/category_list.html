@@ -11,31 +11,95 @@
 
 </div>
 
+<div id="viewSettings">
+<b>View:</b>
+<select id="viewOptions" size = 1 onChange = 'change()' name="changeViewProductNum">
+<option selected value="1">1 per page</option>
+<option value="2">2 per page</option>
+<option value="0">ALL</option>
+</select>
+</div>
+
 	<div style="box-shadow: 10px 10px 5px #888888;width: 960px;background:#E0EAF4;position:relative; margin:0 auto;">
     <ul id="items">
     </ul>
     <footer>
-        <div class="paging">
+        <div id="empty_categorylist" style="color:red;font-size:20px;"></div>
+        <div id = pageNation class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
     </footer>
 </div>
 
+
 <script type='text/javascript'>
+var pageValue = 0;
 $(document).ready(function() {
+
+    var sel = document.getElementById('viewOptions');
+    var pageOption = sel.options[sel.selectedIndex].value;
+
 	document.title = "{{category}}";
 	$.ajax({
-		url: "list",
+		url: "list?pageOption=" + pageOption + "&page=1",
 		content_type: "application/json",
 		dataType: "json",
+        type: 'GET',
 		success:
 		function(data){
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
 			var ids = data.id;
-			rendergrids(images.length, images, item_names, prices, ids);
-		},
+            var page = data.page;
+            console.log(page)
+            console.log(images)
+            if (data.image.length == 0){
+                console.log(data.image.length)
+                $("#empty_categorylist").html("Sorry, no item in this Category.");
+            }
+            if (pageOption == 0){
+
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: >1 ");
+            }else{
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: ");
+                for(var i = 1; i <= page; i++){
+                    $("#pageNation").append(" | <button class= 'pageNumber' value='"+i+"'>" + i + "</button>");
+                }
+            }
+            rendergrids(images.length, images, item_names, prices, ids);
+
+
+
+            $(".pageNumber").click(function(){
+                    console.log("hello");
+                    pageValue = $(this).text();
+                    console.log(pageValue);
+                    $.ajax( {
+                        url: "list?pageOption=" + pageOption + "&page=" + pageValue,
+                        content_type: "application/json",
+                        dataType: "json",
+                        type:"GET",
+                        success:
+                        function(data){
+                            console.log(data);
+                        var images = data.image;
+                        var item_names=data.item_name;
+                        var prices = data.price;
+                        var ids = data.id;
+                        $("#items").html("");
+                        rendergrids(images.length, images, item_names, prices, ids);
+                        },
+                        error:
+                        function(data){
+                        alert("failure");
+                        }
+	                    } );
+
+            });
+		    },
 		error:
 		function(data){
 			alert("failure");
@@ -43,5 +107,78 @@ $(document).ready(function() {
 	});
 	rendertopmenu();
 });
+
+
+
+    function change(){
+        var sel = document.getElementById('viewOptions');
+        var pageOption = sel.options[sel.selectedIndex].value;
+        console.log(pageValue);
+        $.ajax( {
+            url: "list?pageOption=" + pageOption + "&page=1",
+            content_type: "application/json",
+            dataType: "json",
+            type:"GET",
+            success:
+            function(data){
+                console.log(data);
+			var images = data.image;
+			var item_names=data.item_name;
+			var prices = data.price;
+			var ids = data.id;
+            var page = data.page;
+            $("#items").html("");
+            if (pageOption == 0){
+
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: >1 ");
+            }else{
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: ");
+
+
+                for(var i = 1; i <= page; i++){
+                    $("#pageNation").append(" | <button class= 'pageNumber2' value='"+i+"'>" + i + "</button>");
+                }
+
+            }
+            rendergrids(images.length, images, item_names, prices, ids);
+            $(".pageNumber2").click(function(){
+                    console.log("hello");
+                    pageValue = $(this).text();
+                    console.log(pageValue);
+
+                    $.ajax( {
+                        url: "list?pageOption=" + pageOption + "&page=" + pageValue,
+                        content_type: "application/json",
+                        dataType: "json",
+                        type:"GET",
+                        success:
+                        function(data){
+                            console.log(data);
+                        var images = data.image;
+                        var item_names=data.item_name;
+                        var prices = data.price;
+                        var ids = data.id;
+                        $("#items").html("");
+                        rendergrids(images.length, images, item_names, prices, ids);
+                        },
+                        error:
+                        function(data){
+                        alert("failure");
+                        }
+	                    } );
+
+                    });
+
+            },
+            error:
+            function(data){
+                alert("failure");
+            }
+	        } );
+    }
+
+
 </script>
 
