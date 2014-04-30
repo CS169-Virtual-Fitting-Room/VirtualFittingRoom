@@ -11,19 +11,20 @@
 
 </div>
 
-<div id="viewSettings">
-<b>View:</b>
-<select id="viewOptions" size = 1 onChange = 'change()' name="changeViewProductNum">
-<option selected value="1">1 per page</option>
-<option value="2">2 per page</option>
-<option value="0">ALL</option>
-</select>
-</div>
 
 	<div style="box-shadow: 10px 10px 5px #888888;width: 960px;background:#E0EAF4;position:relative; margin:0 auto;">
     <ul id="items">
     </ul>
     <footer>
+
+<div id="viewSettings">
+<b>View:</b>
+<select id="viewOptions" size = 1 onChange = 'change()' name="changeViewProductNum" style='width: 100px'>
+<option selected value="1">1 per page</option>
+<option value="2">2 per page</option>
+<option value="0">ALL</option>
+</select>
+</div>
         <div id="empty_categorylist" style="color:red;font-size:20px;"></div>
         <div id = pageNation class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
