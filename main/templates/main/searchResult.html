@@ -12,10 +12,10 @@
 
 <div id="viewSettings">
 <b>View:</b>
-<select id="viewOptions" name="changeViewProductNum">
-<option id= "selectOption" selected="" value="2">2 per page</option>
+<select id="viewOptions" size = 1 onChange = 'change()' name="changeViewProductNum">
+<option selected value="2">2 per page</option>
 <option value="4">4 per page</option>
-<option value="6">6 per page</option>
+<option value="0">ALL</option>
 </select>
 </div>
 
@@ -25,29 +25,69 @@
 	<!--items are here from item.html-->
     </ul>
     <footer>
-        <div class="paging">
+        <div id = pageNation class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
     </footer>
 </article>
 <script type='text/javascript'>
+var pageValue = 0;
 $(document).ready(function() {
 
-    var sth = $("#selectOption:selected").attr("value");
+    var sel = document.getElementById('viewOptions');
+    var sth = sel.options[sel.selectedIndex].value;
 	$.ajax({
-		url: "search?searchName={{ searchName }}&sth="+sth,
+		url: "search?searchName={{ searchName }}&sth="+sth + "&page=1",
 		content_type: "application/json",
 		dataType: "json",
         type: 'GET',
 		success:
 		function(data){
-            console.log(data);
 			var images = data.image;
 			var item_names=data.item_name;
 			var prices = data.price;
 			var ids = data.id;
-			rendergrids(images.length, images, item_names, prices, ids);
-		},
+            var page = data.page;
+            if (sth == 0){
+
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: >1 ");
+            }else{
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: ");
+                for(var i = 1; i <= page; i++){
+                    $("#pageNation").append(" | <button class= 'pageNumber' value='"+i+"'>" + i + "</button>");
+                }
+            }
+            rendergrids(images.length, images, item_names, prices, ids);
+
+            $(".pageNumber").click(function(){
+                    console.log("hello");
+                    pageValue = $(this).text();
+                    console.log(pageValue);
+                    $.ajax( {
+                        url: "search?searchName={{ searchName }}&sth="+sth + "&page=" + pageValue,
+                        content_type: "application/json",
+                        dataType: "json",
+                        type:"GET",
+                        success:
+                        function(data){
+                            console.log(data);
+                        var images = data.image;
+                        var item_names=data.item_name;
+                        var prices = data.price;
+                        var ids = data.id;
+                        $("#items").html("");
+                        rendergrids(images.length, images, item_names, prices, ids);
+                        },
+                        error:
+                        function(data){
+                        alert("failure");
+                        }
+	                    } );
+
+            });
+            },
 		error:
 		function(data){
 			alert("failure");
@@ -55,14 +95,19 @@ $(document).ready(function() {
 	});
 	rendertopmenu();
 
-    $("#viewOptions").change(changeViewProductionNum);});
 
 
 
-    function changeViewProductionNum(){
-        var sth = $("#selectOption:selected").attr("value");
+    });
+
+
+
+    function change(){
+        var sel = document.getElementById('viewOptions');
+        var sth = sel.options[sel.selectedIndex].value;
+        console.log(pageValue);
         $.ajax( {
-            url: "search?searchName={{ searchName }}&sth="+sth,
+            url: "search?searchName={{ searchName }}&sth="+sth + "&page=1",
             content_type: "application/json",
             dataType: "json",
             type:"GET",
@@ -73,13 +118,57 @@ $(document).ready(function() {
 			var item_names=data.item_name;
 			var prices = data.price;
 			var ids = data.id;
-			rendergrids(images.length, images, item_names, prices, ids);
-		    },
-		error:
-		function(data){
-			alert("failure");
-		}
-	    } );
+            var page = data.page;
+            $("#items").html("");
+            if (sth == 0){
+
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: >1 ");
+            }else{
+                $("#pageNation").html("");
+                $("#pageNation").append("Page: ");
+
+
+                for(var i = 1; i <= page; i++){
+                    $("#pageNation").append(" | <button class= 'pageNumber2' value='"+i+"'>" + i + "</button>");
+                }
+
+            }
+            rendergrids(images.length, images, item_names, prices, ids);
+            $(".pageNumber2").click(function(){
+                    console.log("hello");
+                    pageValue = $(this).text();
+                    console.log(pageValue);
+
+                    $.ajax( {
+                        url: "search?searchName={{ searchName }}&sth="+sth + "&page=" + pageValue,
+                        content_type: "application/json",
+                        dataType: "json",
+                        type:"GET",
+                        success:
+                        function(data){
+                            console.log(data);
+                        var images = data.image;
+                        var item_names=data.item_name;
+                        var prices = data.price;
+                        var ids = data.id;
+                        $("#items").html("");
+                        rendergrids(images.length, images, item_names, prices, ids);
+                        },
+                        error:
+                        function(data){
+                        alert("failure");
+                        }
+	                    } );
+
+                    });
+
+            },
+            error:
+            function(data){
+                alert("failure");
+            }
+	        } );
     }
 
 
