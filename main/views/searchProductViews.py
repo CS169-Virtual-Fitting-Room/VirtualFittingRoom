@@ -11,33 +11,6 @@ def search_list(request):
     return render(request, 'main/searchResult.html', {"searchName" : value} )
 
 
-# def searchProducts(request):
-#     print request
-#     searchProduct = request.GET.get("searchName")
-#     db = dataBaseModel()
-#     categoryList = ["hats", "headPhones", "glasses"]
-#     id = []
-#     image = []
-#     item_name = []
-#     price = []
-#     for elem in categoryList:
-#         response = db.getProducts(elem)
-#         if response[1] == dataBaseModel.SUCCESS :
-#             for item in response[0]:
-#                 if searchProduct.lower() in item.name.lower():
-#                     id.append(item.pk)
-#                     item_name.append(item.name)
-#                     price.append(item.price)
-#                     image.append(static("products/" + item.photo))
-#
-#     data = {'id': id, 'image' : image, 'item_name' : item_name, 'price' : price}
-#     return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
-#
-#
-
-
-
-
 
 def searchProducts(request):
     searchProduct = request.GET.get("searchName")
