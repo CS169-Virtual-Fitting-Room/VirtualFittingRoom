@@ -46,8 +46,19 @@ def getUserInfo(request):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_GET_USER_INFO}), content_type='application/json')
     data = {'num_of_custom_products' : numAdded, 'email' : user.email, 'first' : user.first_name, 'last' : user.last_name, 'last_login' : str(user.last_login), 'date_joined': str(user.date_joined)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+ 
+def getCustomItem(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
+    db = dataBaseModel()
+    custom_list = db.getCustomProduct(request.user.id)
+    data = []
+    for product in custom_list:
+        temp = {'category': product.category.name, 'item_name':product.name, 'brand':product.brand ,'price': product.price, 'url': product.url, 'image': static('products/' + product.photo),'description': product.description}
+        data.append(temp)
     
-    
+    return HttpResponse(json.dumps(data), content_type='application/json')
+        
 # helper method to generate random token
 def token_generator(size=32, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
