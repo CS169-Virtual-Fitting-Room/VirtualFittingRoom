@@ -28,6 +28,7 @@ class dataBaseModel (object):
     ERR_UNABLE_TO_ADD_PRODUCT = -11
     ERR_UNABLE_TO_ADD_PROFILE_PIC = -12
     ERR_UNABLE_TO_GET_USER_INFO = -13
+    ERR_UNABLE_TO_REMOVE_CUSTOM_PRODUCT = -14
 
     
     
@@ -245,4 +246,16 @@ class dataBaseModel (object):
             return item
         except:
             return []
+        
+    def removeCustomProduct(self, userID, productID):
+        try:
+            user = User.objects.get(pk=userID)
+            tproduct = Product.objects.get(pk = productID)
+            
+            added = Added.objects.get(Q(owner = user), Q(product = tproduct))
+            added.delete() # remove association with user
+            tproduct.delete() # remove the actual product
+            return dataBaseModel.SUCCESS
+        except:
+            return dataBaseModel.ERR_UNABLE_TO_REMOVE_CUSTOM_PRODUCT
             
