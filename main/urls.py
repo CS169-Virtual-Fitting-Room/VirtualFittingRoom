@@ -7,7 +7,7 @@ from views.internalViews import setUpDb
 from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
 from views.fitlistViews import getFitlist, removeFromFitlist, addToFitlist, getPreviewItem
 from views.searchProductViews import searchProducts, search_list
-from views.userViews import addProfilePic, getUserInfo, getProfilePic, getCustomItem, removeCustomItem
+from views.userViews import addProfilePic, getUserInfo, getProfilePic, getCustomItem, removeCustomItem, editCustomItem
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^addprofilepic', addProfilePic, name='addProfilePic'),
@@ -34,6 +34,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^searchResult/$', search_list, name='search_list'),
                        url(r'^searchResult/search/$' ,searchProducts, name='searchProducts' ),
                        url(r'^deletecustompage/(?P<id>[\d]+)', removeCustomItem,name='deleteCustomItem' ),
+                       url(r'^editcustompage/(?P<id>[\d]+)', editCustomItem,name='editCustomItem' ),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
                        url(r'^(?P<category>[\w ]+)/(?P<product>(.+))_(?P<id>[\d]+)/$', detailpage, name='detailpage'),
