@@ -7,7 +7,7 @@
 				<input type="text" id="search_name" name="searchName" style="vertical-align: bottom" >
 				<input type="submit" id="search_button" value="Search"></form></li>
 			</span>
-
+            <li class="user"><a id="user"  type="color:whilte; margin-left: 2000px;">it should be here</a></li>
 			<span style="float:right">
 
 				<li class="head"><a id="home" href="/">Home</a></li>
@@ -26,3 +26,34 @@
 	</nav>
 </div>
 </header>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax({
+		url:"/getuserinfo",
+		contentType:"application/json",
+		dataType:"json",
+		success:
+			function(data){
+				var username = data.first;
+                console.log(username)
+                if (data.first != undefined){
+				    $("#user").html("Hi, welcome back " + username);
+                }else{
+                    $("#user").html("Hi, welcome");
+                }
+			},
+		error:
+			function(data){
+				console.log("failure");
+                $("#user").html("Hi guest");
+			},
+	});
+
+
+
+});
+</script>
