@@ -29,6 +29,7 @@ class dataBaseModel (object):
     ERR_UNABLE_TO_ADD_PROFILE_PIC = -12
     ERR_UNABLE_TO_GET_USER_INFO = -13
     ERR_UNABLE_TO_REMOVE_CUSTOM_PRODUCT = -14
+    ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT = -15
 
     
     
@@ -194,7 +195,25 @@ class dataBaseModel (object):
             return dataBaseModel.SUCCESS
         except Exception:
             return dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT
-
+        
+    def editProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pproductID):
+        try:
+            user = User.objects.get(pk = puserID)
+            pproduct = Product.objects.get(pk = pproductID)
+            added = Added.objects.get(Q(owner = user), Q(product = pproduct)) # check if it really exists
+            # if can't get should jump to catch block
+            pproduct.photo = pimage
+            pproduct.overlay = poverlay
+            pproduct.category = Category.objects.get(name=pcategory)
+            pproduct.brand = pbrand
+            pproduct.name = pname
+            pproduct.url = purl
+            pproduct.price = pprice
+            pproduct.description = pdescription
+            pproduct.save()
+            return dataBaseModel.SUCCESS
+        except:
+            return dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT
 
     def searchProducts(self, searchName):
         list = Product.objects.filter(Q(name__icontains = searchName))
@@ -258,4 +277,14 @@ class dataBaseModel (object):
             return dataBaseModel.SUCCESS
         except:
             return dataBaseModel.ERR_UNABLE_TO_REMOVE_CUSTOM_PRODUCT
-            
+    
+    # this method makes edit product faster by checking if it exists before processing the image
+    # code restructuring should use this method for removing custom item
+    def checkIfOwnCustomProduct(self, userID, productID):
+        try:
+            user = User.objects.get(pk=userID)
+            tproduct = Product.objects.get(pk = productID)         
+            added = Added.objects.get(Q(owner = user), Q(product = tproduct))
+            return True;
+        except:
+            return False;
