@@ -58,6 +58,16 @@ def getCustomItem(request):
         data.append(temp)
     
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def removeCustomItem(request, id):
+    if not (request.user.is_authenticated() and request.method == 'POST'):
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
+    db = dataBaseModel()
+    errCode = db.removeCustomProduct(request.user.id, id)
+    
+    return HttpResponse(json.dumps({'errCode' : errCode}), content_type='application/json')
+    
         
 # helper method to generate random token
 def token_generator(size=32, chars=string.ascii_lowercase + string.digits):
