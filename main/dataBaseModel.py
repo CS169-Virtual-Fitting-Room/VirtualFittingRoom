@@ -234,4 +234,15 @@ class dataBaseModel (object):
             return added.count()
         except:
             return 0
+        
+    def getCustomProduct(self, userID):
+        try:
+            user = User.objects.get(pk=userID)
+            added = Added.objects.filter(owner = user)
+            item = []
+            for p in added:
+                item.append(p.product)
+            return item
+        except:
+            return []
             

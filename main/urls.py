@@ -7,12 +7,13 @@ from views.internalViews import setUpDb
 from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
 from views.fitlistViews import getFitlist, removeFromFitlist, addToFitlist, getPreviewItem
 from views.searchProductViews import searchProducts, search_list
-from views.userViews import addProfilePic, getUserInfo, getProfilePic
+from views.userViews import addProfilePic, getUserInfo, getProfilePic, getCustomItem
 
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^addprofilepic', addProfilePic, name='addProfilePic'),
                        url(r'^getprofilepic', getProfilePic, name='getProfilePic'),
                        url(r'^getuserinfo', getUserInfo, name='getUserInfo'),
+                       url(r'^getcustompage', getCustomItem, name='getCustomItem'),
                        url(r'^internal', setUpDb, name='internal'),
 					   url(r'^profile', profile, name='profile'),
                        url(r'^members', members, name='members'),
