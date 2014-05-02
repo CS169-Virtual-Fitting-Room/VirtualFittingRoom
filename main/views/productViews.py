@@ -14,6 +14,9 @@ def detailpage(request, category, product, id):
 def addcustomimage(request):
     return render(request, 'main/addcustomimage.html')
 
+def editcustomimage(request):
+    return render(request, 'main/editcustomimage.html')
+
 def detail(request, category, product, id):
     db = dataBaseModel()
     item = db.getDetail(product.lower(), id)
