@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from views.mainViews import index,redirect_to_index, members, logout, mainpage, top_menu, fittingroom,qunit, wishlist, profile, wishlistcontent, fitlistcontent, customlistcontent
 from views.categoryViews import listProduct, category_list
-from views.productViews import detail, detailpage, previewProduct, addProduct, addcustomimage
+from views.productViews import detail, detailpage, previewProduct, addProduct, addcustomimage, editcustomimage
 from views.commentViews import addComment, getComments
 from views.internalViews import setUpDb
 from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
@@ -21,6 +21,7 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
                        url(r'^login-error', redirect_to_index , name='redirect_to_index'),
                        url(r'^mainpage', mainpage, name='mainpage'),
 					   url(r'^addcustomimage', addcustomimage, name='addcustomimage'),
+					   url(r'^editcustomimage', editcustomimage, name='editcustomimage'),
                        url(r'^top_menu', top_menu, name='top_menu'),
 					   url(r'^wishlistcontent', wishlistcontent, name='wishlistcontent'),
 					   url(r'^fitlistcontent', fitlistcontent, name='fitlistcontent'),

@@ -1,0 +1,276 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edit Custom Item</title>
+<link rel="shortcut icon" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+<link rel="icon" type="image/ico" href='{% static "main/assets/img/fitting_room_icon.ico" %}'>
+
+<link rel="stylesheet" href='{% static "main/assets/css/screen.css" %}' />
+<link rel="stylesheet" href='{% static "main/assets/css/formnormalize.css" %}' />
+<link rel="stylesheet" href='{% static "main/assets/css/formstyle.css" %}' />
+
+
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Wellfleet'>
+
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--script src="http://code.jquery.com/jquery-latest.min.js"></script-->
+<script src='{% static "main/assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "main/assets/js/general.js" %}'></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<!--script src='{% static "main/assets/js/addcustomimage.js" %}'></script-->
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".header-wrap").load("/top_menu");
+	
+	var urldata = window.location.search.split(",");
+	var current_category = urldata[1];
+	var current_name = urldata[2];
+	var current_id = urldata[3];
+	var current_desc = urldata[4];
+	var current_imageurl = urldata[5];
+	var current_brand = urldata[6];
+	var current_price = urldata[7];
+	var imgobj = new Image();
+	imgobj.src = current_imageurl;
+	
+	current_name = current_name.split("%20").join(" ");
+	current_desc = current_desc.split("%20").join(" ");
+	current_brand = current_brand.split("%20").join(" ");
+	
+	$("#name").val(current_name);
+	$("#imageurl").val(imgobj);
+	$("#brand").val(current_brand);
+	$("#price").val(current_price);
+	$("#description").text(current_desc);
+	$("#choose_category").val(current_category);
+	
+	
+	
+	$("#back").click(function() {
+		$("#placeholder-div2").empty();
+		$("#placeholder-div2").hide();
+		$("#fileupload").removeAttr("disabled");
+		$("#fileupload").text("Upload to Preview");
+		$("#fileupload").show();
+		$("#back").hide();
+		return false; // prevent form submission
+	});
+
+	
+	$("#fileupload").click(function(){	
+		var object = {url: '/previewcustomitem', type:'POST', 
+				beforeSubmit: 
+					function(arr, $form, options) {
+						$("#fileupload").text('Processing...');
+						$("#fileupload").attr('disabled', 'disabled');
+						return true;
+					},
+					success:
+					function(data) {
+						if (data.errCode == 1) {
+							$('#fileupload').hide();
+							// load the hangout button here
+
+							gapi.hangout.render('placeholder-div2', {
+								'render' : 'createhangout',
+								'initial_apps' : [ {
+									'app_id' : '60097234437',
+									'start_data' : data.token + '&' + $("#choose_category").find(":selected").attr("value"),
+									'app_type' : 'LOCAL_APP'
+								} ],
+								'widget_size' : 136
+							});
+							$("#placeholder-div2").show();
+
+						$(document).ready(function() {
+							//$(".contain-page").append("<p>Test</p>");
+							$(".header-wrap").load("top_menu");
+						});
+
+						// provide and "back" button
+						$("#back").show();
+						
+					} else if (data.errCode == -8) { // not authenticated
+						$("#dialogErrUser").dialog();
+						$("#fileupload").text('Upload to Preview');
+						$("#fileupload").removeAttr('disabled');
+					} else { // bad response
+						$("#dialogErr").dialog();
+						$("#fileupload").text('Upload to Preview');
+						$("#fileupload").removeAttr('disabled');
+					}
+				},
+				error : function() {
+					$("#dialogErr").dialog();
+					$("#fileupload").text('Upload to Preview');
+					$("#fileupload").removeAttr('disabled');
+				}
+
+			};
+			$("#product_form").ajaxForm(object);
+			//$("form").ajaxSubmit();
+		});
+		//});
+
+		$("#additem").click(function() {
+			console.log("Run");
+			$("#product_form").ajaxForm({
+				url : '/addcustomitem',
+				type : 'POST',
+				beforeSubmit: function(data) {
+			
+					//event.preventDefault();
+					console.log(data);
+					var inputs = $("#product_form :input");
+					var map = new Object();
+					var mapsize = 7;
+					map["Item Name"] = "";
+					map["Price"] = "";
+					map["URL"] = "";
+					map["Brand"] = "";
+					map["Description"] = "";
+					map["Image for Fitting Room"] = "";
+					map["Category"] = "";
+					inputs.each(function(index){
+						switch(index){
+							case 0:
+								map["Item Name"] = data[index].value;
+								break;
+							case 1:
+								map["Price"] = data[index].value;
+								break;
+							case 2:
+								map["URL"] = data[index].value;
+								break;
+							case 3:
+								map["Brand"] = data[index].value;
+								break;
+							case 4:
+								map["Description"] = data[index].value;
+								break;
+							case 5:
+								map["Image for Fitting Room"] = data[index].value.name;
+								break;
+							case 6:
+								map["Category"] = data[index].value;
+								break;
+							default:
+								break;
+						}
+						//console.log($(this));
+					});
+					var resultCheckEmptyInput = checkEmptyInput(map);
+					if(resultCheckEmptyInput!=""){
+						//alert("please fill in missing field(s) in "+ resultCheckEmptyInput);
+						$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
+						$("#alertemptyinput").dialog();
+						return false;
+					}
+					if (!checkValidImageType(map["Image for Fitting Room"])){
+						//alert("please upload either images with only either jpg or jpeg format");
+						$("#alertinvalidimagetype").html("<p>please upload images with only either jpg or jpeg format</p>");
+						$("#alertinvalidimagetype").dialog();
+						return false;
+					}
+					
+					if (!checkValidPrice(map["Price"])){
+						//alert("please enter a valid number in form of 10 or 10.00");
+						$("#alertinvalidnumber").html("<p>please enter a valid number in form of 10 or 10.00</p>");
+						$("#alertinvalidnumber").dialog();
+						return false;
+					}
+					return true;
+				},
+				success: function(data){
+					if(data.errCode==1){
+						$("#dialogSuccess").dialog();
+						window.location="/profile";
+					}else if(data.errCode==-8){
+						$("#dialogErrUser").dialog();
+					}else { // bad response
+						$("#dialogErr").dialog();
+					}
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+<div class="header-wrap" >
+</div>
+<div class="container">
+	<section class="register">
+		  <h3>Edit Your Current Item!</h3>
+		  <form id="product_form">
+			<div class="personal_info" >
+				  <h1>Item Information</h1>
+				  <div style="padding-left:30%">
+				  <p ><input id="name" type="text" name="itemname" value="" placeholder="Item Name"></p>
+				  <p><input id="price" type="text" name="price" value="" placeholder="Price"></p>
+				  <p style="display:none;"><input id="imageurl" type="text" name="url" value="randome_url" placeholder="URL"></p>
+				  <p><input id ="brand" type="text" name="brand" value="" placeholder="Brand"></p>
+				  <p><textarea id = "description" name="description" id="" placeholder="Item Description"></textarea></p>
+				  </div>
+			</div>
+			<div class = "upload_image">
+				
+				<div style="padding-left:20%">
+				<div style="width:70%; padding-bottom:10px;">
+					<span style="color:red; font-weight: bold;font-size:15px;">
+						<br> Please upload image with plain color background. Only support images with jpeg/jpg format with size < 3MB </br>
+					</span>
+				</div>
+				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
+				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
+				<div id="placeholder-div2" style="display:none"></div>
+				<br>
+				<button class= "buttonsubmit" id="back" style="display:none">Back</button>
+				<br></br>
+				
+				<!--span style="width:200px; display:inline-block;">Image for Display:	</span><input type ="file" size ="60" name = "display"-->
+				</div>
+			</div>
+			<div class="category">
+				<h1>Category</h1>
+				<div style="padding-left:30%">
+				<select name="category" id = "choose_category">
+					<option value="glasses">Glasses</option>
+					<option value="hats">Hats</option>
+					<option value="headphones">Headphones</option>
+				</select>
+				</div>
+			</div>
+			  <p class="submit"><button class= "buttonsubmit" id="additem">Add</button></p>
+		  </form>
+	</section>
+</div>
+<div id="alertinvalidnumber"></div>
+<div id="alertinvalidimagetype"></div>
+<div id="alertemptyinput"></div>
+<div id="dialogSuccess" title="Success" hidden="true">
+   <p>Item Successfully Edited!!</p>
+ </div>
+<div id="dialogErrUser" title="Authentication failed" hidden="true">
+   <p>Please log in to edit custom products!</p>
+ </div>
+ <div id="dialogErr" title="Image process failed" hidden="true">
+ 	<p>Unable to process uploaded image, please make sure size of image within 3MB and in jpg/jpeg format</p>
+ </div>
+
+</body>
+</html>

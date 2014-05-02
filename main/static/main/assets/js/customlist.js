@@ -43,7 +43,7 @@ function rendercustomlistelement(desc, image, name, price, id, category, brand){
 	/*if(jQuery.type(desc)!="string" || jQuery.type(image)!="string" || jQuery.type(name)!="string" || jQuery.type(price)!="number"||jQuery.type(id)!="number"||jQuery.type(category)!="string"){
 		return false;
 	}*/
-	var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="brand">Brand</th><th align="right" scope="col" class="price">Price</th><tr><td style="padding-bottom: 40px" align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="/'+category+'/'+name+'_'+id+'">'+name+'</a><br>'+desc+' <div class = "customlistremove"> <button class = "customlistremove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> <div class = "customlistedit"> <button class = "customlistedit" id = "edit'+category+'_'+name+'_'+id+'"> Edit </button></div> <td align="right" valign="top" class="brand">'+brand+'</td></td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="customlistcontinue">Add Item to Fitting Room</button></td></tr>';
+	var item = '<tr> <th scope="col" class="description">Product</th><th align="right" scope="col" class="brand">Brand</th><th align="right" scope="col" class="price">Price</th><tr><td style="padding-bottom: 40px" align="left" valign="top" class="description"><a href="/'+category+'/'+name+'_'+id+'"><img src='+image+' width="115" height="115" alt="'+name+'" class = "left"></a><p><a href="/'+category+'/'+name+'_'+id+'">'+name+'</a><br>'+desc+' <div class = "customlistremove"> <button class = "customlistremove" id = "'+category+'_'+name+'_'+id+'"> Remove </button></div> <div class = "customlistedit"> <button class = "customlistedit" id = "edit_'+category+'_'+name+'_'+id+'_'+desc+'_'+image+'_'+brand+'_'+price+'"> Edit </button></div> <td align="right" valign="top" class="brand">'+brand+'</td></td><td align="right" valign="top" class="price">'+price+'</td><td><button id = "'+category+'_'+name+'_'+id+'" class="customlistcontinue">Add Item to Fitting Room</button></td></tr>';
 	var table = $("table#customlisttable");
 	console.log(table);
 	if(!$.isEmptyObject(table)){
@@ -65,6 +65,8 @@ function customlistclickbuttonEvent(){
 			clickRemoveCustomListEvent(item_id);
 		}else if(event.target.className=="customlistcontinue"){
 			clickAddToFitListEvent(commonpath);
+		}else if(event.target.className=="customlistedit"){
+			clickEditCustomListEvent(id);
 		}
 	});
 }
@@ -97,5 +99,6 @@ function clickRemoveCustomListEvent(id){
 }
 
 function clickEditCustomListEvent(id){
-
+	var url="/editcustomimage?"+id;
+	window.location.href = url;
 }
