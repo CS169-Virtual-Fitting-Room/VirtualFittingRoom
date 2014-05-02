@@ -38,6 +38,7 @@ def addProduct(request, token):
     #add the product
       
     db = dataBaseModel()
+    config = db.findPositionalConfig(token) # find it before clear temp
     temppath = db.removeTempProduct(request.user.id) # try remove temp product
         
     # remove temp image
@@ -73,10 +74,11 @@ def addProduct(request, token):
             pdescription = form.cleaned_data['description']
             
             result = ""
-            config = db.findPositionalConfig(token)
+            
             if config != None:
+                #print "run"
                 result = db.addProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, config[0], config[1], config[2], config[3], False)
-            else: #
+            else:
                 result = db.addProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription)
             
             if result != dataBaseModel.SUCCESS:
