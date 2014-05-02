@@ -55,7 +55,7 @@ def getCustomItem(request):
     custom_list = db.getCustomProduct(request.user.id)
     data = []
     for product in custom_list:
-        temp = {'category': product.category.name, 'item_name':product.name, 'brand':product.brand ,'price': product.price, 'url': product.url, 'image': static('products/' + product.photo),'description': product.description}
+        temp = {'product_id': product.id,'category': product.category.name, 'item_name':product.name, 'brand':product.brand ,'price': product.price, 'url': product.url, 'image': static('products/' + product.photo),'description': product.description}
         data.append(temp)
     
     return HttpResponse(json.dumps(data), content_type='application/json')
