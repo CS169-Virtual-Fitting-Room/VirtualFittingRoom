@@ -11,7 +11,7 @@ test("capitaliseFirstLetter empty string Test", function(){
 	ok(""==capitaliseFirstLetter(a), "Passed!");
 });
 test("rendergrids Success Test", function(){
-	ok(rendergrids(123,[],[],[],[]), "Passed!");
+	ok(rendergrids(0,[],[],[],[]), "Passed!");
 });
 test("rendergrids Failed Test", function(){
 	ok(!rendergrids("boy",[],123,[],"aaa"), "Passed!");
@@ -24,14 +24,6 @@ test("renderpage Failed Test", function(){
 });
 //iteration 2
 
-test("rendercomments Failed Test With Wrong Input Type -- number and string are tested", function(){
-	ok(!rendercomments(123), "Passed!");
-	ok(!rendercomments("abc"), "Passed!");
-});
-
-test("rendercomments Success Input Type Test", function(){
-	ok(rendercomments(["apple"]), "Passed!");
-});
 
 
 test("rendercomment Failed Test With Wrong Input Type", function(){
@@ -57,9 +49,9 @@ test("renderwishlistelement Success Input Type Test", function(){
 	ok(renderwishlist([]), "Passed!");
 });
 
-test("clickContinueEvent Failed Test With Wrong Input Type", function(){
-	ok(!clickContinueEvent([]), "Passed!");
-	ok(!clickContinueEvent(12), "Passed!");
+test("clickAddToWishListEvent Failed Test With Wrong Input Type", function(){
+	ok(!clickAddToWishListEvent([]), "Passed!");
+	ok(!clickAddToWishListEvent(12), "Passed!");
 });
 
 //iteration 3 test
@@ -122,7 +114,14 @@ test("checkValidInteger failed test", function(){
 test("checkValidInteger success test", function(){
 	ok(checkValidPrice("1"), "Passed!");
 });
-
+//iter4
+test("trimdate success test", function(){
+	ok(trimdate("abc abc")=="abc", "Passed!");
+});
+test("clickAddToFitListEvent Failed Test With Wrong Input Type", function(){
+	ok(!clickAddToFitListEvent([]), "Passed!");
+	ok(!clickAddToFitListEvent(12), "Passed!");
+});
 
 
 

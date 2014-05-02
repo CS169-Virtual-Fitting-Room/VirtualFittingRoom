@@ -21,6 +21,7 @@
 <script src='{% static "main/assets/js/wishlist.js" %}'></script>
 <script src='{% static "main/assets/js/fitlist.js" %}'></script>
 <script src='{% static "main/assets/js/customlist.js" %}'></script>
+<script src='{% static "main/assets/js/profile.js" %}'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
@@ -75,11 +76,7 @@ $(document).ready(function(){
 				},
 		});
 	}
-	function trimdate(date){
-		var splitdate = date.split(" ");
-		date = splitdate[0];
-		return date;
-	}
+	
 	
 	function checkDataType(data){
 		return true;
