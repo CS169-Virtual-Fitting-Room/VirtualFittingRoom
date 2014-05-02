@@ -42,8 +42,12 @@ $(document).ready(function(){
                 console.log(username)
                 if (data.first != undefined){
 				    $("#user").html("Hi, welcome back " + username);
+					$("#profile").show();
+					$("#wishlist").show();
                 }else{
                     $("#user").html("Hi, welcome");
+					$("#profile").hide();
+					$("#wishlist").hide();
                 }
 			},
 		error:

@@ -34,7 +34,10 @@ $(document).ready(function(){
 		dataType:"json",
 		success:
 			function(data){
-				if(checkDataType(data)){
+				console.log(data);
+				if(typeof data.first == "undefined"){
+					window.location.href = "/";
+				}else if(checkDataType(data)){
 					var username = data.first;
 					var email = data.email;
 					var joindate = data.date_joined;
@@ -121,7 +124,7 @@ $(document).ready(function(){
 <style type="text/css">
 	div#tabs{
 		position:relative; 
-		width:90%;
+		width:1800px;
 		margin:0 auto;
 	}
 	div.userinfo{
@@ -162,6 +165,14 @@ $(document).ready(function(){
 	}
 	div.customlistedit, div.customlistremove{
 		float:left;
+	}
+	.brand, .price{
+		width:200px;
+		text-align:center;
+		padding:10px;
+	}
+	.description{
+		padding:10px;
 	}
 	
 </style>
