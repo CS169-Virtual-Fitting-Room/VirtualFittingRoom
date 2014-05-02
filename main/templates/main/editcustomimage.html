@@ -27,7 +27,7 @@
 <script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<!--script src='{% static "main/assets/js/addcustomimage.js" %}'></script-->
+<script src='{% static "main/assets/js/addcustomimage.js" %}'></script>
 <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -126,10 +126,10 @@ $(document).ready(function(){
 		});
 		//});
 
-		$("#additem").click(function() {
+		$("#edititem").click(function() {
 			console.log("Run");
 			$("#product_form").ajaxForm({
-				url : '/addcustomitem',
+				url : '/editcustompage/'+current_id,
 				type : 'POST',
 				beforeSubmit: function(data) {
 			
@@ -179,13 +179,13 @@ $(document).ready(function(){
 						$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
 						$("#alertemptyinput").dialog();
 						return false;
-					}
+					}/*
 					if (!checkValidImageType(map["Image for Fitting Room"])){
 						//alert("please upload either images with only either jpg or jpeg format");
 						$("#alertinvalidimagetype").html("<p>please upload images with only either jpg or jpeg format</p>");
 						$("#alertinvalidimagetype").dialog();
 						return false;
-					}
+					}*/
 					
 					if (!checkValidPrice(map["Price"])){
 						//alert("please enter a valid number in form of 10 or 10.00");
@@ -255,7 +255,7 @@ $(document).ready(function(){
 				</select>
 				</div>
 			</div>
-			  <p class="submit"><button class= "buttonsubmit" id="additem">Add</button></p>
+			  <p class="submit"><button class= "buttonsubmit" id="edititem">Edit</button></p>
 		  </form>
 	</section>
 </div>
