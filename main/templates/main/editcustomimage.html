@@ -128,7 +128,7 @@ $(document).ready(function(){
 		$("#edititem").click(function() {
 			console.log("Run");
 			$("#product_form").ajaxForm({
-				url : '/editcustompage/'+current_id+$("#preview_token").text(),
+				url : '/editcustompage/'+current_id + '/' +$("#preview_token").text(),
 				type : 'POST',
 				beforeSubmit: function(data) {
 			
