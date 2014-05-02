@@ -114,8 +114,7 @@ $(document).ready(function(){
 			
 					//event.preventDefault();
 					console.log(data);
-					$("#dialogLoading").show();
-					$("#dialogLoading").dialog();
+					
 					var inputs = $("#product_form :input");
 					var map = new Object();
 					var mapsize = 7;
@@ -174,6 +173,8 @@ $(document).ready(function(){
 						$("#alertinvalidnumber").dialog();
 						return false;
 					}
+					$("#dialogLoading").show();
+					$("#dialogLoading").dialog();
 					return true;
 				},
 				success: function(data){
