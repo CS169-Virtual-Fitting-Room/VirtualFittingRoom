@@ -6,6 +6,8 @@ function getItemFromCustomListAndStartRender(){
 		dataType:"json",
 		success:
 		function(data){
+			console.log($("table#customlisttable"));
+			$("table#customlisttable").html('');
 			rendercustomlist(data);
 		},
 		error:
@@ -20,9 +22,8 @@ function rendercustomlist(data){
 		return false;
 	}*/
 	var len = data.length;
-	$("table#customlisttable").html('');
+	
 	if(len ==0){
-		
 		$("#empty_customlist").html("Note: You didn't upload any item yet.");
 	}
 	console.log(data);

@@ -53,9 +53,13 @@ $(document).ready(function(){
 			var desp = data.description;
             var brand = data.brand;
 			gdesp = desp;
-			loadtwitter();
+			var category = window.location.href.split("/")[3];
+			console.log(category);
+			$("#back_to_category").append("<a style='color:black' href='/"+category+"'> <"+"   "+category+"</a>");
 			renderpage(desp, image, item_name, price, brand);
-
+			loadtwitter();
+			
+		
 			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
 			$('head').prepend('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
 			$('head').prepend('<meta itemprop="description"' + 'content="Check out these ' + item_name +  ' I just tried on virtually."/>');
@@ -218,8 +222,8 @@ $(document).ready(function(){
                         $("#failure_dialog").dialog();
                         //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
                     }else{
-                        $("#success_dialog").html("<p>Item is successfully added.</p>");
-                        $("#success_dialog").dialog();
+                        //$("#success_dialog").html("<p>Item is successfully added.</p>");
+                        //$("#success_dialog").dialog();
                         checkInWishList();
                         //alert("Item is successfully added.");
                         $("#add_to_wishlist").html("");
@@ -259,8 +263,8 @@ $(document).ready(function(){
                         $("#failure_dialog").dialog();
                         //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in WishList!");
                     }else{
-                        $("#success_dialog").html("<p>Item is successfully removed.</p>");
-                        $("#success_dialog").dialog();
+                        //$("#success_dialog").html("<p>Item is successfully removed.</p>");
+                        //$("#success_dialog").dialog();
                         checkInWishList();
                         $("#add_to_wishlist").html("");
                         console.log("hihihihihi")
@@ -301,8 +305,8 @@ $(document).ready(function(){
                         $("#failure_dialog").dialog();
                         //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
                     }else{
-                        $("#success_dialog").html("<p>Item is successfully added.</p>")
-                        $("#success_dialog").dialog();
+                        //$("#success_dialog").html("<p>Item is successfully added.</p>")
+                        //$("#success_dialog").dialog();
                         checkInFitList();
                         //alert("Item is successfully added.");
                         $("#add_to_fitlist").html("");
@@ -341,8 +345,8 @@ $(document).ready(function(){
                         $("#failure_dialog").dialog();
                         //alert("Error! Fail to verify user info. Please log in first! OR Item is already added in Fitting Room!");
                     }else{
-                        $("#success_dialog").html("<p>Item is successfully removed.</p>")
-                        $("#success_dialog").dialog();
+                        //$("#success_dialog").html("<p>Item is successfully removed.</p>")
+                        //$("#success_dialog").dialog();
                         checkInFitList();
                         //alert("Item is successfully added.");
                         $("#add_to_fitlist").html("");
@@ -418,7 +422,8 @@ $(document).ready(function(){
 <div class="header-wrap" >
 </div>
 
-    <div id="description" style="width:60%;position:relative; margin:0 auto; background:white;">
+    <div id="description" style="width:60%;position:relative; margin:0 auto; background:white">
+		<div id="back_to_category" style="float:left; padding: 20px"></div>
         <h1 id = "item_name"></h1>
 		<table>
 			<col style="width:50%">

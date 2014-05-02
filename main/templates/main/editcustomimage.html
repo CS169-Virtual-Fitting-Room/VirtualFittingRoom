@@ -131,11 +131,7 @@ $(document).ready(function(){
 				url : '/editcustompage/'+current_id + '/' +$("#preview_token").text(),
 				type : 'POST',
 				beforeSubmit: function(data) {
-					$("#dialogLoading").show();
-					$("#dialogLoading").dialog();
 					
-					//event.preventDefault();
-					console.log(data);
 					var inputs = $("#product_form :input");
 					var map = new Object();
 					var mapsize = 7;
@@ -197,6 +193,8 @@ $(document).ready(function(){
 						$("#alertinvalidnumber").dialog();
 						return false;
 					}
+					$("#dialogLoading").show();
+					$("#dialogLoading").dialog();
 					return true;
 				},
 				success: function(data){
