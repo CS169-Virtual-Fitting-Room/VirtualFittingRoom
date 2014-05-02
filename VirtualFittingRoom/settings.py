@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'middleware.crossdomainxhr.XsSharing',
+    'social_auth.middleware.SocialAuthExceptionMiddleware'
 )
 
 XS_SHARING_ALLOWED_ORIGINS = ["https://dl.dropboxusercontent.com", "http://localhost:8000"]
