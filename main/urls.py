@@ -10,7 +10,7 @@ from views.searchProductViews import searchProducts, search_list
 from views.userViews import addProfilePic, getUserInfo, getProfilePic, getCustomItem, removeCustomItem, editCustomItem
 from views.fittingroomViews import setConfig
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
-                       url(r'^fittingroom/setconfig/(?P<token>[\w]+)', setConfig, "setConfig"),
+                       url(r'^fittingroom/setconfig/(?P<token>[\w]+)', setConfig, name="setConfig"),
                        url(r'^addprofilepic', addProfilePic, name='addProfilePic'),
                        url(r'^getprofilepic', getProfilePic, name='getProfilePic'),
                        url(r'^getuserinfo', getUserInfo, name='getUserInfo'),
