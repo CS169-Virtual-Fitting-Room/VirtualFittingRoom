@@ -33,6 +33,8 @@ function renderfitlist(data){
 	/*if($.type(data)!="array"){
 		return false;
 	}*/
+	$("#empty_fitlist").hide();
+	console.log($("#empty_fitlist"));
 	var len = data.length;
 	if(len ==0){
 		$("#empty_fitlist").show();

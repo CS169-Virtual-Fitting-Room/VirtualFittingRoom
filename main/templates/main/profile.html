@@ -51,26 +51,27 @@ $(document).ready(function(){
 				console.log("failure");
 			},
 	});
-	
-	$.ajax({
-		url:"/getprofilepic",
-		contentType:"application/json",
-		dataType:"json",
-		success:
-			function(data){
-				var imageurl = '{% static "main/assets/img/anonymous-user.png" %}';
-				if(data.image_url!==""){
-					imageurl = data.image_url;
-				}
-				console.log(imageurl);
-				$("#user_profile_image").html('<img src='+ imageurl+' width="250" height="250" ></a>');
-			},
-		error:
-			function(data){
-				console.log("failure");
-			},
-	});
-	
+	renderprofilepic();
+	function renderprofilepic(){
+		$.ajax({
+			url:"/getprofilepic",
+			contentType:"application/json",
+			dataType:"json",
+			success:
+				function(data){
+					var imageurl = '{% static "main/assets/img/anonymous-user.png" %}';
+					if(data.image_url!==""){
+						imageurl = data.image_url;
+					}
+					console.log(imageurl);
+					$("#user_profile_image").html('<img src='+ imageurl+' width="250" height="250" ></a>');
+				},
+			error:
+				function(data){
+					console.log("failure");
+				},
+		});
+	}
 	function trimdate(date){
 		var splitdate = date.split(" ");
 		date = splitdate[0];
@@ -99,13 +100,17 @@ $(document).ready(function(){
 				success:
 					function(data) {
 						console.log(data);
+						if(data.errCode==1){
+							renderprofilepic();
+						}else if(data.errCode==-12){
+						}else if(data.errCode==-8){
+						}
 					},
 				error : function() {
 						console.log("failure");
 					}
 
 			};
-		console.log($("#profile_pic_form"));
 		$("#profile_pic_form").ajaxForm(object);
 		//$("#profile_pic_form").ajaxSubmit();
 		//return false;
@@ -124,7 +129,7 @@ $(document).ready(function(){
 		border:2px solid;
 		border-radius:25px;
 		position:relative; 
-		width:90%;
+		width:1400px;
 		margin:0 auto;
 		height:450px;
 	}
@@ -154,6 +159,9 @@ $(document).ready(function(){
 		
 	button#uploadprofileimg{
 		width:250px;
+	}
+	div.customlistedit, div.customlistremove{
+		float:left;
 	}
 	
 </style>
