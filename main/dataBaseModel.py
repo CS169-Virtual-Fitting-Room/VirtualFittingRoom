@@ -179,7 +179,12 @@ class dataBaseModel (object):
     def addTempProduct(self, puserID, ptoken, poverlay, pcategory):
         user = User.objects.get(pk = puserID)
         cat = Category.objects.get(name=pcategory)
-        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken, category = cat, xoffset = 0.0, yoffset = 0.0, scale = 1.0, rotation = 0.0)
+        pyoffset = 0.0
+        if pcategory == "hats":
+            pyoffset = -0.58
+        elif pcategory == "headphones":
+            pyoffset = -0.15
+        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken, category = cat, xoffset = 0.0, yoffset = pyoffset, scale = 1.0, rotation = 0.0)
         newTemp.save()
     
     def addProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pxoffset = 0.0, pyoffset = 0.0, pscale = 1.0, protation = 0.0, default = True):
@@ -203,7 +208,7 @@ class dataBaseModel (object):
         except Exception:
             return dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT
         
-    def editProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pproductID):
+    def editProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pproductID, pxoffset = 0.0, pyoffset = 0.0, pscale = 1.0, protation = 0.0, needChange = False):
         try:
             user = User.objects.get(pk = puserID)
             pproduct = Product.objects.get(pk = pproductID)
@@ -219,6 +224,11 @@ class dataBaseModel (object):
             pproduct.url = purl
             pproduct.price = pprice
             pproduct.description = pdescription
+            if needChange == True:
+                pproduct.xoffest = pxoffset
+                pproduct.yoffset = pyoffset
+                pproduct.scale = pscale
+                pproduct.rotation = protation
             pproduct.save()
             return dataBaseModel.SUCCESS
         except:

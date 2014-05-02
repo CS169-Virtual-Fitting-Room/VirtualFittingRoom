@@ -36,6 +36,8 @@
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	
+	$("#upload_file").change(function() {$("#preview_token").text("nopreview");});
+	
 	var urldata = window.location.search.split(",");
 	var current_category = urldata[1];
 	var current_name = urldata[2];
@@ -96,10 +98,7 @@ $(document).ready(function(){
 							});
 							$("#placeholder-div2").show();
 
-						$(document).ready(function() {
-							//$(".contain-page").append("<p>Test</p>");
-							$(".header-wrap").load("top_menu");
-						});
+							$("#preview_token").text(data.token);
 
 						// provide and "back" button
 						$("#back").show();
@@ -129,7 +128,7 @@ $(document).ready(function(){
 		$("#edititem").click(function() {
 			console.log("Run");
 			$("#product_form").ajaxForm({
-				url : '/editcustompage/'+current_id,
+				url : '/editcustompage/'+current_id+$("#preview_token").text(),
 				type : 'POST',
 				beforeSubmit: function(data) {
 			
@@ -235,7 +234,7 @@ $(document).ready(function(){
 						<br> Please upload image with plain color background. Only support images with jpeg/jpg format with size < 3MB </br>
 					</span>
 				</div>
-				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
+				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input id="upload_file" type ="file" size ="60" name = "overlay">
 				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
 				<div id="placeholder-div2" style="display:none"></div>
 				<br>
@@ -255,7 +254,7 @@ $(document).ready(function(){
 				</select>
 				</div>
 			</div>
-			  <p class="submit"><button class= "buttonsubmit" id="edititem">Edit</button></p>
+			  <p class="submit"><button class= "buttonsubmit" id="edititem">Update</button></p>
 		  </form>
 	</section>
 </div>
@@ -271,6 +270,6 @@ $(document).ready(function(){
  <div id="dialogErr" title="Image process failed" hidden="true">
  	<p>Unable to process uploaded image, please make sure size of image within 3MB and in jpg/jpeg format</p>
  </div>
-
+<div id="preview_token" hidden="true">nopreview</div>
 </body>
 </html>
