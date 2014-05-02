@@ -8,6 +8,9 @@ from django.template import RequestContext
 def index(request):
     return render(request, 'main/index.html')
 
+def redirect_to_index(request):
+    return HttpResponseRedirect('/')
+
 @login_required(login_url='/')
 def members(request):
     return render(request, 'main/members.html')
