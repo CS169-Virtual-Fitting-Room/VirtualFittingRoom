@@ -7,6 +7,7 @@ function getItemFromWishListAndStartRender(){
 		function(data){
 			//setTimeout(renderwishlist(data), 1000);
 			$("table#wishlisttable").html('');
+			$("#empty_wishlist").hide();
 			renderwishlist(data);
 		},
 		error:

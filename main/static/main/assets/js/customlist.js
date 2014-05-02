@@ -20,8 +20,9 @@ function rendercustomlist(data){
 		return false;
 	}*/
 	var len = data.length;
+	$("table#customlisttable").html('');
 	if(len ==0){
-		$("table#customlisttable").html('');
+		
 		$("#empty_customlist").html("Note: You didn't upload any item yet.");
 	}
 	console.log(data);
