@@ -31,15 +31,16 @@ function toTitleCase(str)
 {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
-function renderpage(desp, image, item_name, price){
+function renderpage(desp, image, item_name, price,  brand){
 	if(jQuery.type(desp)!="string" || jQuery.type(image)!="string" || jQuery.type(item_name)!="string"|| jQuery.type(price)!="number"){
 		return false;
 	}
-	$("#price").html("&dollar;"+price);
+	$("#price").html("Price: &dollar;"+price);
 	var current_category = capitaliseFirstLetter(window.location.pathname.split('/')[1]);
 	$("#breadcrumb").html('<a href="/'+current_category+'">'+current_category+'</a> > '+item_name );
 	$("#item_name").html(item_name );
 	$("#desp").html("Description: "+desp);
 	$("#images").html("<img src='"+image+"' align='right'/>");
+    $("#brand").html("Brand: " + brand);
 	return true;
 }
