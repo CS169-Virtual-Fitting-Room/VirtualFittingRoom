@@ -202,8 +202,10 @@ class dataBaseModel (object):
             pproduct = Product.objects.get(pk = pproductID)
             added = Added.objects.get(Q(owner = user), Q(product = pproduct)) # check if it really exists
             # if can't get should jump to catch block
-            pproduct.photo = pimage
-            pproduct.overlay = poverlay
+            if pimage != "":
+                pproduct.photo = pimage
+            if poverlay != "":
+                pproduct.overlay = poverlay
             pproduct.category = Category.objects.get(name=pcategory)
             pproduct.brand = pbrand
             pproduct.name = pname
