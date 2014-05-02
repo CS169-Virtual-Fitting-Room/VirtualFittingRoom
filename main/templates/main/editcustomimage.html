@@ -179,13 +179,16 @@ $(document).ready(function(){
 						$("#alertemptyinput").html("<p>Please fill in missing field(s) in "+ resultCheckEmptyInput+"</p>");
 						$("#alertemptyinput").dialog();
 						return false;
-					}/*
+					}
 					if (!checkValidImageType(map["Image for Fitting Room"])){
 						//alert("please upload either images with only either jpg or jpeg format");
-						$("#alertinvalidimagetype").html("<p>please upload images with only either jpg or jpeg format</p>");
-						$("#alertinvalidimagetype").dialog();
-						return false;
-					}*/
+						console.log(map["Image for Fitting Room"]);
+						if(typeof map["Image for Fitting Room"]!="undefined"){
+							$("#alertinvalidimagetype").html("<p>please upload images with only either jpg or jpeg format or leave it empty</p>");
+							$("#alertinvalidimagetype").dialog();
+							return false;
+						}
+					}
 					
 					if (!checkValidPrice(map["Price"])){
 						//alert("please enter a valid number in form of 10 or 10.00");
