@@ -24,7 +24,22 @@ def searchProducts(request):
     item_name = []
     price = []
     db = dataBaseModel()
-    query = db.searchProducts(searchProduct)
+    userId = db.getUserInfo(request.user.id)
+    print "userId is ",userId
+    if "wishlist" in searchProduct.lower():
+        query = db.getWishList(userId)
+        print query
+    elif "fitlist" in searchProduct.lower():
+        query = db.getFitList(userId)
+    elif searchProduct.lower() in "hats":
+        query = db.getProducts("hats")
+    elif searchProduct.lower() in "headphones":
+        query = db.getProducts("headphones")
+    elif searchProduct.lower() in "glasses":
+        query = db.getProducts("glasses")
+    else:
+        query = db.searchProducts(searchProduct)
+
     if (query[1] != dataBaseModel.SUCCESS):
         failData  = data = {'id': id, 'image' : image, 'item_name' : item_name, 'price' : price}
         return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
