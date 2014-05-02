@@ -51,9 +51,10 @@ $(document).ready(function(){
 			gitem_name = item_name;
 			var price = data.price;
 			var desp = data.description;
+            var brand = data.brand;
 			gdesp = desp;
 			loadtwitter();
-			renderpage(desp, image, item_name, price);
+			renderpage(desp, image, item_name, price, brand);
 
 			$("#twitter_share").html('<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text = "Check out these ' + item_name + ' I just tried on virtually." data-url="' + window.location.href +'" data-lang="en"></a>');
 			$('head').prepend('<meta itemprop="image" content="http://' + window.location.host + image + '"/>');
@@ -440,6 +441,7 @@ $(document).ready(function(){
 					</div>
 				</td>
 				<td style="padding-bottom: 50px">
+                    <div id="brand"></div>
 					<strong id="price"> </strong>
 					<p id = "desp"></p>
 					<p><button id="add_to_wishlist" class="wishlistcontinue">Add Item to Wish List</button></p>
