@@ -144,7 +144,6 @@ $(document).ready(function(){
 					if(data[i].profile!==""){
 						imageurl = data[i].profile;
 					}
-					console.log(imageurl);
 					rendercomment(data[i].content, data[i].name, data[i].time.substr(5,5)+'-'+data[i].time.substr(2,2), imageurl);
 				}
 			},
@@ -162,6 +161,11 @@ $(document).ready(function(){
 			success:
 			function(data){
 				var last = data.length - 1;
+				var imageurl = '{% static "main/assets/img/anonymous-user.png" %}';
+				if(data[last].profile!==""){
+					imageurl = data[last].profile;
+				}
+				
 				rendercomment(data[last].content, data[last].name, data[last].time.substr(5,5)+'-'+data[last].time.substr(2,2), imageurl);
 			},
 			error:
