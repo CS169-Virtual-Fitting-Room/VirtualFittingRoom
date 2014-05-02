@@ -75,45 +75,51 @@ def editCustomItem(request, id):
 
     if not (request.user.is_authenticated() and request.method == 'POST' and db.checkIfOwnCustomProduct(request.user.id, id) == True):
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
-
-    temppath = db.removeTempProduct(request.user.id) # try remove temp product
-        
-    # remove temp image
-    if temppath != []:
-        for path in temppath:
-            ImageRW.removeImage(path, False)
-            ImageRW.removeImage(path.replace('.png', '.jpg'), False)
-        
-    try:
-        filename = token_generator()
-        filename += str(request.user.id)
-        filename += '.jpg'
-        overlayfilename = filename.replace('.jpg', 'ol.jpg')
-        imagefilename = ImageRW.writeImage(request.FILES['overlay'], True, filename) # write image
-        ImageRW.writeImage(request.FILES['overlay'], True, overlayfilename) # write image
-        #check here
-        overlayfilename = ImageRW.Process(overlayfilename, True, request.POST["category"]) # convert it to transparent, return the new ol file name
-        #check here
-        ImageRW.removeImage(overlayfilename.replace('.png', '.jpg'), True)
-        form = CustomProductForm(request.POST)
-        
-        if form.is_valid():
-            pcategory = form.cleaned_data['category'].lower()
-            pname = form.cleaned_data['itemname'].lower()
-            pbrand = form.cleaned_data['brand']
-            purl = form.cleaned_data['url']
-            pprice = float(form.cleaned_data['price'])
-            pdescription = form.cleaned_data['description']
+    
+    overlayfilename = ""
+    imagefilename = ""
+    
+    if 'overlay' in request.FILES:
+        temppath = db.removeTempProduct(request.user.id) # try remove temp product
+   
+        # remove temp image
+        if temppath != []:
+            for path in temppath:
+                ImageRW.removeImage(path, False)
+                ImageRW.removeImage(path.replace('.png', '.jpg'), False)
             
-            if db.editProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, id) != dataBaseModel.SUCCESS:
-                return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
-            data = {'errCode' : dataBaseModel.SUCCESS}
-            return HttpResponse(json.dumps(data), content_type='application/json')
-        else:
-            raise Exception("")
-    except:
-        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
+        try:
+            filename = token_generator()
+            filename += str(request.user.id)
+            filename += '.jpg'
+            overlayfilename = filename.replace('.jpg', 'ol.jpg')
+            imagefilename = ImageRW.writeImage(request.FILES['overlay'], True, filename) # write image
+            ImageRW.writeImage(request.FILES['overlay'], True, overlayfilename) # write image
+            #check here
+            overlayfilename = ImageRW.Process(overlayfilename, True, request.POST["category"]) # convert it to transparent, return the new ol file name
+            #check here
+            ImageRW.removeImage(overlayfilename.replace('.png', '.jpg'), True)
+        except:
+            return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
+                
+    
+    form = CustomProductForm(request.POST)
+    
+    if form.is_valid():
+        pcategory = form.cleaned_data['category'].lower()
+        pname = form.cleaned_data['itemname'].lower()
+        pbrand = form.cleaned_data['brand']
+        purl = form.cleaned_data['url']
+        pprice = float(form.cleaned_data['price'])
+        pdescription = form.cleaned_data['description']
         
+        if db.editProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, id) != dataBaseModel.SUCCESS:
+            return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
+        data = {'errCode' : dataBaseModel.SUCCESS}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
+
 # helper method to generate random token
 def token_generator(size=32, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
