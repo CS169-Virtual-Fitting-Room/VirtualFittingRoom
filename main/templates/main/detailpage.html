@@ -71,7 +71,7 @@ $(document).ready(function(){
 			alert("failure");
 		}
 	});
-
+	
 	function checkInWishList(){
 		$.ajax({
 			url:"/wishlist/get",
@@ -138,8 +138,14 @@ $(document).ready(function(){
 			dataType: "json",
 			success:
 			function(data){
+			
 				for (var i = 0; i < data.length; i++){
-					rendercomment(data[i].content, data[i].name, data[i].time.substr(5,5)+'-'+data[i].time.substr(2,2));
+					var imageurl = '{% static "main/assets/img/anonymous-user.png" %}';
+					if(data[i].profile!==""){
+						imageurl = data[i].profile;
+					}
+					console.log(imageurl);
+					rendercomment(data[i].content, data[i].name, data[i].time.substr(5,5)+'-'+data[i].time.substr(2,2), imageurl);
 				}
 			},
 			error:
@@ -156,7 +162,7 @@ $(document).ready(function(){
 			success:
 			function(data){
 				var last = data.length - 1;
-				rendercomment(data[last].content, data[last].name, data[last].time.substr(5,5)+'-'+data[last].time.substr(2,2));
+				rendercomment(data[last].content, data[last].name, data[last].time.substr(5,5)+'-'+data[last].time.substr(2,2), imageurl);
 			},
 			error:
 			function(data){
@@ -483,7 +489,7 @@ $(document).ready(function(){
     </div>
   </div>
   
- <div id="success_dialog" hidden="true"></div>
+<div id="success_dialog" hidden="true"></div>
 <div id="failure_dialog" hidden="true"></div>
 </body>
 </html>
