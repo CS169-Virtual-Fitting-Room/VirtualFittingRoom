@@ -222,6 +222,12 @@ class dataBaseModel (object):
         for item in list:
             items.append(item)
 
+        brand = Product.objects.filter(Q(brand__icontains = searchName))
+        print "brand is :",brand
+        items = []
+        for item in brand:
+            items.append(item)
+
         return (items, dataBaseModel.SUCCESS)
 
     def addProfilePic(self, userID, file):
