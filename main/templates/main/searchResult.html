@@ -18,6 +18,7 @@
 	<!--items are here from item.html-->
     </ul>
     <footer>
+    	<div id="empty_searchlist" style="color:red;font-size:20px;"></div>
         <div id="viewSettings" style="padding-left:40%;float:left;">
             <b>View:</b>
             <select id="viewOptions" size = 1 onChange = 'change()' name="changeViewProductNum" style='width: 100px'>
@@ -27,7 +28,7 @@
             </select>
 
         </div>
-        <div id="empty_searchlist" style="color:red;font-size:20px;"></div>
+        
         <div id = pageNation class="paging">
             Page: &nbsp; | &nbsp;1&nbsp; | &nbsp;<!--a onclick="javascript:return getPage(2);" href="">2</a> | <a onclick="javascript:return getPage(3);" href="">3</a>  |  <a onclick="javascript:return getPage('', '', '1');" href="">View All</a-->
         </div>
