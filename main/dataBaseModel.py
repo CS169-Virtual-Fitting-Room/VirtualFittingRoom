@@ -30,6 +30,7 @@ class dataBaseModel (object):
     ERR_UNABLE_TO_GET_USER_INFO = -13
     ERR_UNABLE_TO_REMOVE_CUSTOM_PRODUCT = -14
     ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT = -15
+    ERR_UNABLE_TO_SET_POSITIONAL_CONFIG = -16
 
     
     
@@ -178,14 +179,25 @@ class dataBaseModel (object):
     def addTempProduct(self, puserID, ptoken, poverlay, pcategory):
         user = User.objects.get(pk = puserID)
         cat = Category.objects.get(name=pcategory)
-        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken, category = cat)
+        pyoffset = 0.0
+        if pcategory == "hats":
+            pyoffset = -0.58
+        elif pcategory == "headphones":
+            pyoffset = -0.15
+        newTemp = TempProduct(owner = user, overlay = poverlay, token = ptoken, category = cat, xoffset = 0.0, yoffset = pyoffset, scale = 1.0, rotation = 0.0)
         newTemp.save()
     
-    def addProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription):
+    def addProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pxoffset = 0.0, pyoffset = 0.0, pscale = 1.0, protation = 0.0, default = True):
         try:
             # add the product
+            if default == True:
+                if pcategory == "hats":
+                    pyoffset = -0.58
+                elif pcategory == "headphones":
+                    pyoffset = -0.15
+            
             cat = Category.objects.get(name=pcategory)
-            newProduct = Product(category = cat, name = pname, brand = pbrand, url = purl, price = pprice, description = pdescription, photo = pimage, overlay = poverlay)
+            newProduct = Product(category = cat, name = pname, brand = pbrand, url = purl, price = pprice, description = pdescription, photo = pimage, overlay = poverlay, xoffset = pxoffset, yoffset = pyoffset, scale = pscale, rotation = protation)
             newProduct.save()
             # add the added relationship
             user = User.objects.get(pk = puserID)
@@ -196,7 +208,7 @@ class dataBaseModel (object):
         except Exception:
             return dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT
         
-    def editProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pproductID):
+    def editProduct(self, puserID, pimage, poverlay, pcategory, pbrand, pname, purl, pprice, pdescription, pproductID, pxoffset = 0.0, pyoffset = 0.0, pscale = 1.0, protation = 0.0, needChange = False):
         try:
             user = User.objects.get(pk = puserID)
             pproduct = Product.objects.get(pk = pproductID)
@@ -212,6 +224,11 @@ class dataBaseModel (object):
             pproduct.url = purl
             pproduct.price = pprice
             pproduct.description = pdescription
+            if needChange == True:
+                pproduct.xoffest = pxoffset
+                pproduct.yoffset = pyoffset
+                pproduct.scale = pscale
+                pproduct.rotation = protation
             pproduct.save()
             return dataBaseModel.SUCCESS
         except:
@@ -296,3 +313,18 @@ class dataBaseModel (object):
             return True;
         except:
             return False;
+        
+    def findPositionalConfig(self, ptoken):
+        try:
+            item = TempProduct.objects.get(token = ptoken)
+            return (item.xoffset, item.yoffset, item.scale, item.rotation)
+        except:
+            return None
+        
+    def setPositionalConfig(self, ptoken, pxoffset, pyoffset, pscale, protation):
+        item = TempProduct.objects.get(token = ptoken)
+        item.xoffset = pxoffset
+        item.yoffset = pyoffset
+        item.scale = pscale
+        item.rotation = protation
+        item.save()

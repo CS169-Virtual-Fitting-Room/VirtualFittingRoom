@@ -70,7 +70,7 @@ def removeCustomItem(request, id):
     return HttpResponse(json.dumps({'errCode' : errCode}), content_type='application/json')
 
 @csrf_exempt
-def editCustomItem(request, id):
+def editCustomItem(request, id, token):
     db = dataBaseModel()
 
     if not (request.user.is_authenticated() and request.method == 'POST' and db.checkIfOwnCustomProduct(request.user.id, id) == True):
@@ -78,6 +78,8 @@ def editCustomItem(request, id):
     
     overlayfilename = ""
     imagefilename = ""
+    
+    config = db.findPositionalConfig(token) # find before clear temp
     
     if 'overlay' in request.FILES:
         temppath = db.removeTempProduct(request.user.id) # try remove temp product
@@ -113,7 +115,12 @@ def editCustomItem(request, id):
         pprice = float(form.cleaned_data['price'])
         pdescription = form.cleaned_data['description']
         
-        if db.editProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, id) != dataBaseModel.SUCCESS:
+        result = ""
+        if config != None:
+            result = db.editProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, id, config[0], config[1], config[2], config[3], True)
+        else:
+            result = db.editProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, id)
+        if result!= dataBaseModel.SUCCESS:
             return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT}), content_type='application/json')
         data = {'errCode' : dataBaseModel.SUCCESS}
         return HttpResponse(json.dumps(data), content_type='application/json')

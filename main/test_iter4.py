@@ -204,6 +204,24 @@ class testDBModel(TestCase):
         result = db.editProduct(testDBModel.testUsersID[0], "changed.jpg", "changedol.jpg","glasses", "brand", "newproduct1", "randomurl", 24, "changed description", 100)
         self.assertTrue(result == dataBaseModel.ERR_UNABLE_TO_EDIT_CUSTOM_PRODUCT, "Did not prompt error on bad product id") 
         
+    def testFindPositionalConfig(self):
+        db = dataBaseModel()
+        result = db.findPositionalConfig('1')
+        self.assertTrue(result == (0.0,0.0,1.0,0.0), "findPositionalConfig returning incorrect numbers")
+        
+    def testFindPositionalConfigBadToken(self):
+        db = dataBaseModel()
+        result = db.findPositionalConfig('100')
+        self.assertTrue(result == None, "findPositionalConfig not returning None on bad tokens")
+        
+    def testSetPositionalConfig(self):
+        db = dataBaseModel()
+        db.setPositionalConfig('1', 1.0, 2.0, 3.0, 4.0)
+        result = TempProduct.objects.get(token = '1')
+        self.assertTrue(result.xoffset == 1.0, "Couldn't set xoffset")
+        self.assertTrue(result.yoffset == 2.0, "Couldn't set yoffset")
+        self.assertTrue(result.scale == 3.0, "Couldn't set scale")
+        self.assertTrue(result.rotation == 4.0, "Couldn't set rotation")
         
         
         
