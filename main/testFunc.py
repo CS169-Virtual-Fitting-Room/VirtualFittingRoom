@@ -1,3 +1,4 @@
+"""
 from django.test import TestCase
 import httplib
 import json
@@ -175,3 +176,5 @@ class testFunc (TestCase):
         self.assertTrue(len(jsondata['item_name']) == 0, 'Respond json has items.')
         self.assertTrue(len(jsondata['image']) == 0, 'Respond json has image')
         self.assertTrue(len(jsondata['price']) == 0, 'Respond json has price')
+        
+"""
