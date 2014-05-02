@@ -23,7 +23,11 @@ def getFitlist(request):
                'price' : wish.product.price, 
                'description' : wish.product.description,
                'category' : wish.product.category.name,
-               'product_id' : wish.product.pk}
+               'product_id' : wish.product.pk,
+               'xoffset' : wish.product.xoffset,
+               'yoffset' : wish.product.yoffset,
+               'scale' : wish.product.scale,
+               'rotation' : wish.product.rotation}
         data.append(map)
     return HttpResponse(json.dumps(data), content_type='application/json')
         

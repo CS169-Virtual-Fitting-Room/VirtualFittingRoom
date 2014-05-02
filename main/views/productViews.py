@@ -30,7 +30,7 @@ def detail(request, category, product, id):
     return HttpResponse(json.dumps(data ,encoding='latin-1'), content_type='application/json')
 
 @csrf_exempt
-def addProduct(request):
+def addProduct(request, token):
     #authenticate
     if (not request.user.is_authenticated()) or request.method != "POST":
         return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_BAD_REQUEST}), content_type='application/json')
@@ -38,6 +38,7 @@ def addProduct(request):
     #add the product
       
     db = dataBaseModel()
+    config = db.findPositionalConfig(token) # find it before clear temp
     temppath = db.removeTempProduct(request.user.id) # try remove temp product
         
     # remove temp image
@@ -72,7 +73,15 @@ def addProduct(request):
             pprice = float(form.cleaned_data['price'])
             pdescription = form.cleaned_data['description']
             
-            if db.addProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription) != dataBaseModel.SUCCESS:
+            result = ""
+            
+            if config != None:
+                #print "run"
+                result = db.addProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription, config[0], config[1], config[2], config[3], False)
+            else:
+                result = db.addProduct(request.user.id, imagefilename, overlayfilename, pcategory, pbrand, pname, purl, pprice, pdescription)
+            
+            if result != dataBaseModel.SUCCESS:
                 return HttpResponse(json.dumps({'errCode' : dataBaseModel.ERR_UNABLE_TO_ADD_PRODUCT}), content_type='application/json')
             data = {'errCode' : dataBaseModel.SUCCESS}
             return HttpResponse(json.dumps(data), content_type='application/json')

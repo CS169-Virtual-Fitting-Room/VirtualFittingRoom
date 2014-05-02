@@ -36,6 +36,8 @@
 $(document).ready(function(){
 	$(".header-wrap").load("/top_menu");
 	
+	$("#upload_file").change(function() {$("#preview_token").text("nopreview");});
+	
 	$("#back").click(function() {
 		$("#placeholder-div2").empty();
 		$("#placeholder-div2").hide();
@@ -71,6 +73,7 @@ $(document).ready(function(){
 								'widget_size' : 136
 							});
 							$("#placeholder-div2").show();
+							$("#preview_token").text(data.token);
 
 						$(document).ready(function() {
 							//$(".contain-page").append("<p>Test</p>");
@@ -105,7 +108,7 @@ $(document).ready(function(){
 		$("#additem").click(function() {
 			console.log("Run");
 			$("#product_form").ajaxForm({
-				url : '/addcustomitem',
+				url : '/addcustomitem/' + $("#preview_token").text(),
 				type : 'POST',
 				beforeSubmit: function(data) {
 			
@@ -211,7 +214,7 @@ $(document).ready(function(){
 						<br> Please upload image with plain color background. Only support images with jpeg/jpg format with size < 3MB </br>
 					</span>
 				</div>
-				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input type ="file" size ="60" name = "overlay">
+				<span style="width:200px; display:inline-block;">Image for Fitting Room:	</span><input id="upload_file" type ="file" size ="60" name = "overlay">
 				<button class= "buttonsubmit" id="fileupload" >Upload to Preview</button>
 				<div id="placeholder-div2" style="display:none"></div>
 				<br>
@@ -247,6 +250,7 @@ $(document).ready(function(){
  <div id="dialogErr" title="Image process failed" hidden="true">
  	<p>Unable to process uploaded image, please make sure size of image within 3MB and in jpg/jpeg format</p>
  </div>
+ <div id="preview_token" hidden="true">nopreview</div>
 
 </body>
 </html>

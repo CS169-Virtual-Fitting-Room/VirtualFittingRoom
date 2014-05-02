@@ -8,8 +8,9 @@ from views.wishlistViews import getWishlist, removeFromWishlist, addToWishlist
 from views.fitlistViews import getFitlist, removeFromFitlist, addToFitlist, getPreviewItem
 from views.searchProductViews import searchProducts, search_list
 from views.userViews import addProfilePic, getUserInfo, getProfilePic, getCustomItem, removeCustomItem, editCustomItem
-
+from views.fittingroomViews import setConfig
 urlpatterns = patterns('', url(r'', include('social_auth.urls')),
+                       url(r'^fittingroom/setconfig/(?P<token>[\w]+)', setConfig, name="setConfig"),
                        url(r'^addprofilepic', addProfilePic, name='addProfilePic'),
                        url(r'^getprofilepic', getProfilePic, name='getProfilePic'),
                        url(r'^getuserinfo', getUserInfo, name='getUserInfo'),
@@ -31,12 +32,12 @@ urlpatterns = patterns('', url(r'', include('social_auth.urls')),
 					   url(r'^wishlist/$', wishlist, name='wishlist'),
                        url(r'^previewcustomitem/get/(?P<token>[\wd]+)', getPreviewItem, name='getPreviewItem'),
                        url(r'^previewcustomitem', previewProduct, name='previewProduct'),
-                       url(r'^addcustomitem', addProduct, name='addProduct'),         
+                       url(r'^addcustomitem/(?P<token>[\w]+)', addProduct, name='addProduct'),         
                        url(r'^$', index, name='index'),
                        url(r'^searchResult/$', search_list, name='search_list'),
                        url(r'^searchResult/search/$' ,searchProducts, name='searchProducts' ),
                        url(r'^deletecustompage/(?P<id>[\d]+)', removeCustomItem,name='deleteCustomItem' ),
-                       url(r'^editcustompage/(?P<id>[\d]+)', editCustomItem,name='editCustomItem' ),
+                       url(r'^editcustompage/(?P<id>[\d]+)/(?P<token>[\w]+)', editCustomItem,name='editCustomItem' ),
                        url(r'^(?P<category>[\w ]+)/$', category_list, name='category_list'),
                        url(r'^(?P<category>[\w ]+)/list/$' , listProduct, name='listProduct' ),
                        url(r'^(?P<category>[\w ]+)/(?P<product>(.+))_(?P<id>[\d]+)/$', detailpage, name='detailpage'),

@@ -24,6 +24,10 @@ class Product(models.Model):
     overlay = models.CharField(max_length = 256)
     price = models.FloatField()
     description = models.CharField(max_length = 256)
+    xoffset = models.FloatField(default = 0.0)
+    yoffset = models.FloatField(default = 0.0)
+    scale = models.FloatField(default = 1.0)
+    rotation = models.FloatField(default = 0.0)
     def __unicode__(self):
         return self.name
 
@@ -57,6 +61,11 @@ class TempProduct(models.Model):
     overlay = models.CharField(max_length = 256)
     token = models.CharField(max_length = 256)
     category = models.ForeignKey(Category)
+    
+    xoffset = models.FloatField(default = 0.0)
+    yoffset = models.FloatField(default = 0.0)
+    scale = models.FloatField(default = 1.0)
+    rotation = models.FloatField(default = 0.0)
     #create_time = models.DateField()
     
     class meta:
