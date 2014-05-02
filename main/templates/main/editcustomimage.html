@@ -131,7 +131,9 @@ $(document).ready(function(){
 				url : '/editcustompage/'+current_id + '/' +$("#preview_token").text(),
 				type : 'POST',
 				beforeSubmit: function(data) {
-			
+					$("#dialogLoading").show();
+					$("#dialogLoading").dialog();
+					
 					//event.preventDefault();
 					console.log(data);
 					var inputs = $("#product_form :input");
@@ -198,6 +200,7 @@ $(document).ready(function(){
 					return true;
 				},
 				success: function(data){
+					$("#dialogLoading").hide();
 					if(data.errCode==1){
 						$("#dialogSuccess").dialog();
 						window.location="/profile";
@@ -264,6 +267,9 @@ $(document).ready(function(){
 <div id="alertinvalidnumber"></div>
 <div id="alertinvalidimagetype"></div>
 <div id="alertemptyinput"></div>
+<div id="dialogLoading" title="Processing" hidden="true">
+   <p>Processing........</p>
+ </div>
 <div id="dialogSuccess" title="Success" hidden="true">
    <p>Item Successfully Edited!!</p>
  </div>

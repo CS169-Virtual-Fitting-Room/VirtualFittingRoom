@@ -114,6 +114,8 @@ $(document).ready(function(){
 			
 					//event.preventDefault();
 					console.log(data);
+					$("#dialogLoading").show();
+					$("#dialogLoading").dialog();
 					var inputs = $("#product_form :input");
 					var map = new Object();
 					var mapsize = 7;
@@ -175,6 +177,7 @@ $(document).ready(function(){
 					return true;
 				},
 				success: function(data){
+					$("#dialogLoading").hide();
 					if(data.errCode==1){
 						$("#dialogSuccess").dialog();
 						window.location="/profile";
@@ -241,6 +244,9 @@ $(document).ready(function(){
 <div id="alertinvalidnumber"></div>
 <div id="alertinvalidimagetype"></div>
 <div id="alertemptyinput"></div>
+<div id="dialogLoading" title="Processing" hidden="true">
+   <p>Processing........</p>
+ </div>
 <div id="dialogSuccess" title="Success" hidden="true">
    <p>Item Successfully Added!</p>
  </div>
