@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'VirtualFittingRoom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd5klj65gl9vfgk',                      
+        'USER': 'whfwdveyqapmyz',
+        'PASSWORD': 'Dm0rvJRVotPv-dfC3G6rn_ci1T',
+        'HOST': 'ec2-54-221-223-92.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
