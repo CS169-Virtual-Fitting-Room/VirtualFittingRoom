@@ -26,16 +26,18 @@ def searchProducts(request):
     db = dataBaseModel()
     userId = db.getUserInfo(request.user.id)
     print "userId is ",userId
-    if "wishlist" in searchProduct.lower():
+    searchValue = searchProduct.lower();
+    
+    if "wishlist" in searchValue:
         query = db.getWishList(userId)
         print query
-    elif "fitlist" in searchProduct.lower():
+    elif "fitlist" in searchValue:
         query = db.getFitList(userId)
-    elif searchProduct.lower() in "hats":
+    elif searchValue == "hats" or searchValue == "hat":
         query = db.getProducts("hats")
-    elif searchProduct.lower() in "headphones":
+    elif searchValue == "headphones" or searchValue == "headphone":
         query = db.getProducts("headphones")
-    elif searchProduct.lower() in "glasses":
+    elif searchValue == "glasses" or searchValue == "glass":
         query = db.getProducts("glasses")
     else:
         query = db.searchProducts(searchProduct)
